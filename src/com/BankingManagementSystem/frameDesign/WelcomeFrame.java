@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class WelcomeFrame
 {
@@ -53,14 +54,14 @@ public class WelcomeFrame
         frame.setVisible(true);
     }
 
-    /*public static void main(String... args)
+    public static void main(String... args)
     {
         SwingUtilities.invokeLater(new Runnable()
         {
             public void run()
             {
-                new WelcomeFrame().displayGUI();
+                new WelcomeFrame();
             }
         });
-    }*/
+    }
 }
