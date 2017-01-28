@@ -16,11 +16,11 @@ public class CustomerDetails implements Serializable
 	private String csex;
 	private String cfathername;
 	private String cmothername;
-	private String cguardianname;
-	
-	
+	//private String cguardianname;
+	private Double balance ;
+	private String accountNo;
 	public CustomerDetails(String cname, String cdob, String cemailid, String cpanid, String caadharid, String cvoterid,
-			String caddress, String cphone, String csex, String cfathername, String cmothername, String cguardianname) 
+			String caddress, String cphone, String csex, String cfathername, String cmothername) 
 	{
 		super();
 		this.cname = cname;
@@ -34,10 +34,27 @@ public class CustomerDetails implements Serializable
 		this.csex = csex;
 		this.cfathername = cfathername;
 		this.cmothername = cmothername;
-		this.cguardianname = cguardianname;
-		
+		//this.cguardianname = cguardianname;
+		this.balance = 0.0;
+		this.accountNo = "";
 	}
 		
+		public Double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(Double balance) {
+		this.balance = balance;
+	}
+
+	public String getAccountNo() {
+		return accountNo;
+	}
+
+	public void setAccountNo(String accountNo) {
+		this.accountNo = accountNo;
+	}
+
 		public CustomerDetails() {
 			//super();
 		}
@@ -130,13 +147,6 @@ public class CustomerDetails implements Serializable
 			this.cmothername = cmothername;
 		}
 
-		public String getCguardianname() {
-			return cguardianname;
-		}
-
-		public void setCguardianname(String cguardianname) {
-			this.cguardianname = cguardianname;
-		}
 		
 		
 }

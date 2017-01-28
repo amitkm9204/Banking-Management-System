@@ -12,7 +12,7 @@ import javax.swing.SwingUtilities;
 
 import com.BankingManagementSystem.Pojo.CustomerDetails;
 
-public class TransferFrame {
+public class TransferFrame extends JFrame {
 	
 	 public TransferFrame(){
 	        JFrame frame = new JFrame("Deposite");

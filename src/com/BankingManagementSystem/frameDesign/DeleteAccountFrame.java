@@ -2,15 +2,21 @@ package com.BankingManagementSystem.frameDesign;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class DeleteAccountFrame
+import com.BankingManagementSystem.FileHandling.CustomerDetailsFile;
+import com.BankingManagementSystem.Pojo.CustomerDetails;
+
+public class DeleteAccountFrame extends JFrame
 {
+	JTextField tdel;
     public DeleteAccountFrame()
     {
         JFrame frame = new JFrame("Delete an account...");
@@ -31,7 +37,7 @@ public class DeleteAccountFrame
         contentPane.add(label);
         
         
-        JTextField tdel = new JTextField();
+         tdel = new JTextField();
         Font f3=new Font("comic sans ms",Font.ITALIC,18);
         tdel.setFont(f3);
         tdel.setSize(300,50);
@@ -49,6 +55,10 @@ public class DeleteAccountFrame
         bmanager.setFocusable(true);
         contentPane.add(bmanager);
         
+        bmanager.addActionListener((e)->
+        {
+        	deleteAccount();
+        });
 
         frame.setContentPane(contentPane);
         frame.setSize(750,450);
@@ -56,6 +66,23 @@ public class DeleteAccountFrame
         frame.setVisible(true);
     }
 
+    public void deleteAccount()
+    {
+    	 int idfoundpos = Search.searchId(tdel.getText().trim());
+
+         if(idfoundpos >= 0)
+         {
+        	 ArrayList<CustomerDetails> userlist = CustomerDetailsFile.readDataFromFile();
+        	 userlist.remove(idfoundpos);
+        	 CustomerDetailsFile.writeDatatoFile(userlist);
+        	 JOptionPane.showMessageDialog(this, "Account deletion successfull");
+         }
+         else
+         {
+            JOptionPane.showMessageDialog(this, "Invalid Account number");
+         }
+    	
+    }
     public static void main(String... args)
     {
               new DeleteAccountFrame();

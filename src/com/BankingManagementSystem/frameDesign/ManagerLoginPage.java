@@ -23,8 +23,8 @@ import javax.swing.JCheckBox;
 
 
 
-@SuppressWarnings("serial")
-class LoginAccountant extends JFrame
+//@SuppressWarnings("serial")
+public class ManagerLoginPage extends JFrame
 {
 	private JPanel AdminPage;
 	private Panel LoginPage;
@@ -34,17 +34,11 @@ class LoginAccountant extends JFrame
 	private JButton btnLogIn;
 	private JCheckBox chckbxShowPassword;
 	
-	
-	
-	public LoginAccountant() 
-	{
-		formOpen();
-		
-	}
+
 	
 	
 
-	private void formOpen() 
+	public ManagerLoginPage()
 	{
 		
 		
@@ -59,11 +53,11 @@ class LoginAccountant extends JFrame
 		
 		
 		//setIconImage(Toolkit.getDefaultToolkit().getImage(AdminLoginPage.class.getResource("/resources/1485472416_Banking_00019_A.png")));
-		setTitle("Accountant");
+		setTitle("Manager");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(00, 00, 1378, 780);
 		AdminPage = new JPanel();
-		AdminPage.setBackground(new Color(244, 164, 96));
+		AdminPage.setBackground(new Color(176, 224, 230));
 		AdminPage.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(AdminPage);
 		AdminPage.setLayout(null);
@@ -129,34 +123,32 @@ class LoginAccountant extends JFrame
 		chckbxShowPassword.setBounds(237, 236, 128, 23);
 		LoginPage.add(chckbxShowPassword);
 		
-		
-		
-		JLabel lblAccountant = new JLabel("ACCOUNTANT");
-		lblAccountant.setForeground(new Color(85, 107, 47));
-		lblAccountant.setFont(new Font("Trajan Pro 3", Font.BOLD, 48));
-		lblAccountant.setBounds(480, 21, 854, 52);
-		AdminPage.add(lblAccountant);
+		JLabel lblManager = new JLabel("MANAGER");
+		lblManager.setForeground(new Color(219, 112, 147));
+		lblManager.setFont(new Font("Trajan Pro 3", Font.BOLD, 48));
+		lblManager.setBounds(600, 21, 854, 52);
+		AdminPage.add(lblManager);
 		this.setVisible(true);
 	}
 	
 }
 
 
-/*public class AccountantLoginPage 
+/*public class ManagerLoginPage 
 {
 
-	public static void main(String[] args)
+	public static void main(String[] args) 
 	{
-
-
+		
+		
 		EventQueue.invokeLater(new Runnable() 
 		{
 			public void run() 
 			{
 				try 
 				{
-					LoginAccountant accountant = new LoginAccountant();
-					accountant.setVisible(true);
+					LoginManager manager = new LoginManager();
+					manager.setVisible(true);
 				}
 				catch (Exception e) 
 				{
@@ -164,7 +156,7 @@ class LoginAccountant extends JFrame
 				}
 			}
 		});
-		
+
 	}
 
 }*/

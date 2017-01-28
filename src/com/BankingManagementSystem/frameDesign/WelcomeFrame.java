@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-public class WelcomeFrame
+public class WelcomeFrame extends JFrame
 {
      public WelcomeFrame() {
         JFrame frame = new JFrame("Welcome...");
@@ -37,6 +37,12 @@ public class WelcomeFrame
         bmanager.setLocation(400,500);
         bmanager.setFocusable(false);
         contentPane.add(bmanager);
+        bmanager.addActionListener((e) ->
+        {
+       	managerLogin();
+       	
+         }
+       );
         
         
        JButton baccountant = new JButton("ACCOUNTANT");
@@ -48,12 +54,45 @@ public class WelcomeFrame
         contentPane.add(baccountant);
  
 
+        baccountant.addActionListener((e) ->
+        {
+       	AccountantLogin();
+       	
+         }
+       );
+        
+        
         frame.setContentPane(contentPane);
         frame.setSize(1378,780);
         frame.setLocationByPlatform(false);
         frame.setVisible(true);
     }
 
+     public void AccountantLogin()
+     {
+
+         SwingUtilities.invokeLater(new Runnable()
+         {
+             public void run()
+             {
+                 new LoginAccountant();
+                 
+             }
+         });
+     }
+     
+     public void managerLogin()
+     {
+
+         SwingUtilities.invokeLater(new Runnable()
+         {
+             public void run()
+             {
+                 new ManagerLoginPage();
+                 
+             }
+         });
+     }
     public static void main(String... args)
     {
         SwingUtilities.invokeLater(new Runnable()

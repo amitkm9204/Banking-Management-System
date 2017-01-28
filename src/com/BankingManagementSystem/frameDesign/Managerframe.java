@@ -12,7 +12,7 @@ import javax.swing.SwingUtilities;
 
 import com.BankingManagementSystem.Pojo.ManagerDetails;
 
-public class Managerframe
+public class Managerframe extends JFrame
 {
 	
       public Managerframe()  {
@@ -51,6 +51,7 @@ public class Managerframe
        btransSummary.setLocation(150,250);
        btransSummary.setFocusable(false);
        contentPane.add(btransSummary);
+       
  
        JButton bCustomerInfo = new JButton("Customer Info");
        bCustomerInfo.setFont(f2);

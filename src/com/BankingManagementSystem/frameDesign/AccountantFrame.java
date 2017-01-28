@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
@@ -64,11 +65,22 @@ class Accountantform extends JFrame
 		btnAddAccount.setBounds(180,70,300,60);
 		accountantPage.add(btnAddAccount);
 		
+		btnAddAccount.addActionListener((e)->
+		{
+			accountOpen();
+		});
+		
 		btnRemoveAccount = new JButton("REMOVE ACCOUNT ");
 		btnRemoveAccount.setForeground(new Color(0, 20, 60));
 		btnRemoveAccount.setFont(new Font("Tekton Pro Cond", Font.BOLD, 30));
 		btnRemoveAccount.setBounds(180,160,300,60);
 		accountantPage.add(btnRemoveAccount);
+		
+		btnRemoveAccount.addActionListener((e)->
+		{
+			accountRemove();
+		});
+		
 		
 		btnUpdateDetails = new JButton("UPDATE ACCOUNT ");
 		btnUpdateDetails.setForeground(new Color(0, 20, 60));
@@ -76,17 +88,31 @@ class Accountantform extends JFrame
 		btnUpdateDetails.setBounds(180,250,300,60);
 		accountantPage.add(btnUpdateDetails);
 	
+		btnUpdateDetails.addActionListener((e)->
+		{
+			accountUpdate();
+		});
+		
+		
 		btnTransaction = new JButton("TRANSACTION");
 		btnTransaction.setForeground(new Color(0, 20, 60));
 		btnTransaction.setFont(new Font("Tekton Pro Cond", Font.BOLD, 30));
 		btnTransaction.setBounds(180,340,300,60);
 		accountantPage.add(btnTransaction);
 	
+		btnTransaction.addActionListener((e)->
+		{
+			accountTransaction();
+		});
+		
+		
 		lblViewDetals = new JLabel("VIEW ACCOUNT:");
 		lblViewDetals.setForeground(new Color(0, 20, 60));
 		lblViewDetals.setFont(new Font("Tekton Pro Cond", Font.BOLD, 30));
 		lblViewDetals.setBounds(50, 430, 200, 60);
 		accountantPage.add(lblViewDetals);
+		
+		
 		
 	/*	
 		txtAddAccount = new JTextField();
@@ -124,10 +150,87 @@ class Accountantform extends JFrame
 		View.setBounds(220, 435, 360, 40);
 		View.setFont(new Font("Times New Roman", Font.PLAIN, 28));
 		accountantPage.add(View);
+		
+		if(View.getSelectedItem().equals("Account wise"))
+		{
+			openAccountWise();
+		}
+		else if(View.getSelectedItem().equals("All Accounts"))
+		{
+			openAllAccount();
+		}
+			
 				
 	
-	}	
+	}
+	public void openAllAccount()
+	{
+		SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                new AllDetailsCustomer();
+                
+            }
+        });
+	}
+	public void openAccountWise()
+	{
+		SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                new AllDetailsAccountant();
+                
+            }
+        });
+	}
+	public void accountOpen()
+	{
+		SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                new AccountOpening();
+                
+            }
+        });
+	}
+	public void accountRemove()
+	{
+		SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                new DeleteAccountFrame();
+                
+            }
+        });
+	}
+	public void accountUpdate()
+	{
+		SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                new UpdateAccountFrame();
+                
+            }
+        });
+	}
+	public void accountTransaction()
+	{
+		SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                new TransactionFrame("Transaction");
+                
+            }
+        });
+	}
 }
+
 public  class AccountantFrame
 {
 
@@ -151,8 +254,9 @@ public  class AccountantFrame
 	}
 
 	protected void setVisible(boolean b) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 }
+

@@ -5,12 +5,15 @@ import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
@@ -18,6 +21,9 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
+
+import com.BankingManagementSystem.FileHandling.CustomerDetailsFile;
+import com.BankingManagementSystem.Pojo.CustomerDetails;
 
 
 class AccountOpening extends JFrame
@@ -28,6 +34,7 @@ class AccountOpening extends JFrame
 	private JTextField txtName,txtFathersName,txtMothersName,txtPhone,txtVoterId,txtAadhaar,txtPANId,txtEmailId;
 	private JButton btnOpen;
 	private JTextArea txtAddress;
+	private JRadioButton rdbtnMale,rdbtnFemale;
 	private final ButtonGroup sex = new ButtonGroup();
 	private JComboBox cbDay,cbMonth,cbYear;
 	private String Day[] = {"Day","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18",
@@ -35,7 +42,9 @@ class AccountOpening extends JFrame
 	private String Month[] = {"Month","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Nov","Dec"};
 	private String Year[] = {"Year","1990","1991","1992","1993","1994","1995","1996","1997","1998","1999","2000",
 			"2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011"};
+	private CustomerDetails c;
 	
+	ArrayList <CustomerDetails>userlist;
 	public AccountOpening()
 	{
 		formOpen();
@@ -184,14 +193,14 @@ class AccountOpening extends JFrame
 		
 		
 		
-		JRadioButton rdbtnMale = new JRadioButton("Male");
+		rdbtnMale = new JRadioButton("Male");
 		rdbtnMale.setBackground(new Color(76, 224, 230));
 		rdbtnMale.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		sex.add(rdbtnMale);
 		rdbtnMale.setBounds(330, 210, 109, 23);
 		AccountOpening.add(rdbtnMale);
 		
-		JRadioButton rdbtnFemale = new JRadioButton("Female");
+		 rdbtnFemale = new JRadioButton("Female");
 		rdbtnFemale.setBackground(new Color(76, 224, 230));
 		rdbtnFemale.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		sex.add(rdbtnFemale);
@@ -269,9 +278,75 @@ class AccountOpening extends JFrame
 		btnOpen.setBackground(new Color(246, 224, 130));
 		btnOpen.setBounds(680, 703, 150, 35);
 		AccountOpening.add(btnOpen);
+		btnOpen.addActionListener((e)->
+		{
+			AddInformation();
+		});
+		this.setVisible(true);
+	}
+	public void createNewAccountObject()
+	{
+		
+		String Cname,Cdob,Csex,Cfname,Cmname,Cadd,Cphone,Cvid,Cadhar,Cpan,Cmail;
+		
+		Cname = txtName.getText().trim();
+		String d=(String)cbDay.getSelectedItem();
+		String m=(String)cbMonth.getSelectedItem();
+		String y=(String)cbYear.getSelectedItem();
+		Cdob=d + "-" + m + "-" + y;
+		
+		Csex="";
+		if(rdbtnMale.isSelected())
+		{
+			Csex="Male";
+		}
+		else if(rdbtnFemale.isSelected())
+		{
+			Csex="Female";
+		}
+		
+		Cfname =txtFathersName.getText().trim();
+		Cmname = txtMothersName.getText().trim();
+		Cadd = txtAddress.getText().trim();
+		Cphone = txtPhone.getText().trim();
+		Cvid = txtVoterId.getText().trim();
+		Cadhar = txtAadhaar.getText().trim();
+		Cpan = txtPANId.getText().trim();
+		Cmail = txtEmailId.getText().trim();
+		String rand = "0123456789";
+		String value="";
+		 c = new  CustomerDetails(Cname,Cdob,Cmail,Cpan,Cadhar,Cvid,Cadd,Cphone,Csex,Cfname,Cmname);
+		
+		 Random r = new Random();
+		 for(int i=0;i<10;i++)
+			 value = value + rand.charAt(r.nextInt(rand.length()));
+		 c.setAccountNo(value);
+		 
+	}
+	public void AddInformation()
+	{
+		
+     		    createNewAccountObject();
+     	       
+     		   int con=JOptionPane.showConfirmDialog(this, "Are You Sure to  apply");
+			       if(con==JOptionPane.YES_OPTION)
+			       {
+				       userlist = CustomerDetailsFile.readDataFromFile();
+				      userlist.add(c);
+				     CustomerDetailsFile.writeDatatoFile(userlist);
+				      JOptionPane.showMessageDialog(this, "Request sent");
+				    
+				      resetFrame();
+			       
+			       }
+	}
+
+
+	private void resetFrame() {
+		this.dispose();
+		//new NewAccountOpeningForm();
 		
 	}
-	
 	
 }
 

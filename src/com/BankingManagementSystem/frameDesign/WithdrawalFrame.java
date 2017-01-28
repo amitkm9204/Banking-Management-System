@@ -12,7 +12,7 @@ import javax.swing.SwingUtilities;
 
 import com.BankingManagementSystem.Pojo.CustomerDetails;
 
-public class WithdrawalFrame {
+public class WithdrawalFrame extends JFrame{
 	 public WithdrawalFrame() {
 	        JFrame frame = new JFrame("Withdrawal");
 	        

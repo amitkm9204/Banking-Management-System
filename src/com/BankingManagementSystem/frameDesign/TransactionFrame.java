@@ -64,6 +64,7 @@ public class TransactionFrame extends JFrame{
 		bwithdrawal.setBackground(Color.CYAN);
 		bwithdrawal.setBounds(130, 150, 200, 51);
 		TPage.add(bwithdrawal);
+		
 		/*
 		
 		bwithdrawal.addActionListener((e) ->
@@ -127,7 +128,8 @@ public class TransactionFrame extends JFrame{
 		
 	}
 	
-	public static void main(String[] args) 
+	
+	/*public static void main(String[] args) 
     {
 		SwingUtilities.invokeLater(new Runnable()
         {
@@ -137,7 +139,7 @@ public class TransactionFrame extends JFrame{
             }
         });
 		
-    }
+    }*/
 	
 }
 

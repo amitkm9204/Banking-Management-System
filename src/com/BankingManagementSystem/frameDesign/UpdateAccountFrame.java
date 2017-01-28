@@ -2,17 +2,26 @@ package com.BankingManagementSystem.frameDesign;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class UpdateAccountFrame
+import com.BankingManagementSystem.FileHandling.CustomerDetailsFile;
+import com.BankingManagementSystem.Pojo.CustomerDetails;
+
+public class UpdateAccountFrame extends JFrame
 {
+	JTextField taccno,tphn;
+	JTextArea tadd;
+	
+	
     public UpdateAccountFrame()
     {
         JFrame frame = new JFrame("Update an account...");
@@ -56,7 +65,7 @@ public class UpdateAccountFrame
         contentPane.add(label3);
         
         
-        JTextField taccno = new JTextField(20);
+        taccno = new JTextField(20);
         Font f3=new Font("consolas",Font.ITALIC,20);
         taccno.setFont(f3);
         taccno.setSize(300,40);
@@ -69,7 +78,7 @@ public class UpdateAccountFrame
         tname.setLocation(300,153);
         contentPane.add(tname);
         
-        JTextArea tadd=new JTextArea(5,20);
+         tadd=new JTextArea(5,20);
 		JScrollPane taddsp=new JScrollPane(tadd);
 		Font f4=new Font("consolas",Font.ITALIC,20);
         taddsp.setFont(f4);
@@ -77,7 +86,7 @@ public class UpdateAccountFrame
         taddsp.setLocation(300,218);
         contentPane.add(taddsp);
         
-        JTextField tphn = new JTextField(20);
+         tphn = new JTextField(20);
         tphn.setFont(f3);
         tphn.setSize(300,40);
         tphn.setLocation(300,282);
@@ -94,6 +103,10 @@ public class UpdateAccountFrame
         bdel.setFocusable(true);
         contentPane.add(bdel);
         
+        bdel.addActionListener((e)->
+        {
+        	updateAccount();
+        });
 
         frame.setContentPane(contentPane);
         frame.setSize(800,600);
@@ -101,6 +114,24 @@ public class UpdateAccountFrame
         frame.setVisible(true);
     }
 
+    public void updateAccount()
+    {
+    	int idfoundpos = Search.searchId(taccno.getText().trim());
+
+        if(idfoundpos >= 0)
+        {
+       	 ArrayList<CustomerDetails> userlist = CustomerDetailsFile.readDataFromFile();
+       	 userlist.get(idfoundpos).setCaddress(tadd.getText().trim());
+       	 userlist.get(idfoundpos).setCphone(tphn.getText().trim());
+       	 
+       	 CustomerDetailsFile.writeDatatoFile(userlist);
+       	 JOptionPane.showMessageDialog(this, "Account updation successfull");
+        }
+        else
+        {
+           JOptionPane.showMessageDialog(this, "Invalid Account number");
+        }
+    }
     public static void main(String... args)
     {
               new UpdateAccountFrame();
