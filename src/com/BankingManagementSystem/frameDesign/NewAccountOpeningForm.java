@@ -159,15 +159,9 @@ class AccountOpening extends JFrame
 		txtName.setColumns(10);
 		
 		
+		
+		
 		cbDay = new JComboBox(Day);
-		cbDay.setToolTipText("");
-		cbDay.setFont(new Font("Times New Roman", Font.BOLD, 22));
-		cbDay.setBackground(new Color(255, 255, 255));
-		cbDay.setBounds(330, 160, 80, 30);
-		AccountOpening.add(cbDay);
-		
-		
-		cbDay = new JComboBox();
 		cbDay.setToolTipText("");
 		cbDay.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		cbDay.setBackground(new Color(255, 255, 255));
@@ -267,7 +261,7 @@ class AccountOpening extends JFrame
 		AccountOpening.add(txtEmailId);
 		txtEmailId.setColumns(10);
 		
-		btnOpen = new JButton("OPEN");
+		btnOpen = new JButton("CREATE");
 		btnOpen.setBorderPainted(false);
 		btnOpen.setFont(new Font("Tahoma", Font.BOLD, 22));
 		btnOpen.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));

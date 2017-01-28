@@ -1,6 +1,8 @@
 package com.BankingManagementSystem.Pojo;
 
-public class ManagerDetails {
+import java.io.Serializable;
+
+public class ManagerDetails implements Serializable{
 
 	private String ManagerName;
 	private String ManagerId;

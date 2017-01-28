@@ -16,15 +16,16 @@ public class Managerframe
 {
 	
       public Managerframe()  {
-        JFrame frame = new JFrame();
+        JFrame frame = new JFrame("Manager");
         
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel contentPane = new JPanel();
         contentPane.setOpaque(true);
-        contentPane.setBackground(Color.WHITE);
+        contentPane.setBackground(new Color(76, 224, 230));
         contentPane.setLayout(null);
         ManagerDetails managerDetails = new ManagerDetails();
-        JLabel label = new JLabel(managerDetails.getManagerName(), JLabel.CENTER);
+        //JLabel label = new JLabel(managerDetails.getManagerName(), JLabel.CENTER);
+        JLabel label = new JLabel("Manager Name", JLabel.CENTER);
         Font f1=new Font("comic sans ms",Font.BOLD,48);
         label.setFont(f1);
         label.setForeground(Color.RED);

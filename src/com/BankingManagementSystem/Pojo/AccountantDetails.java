@@ -1,6 +1,8 @@
 package com.BankingManagementSystem.Pojo;
 
-public class AccountantDetails {
+import java.io.Serializable;
+
+public class AccountantDetails implements Serializable {
 
 	private String AccountantName;
 	private String AccountantId;

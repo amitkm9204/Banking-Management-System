@@ -21,7 +21,7 @@ public class DepositeFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel contentPane = new JPanel();
         contentPane.setOpaque(true);
-        contentPane.setBackground(Color.WHITE);
+        contentPane.setBackground(new Color(76, 224, 230));
         contentPane.setLayout(null);
         CustomerDetails customerDetails = new CustomerDetails();
         JLabel labelName = new JLabel(customerDetails.getCname(), JLabel.CENTER);

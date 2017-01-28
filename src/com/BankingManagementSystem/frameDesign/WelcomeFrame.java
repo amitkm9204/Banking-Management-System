@@ -18,7 +18,7 @@ public class WelcomeFrame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel contentPane = new JPanel();
         contentPane.setOpaque(true);
-        contentPane.setBackground(Color.WHITE);
+        contentPane.setBackground(new Color(76, 224, 230));
         contentPane.setLayout(null);
         JLabel label = new JLabel("Welcome To Banking Management System", JLabel.CENTER);
         Font f1=new Font("comic sans ms",Font.BOLD,48);

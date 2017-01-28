@@ -32,7 +32,6 @@ class Accountantform extends JFrame
 	public Accountantform() 
 	{
 		formOpen();
-		
 	}
 	
 	
@@ -54,7 +53,7 @@ class Accountantform extends JFrame
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100,100, 700, 600);
 		accountantPage = new JPanel();
-		accountantPage .setBackground(new Color(130, 255, 50));
+		accountantPage .setBackground(new Color(76, 224, 230));
 		accountantPage .setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(accountantPage );
 		accountantPage .setLayout(null);
