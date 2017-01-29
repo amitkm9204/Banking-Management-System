@@ -8,7 +8,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.border.BevelBorder;
 
 import com.BankingManagementSystem.Pojo.ManagerDetails;
 
@@ -21,54 +23,74 @@ public class Managerframe extends JFrame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel contentPane = new JPanel();
         contentPane.setOpaque(true);
-        contentPane.setBackground(new Color(76, 224, 230));
+        contentPane.setBackground(new Color(245, 222, 179));
         contentPane.setLayout(null);
         ManagerDetails managerDetails = new ManagerDetails();
-        //JLabel label = new JLabel(managerDetails.getManagerName(), JLabel.CENTER);
         JLabel label = new JLabel("Manager Name", JLabel.CENTER);
+        label.setToolTipText("Manager's Name");
         Font f1=new Font("comic sans ms",Font.BOLD,48);
-        label.setFont(f1);
-        label.setForeground(Color.RED);
-        label.setSize(400,200);
-        label.setLocation(50,5);
+        label.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
+        label.setForeground(new Color(0, 128, 0));
+        label.setSize(269,43);
+        label.setLocation(255,110);
         contentPane.add(label);
         
         
-        JButton bpassBook = new JButton("PassBook/CheckBook");
+        JButton bpassBook = new JButton("Passbook Or Cheque Book");
+        bpassBook.setToolTipText("Passbook and Cheque book issuing");
+        bpassBook.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         Font f2=new Font("comic sans ms",Font.BOLD,22);
         bpassBook.setFont(f2);
-        bpassBook.setForeground(Color.BLUE);
-        bpassBook.setSize(200,80);
-        bpassBook.setLocation(150,150);
+        bpassBook.setForeground(new Color(160, 82, 45));
+        bpassBook.setSize(300,80);
+        bpassBook.setLocation(100,189);
         bpassBook.setFocusable(false);
         contentPane.add(bpassBook);
         
         
-       JButton btransSummary = new JButton("Transaction summary");
-       btransSummary.setFont(f2);
-       btransSummary.setForeground(Color.BLUE);
-       btransSummary.setSize(200,80);
-       btransSummary.setLocation(150,250);
-       btransSummary.setFocusable(false);
-       contentPane.add(btransSummary);
+        JButton btransSummary = new JButton("Transaction summary");
+        btransSummary.setToolTipText("All Transation Summary");
+        btransSummary.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+        btransSummary.setFont(f2);
+        btransSummary.setForeground(new Color(160, 82, 45));
+        btransSummary.setSize(300,80);
+        btransSummary.setLocation(100,291);
+        btransSummary.setFocusable(false);
+        contentPane.add(btransSummary);
        
  
-       JButton bCustomerInfo = new JButton("Customer Info");
-       bCustomerInfo.setFont(f2);
-       bCustomerInfo.setForeground(Color.BLUE);
-       bCustomerInfo.setSize(200,80);
-       bCustomerInfo.setLocation(150,350);
-       bCustomerInfo.setFocusable(false);
-       contentPane.add(bCustomerInfo);
+        JButton bCustomerInfo = new JButton("Customer Information");
+        bCustomerInfo.setToolTipText("Customer's details");
+        bCustomerInfo.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+        bCustomerInfo.setFont(f2);
+        bCustomerInfo.setForeground(new Color(160, 82, 45));
+        bCustomerInfo.setSize(300,80);
+        bCustomerInfo.setLocation(100,394);
+        bCustomerInfo.setFocusable(false);
+        contentPane.add(bCustomerInfo);
        
-       JButton bAccountantInfo = new JButton("Accountant Info");
-       bAccountantInfo.setFont(f2);
-       bAccountantInfo.setForeground(Color.BLUE);
-       bAccountantInfo.setSize(200,80);
-       bAccountantInfo.setLocation(150,450);
-       bAccountantInfo.setFocusable(false);
-       contentPane.add(bAccountantInfo);
+        JButton bAccountantInfo = new JButton("Accountant Information");
+        bAccountantInfo.setToolTipText("Accountant's Details");
+        bAccountantInfo.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+        bAccountantInfo.setFont(f2);
+        bAccountantInfo.setForeground(new Color(160, 82, 45));
+        bAccountantInfo.setSize(300,80);
+        bAccountantInfo.setLocation(100,494);
+        bAccountantInfo.setFocusable(false);
+        contentPane.add(bAccountantInfo);
 
+        JLabel lblManagerName = new JLabel("Manager Name :", SwingConstants.CENTER);
+        lblManagerName.setForeground(Color.RED);
+        lblManagerName.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
+        lblManagerName.setBounds(10, 110, 246, 43);
+        contentPane.add(lblManagerName);
+        
+        JLabel lblNewLabel = new JLabel("MANAGER PANEL");
+        lblNewLabel.setForeground(new Color(106, 90, 205));
+        lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 40));
+        lblNewLabel.setBounds(104, 0, 364, 67);
+        contentPane.add(lblNewLabel);
+        
         frame.setContentPane(contentPane);
         frame.setSize(500,600);
         frame.setLocationByPlatform(false);

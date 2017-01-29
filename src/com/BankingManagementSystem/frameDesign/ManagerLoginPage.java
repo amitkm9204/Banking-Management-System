@@ -64,9 +64,9 @@ public class ManagerLoginPage extends JFrame
 		
 		
 		//setIconImage(Toolkit.getDefaultToolkit().getImage(AdminLoginPage.class.getResource("/resources/1485472416_Banking_00019_A.png")));
-		setTitle("Manager");
+		setTitle("MANAGER LOGIN");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(00, 00, 1378, 780);
+		setBounds(100, 100, 1378, 780);
 		AdminPage = new JPanel();
 		AdminPage.setBackground(new Color(176, 224, 230));
 		AdminPage.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -107,6 +107,7 @@ public class ManagerLoginPage extends JFrame
 		LoginPage.add(lblPassword);
 		
 		textUserId = new JTextField();
+		textUserId.setToolTipText("ENTER YOUR USER ID");
 		textUserId.setFont(new Font("Times New Roman", Font.BOLD, 28));
 		textUserId.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		textUserId.setBounds(237, 89, 360, 40);
@@ -114,6 +115,7 @@ public class ManagerLoginPage extends JFrame
 		textUserId.setColumns(10);
 		
 		txtPassword = new JPasswordField();
+		txtPassword.setToolTipText("ENTER YOUR PASSWORD");
 		txtPassword.setFont(new Font("Tahoma", Font.BOLD, 28));
 		txtPassword.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		txtPassword.setBounds(237, 177, 360, 40);

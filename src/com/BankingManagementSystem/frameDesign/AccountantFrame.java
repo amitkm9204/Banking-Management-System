@@ -27,6 +27,7 @@ class Accountantform extends JFrame
 	private JButton btnUpdateDetails;
 	private JButton btnTransaction;
 	private JLabel lblViewDetals;
+	private JLabel lblAccountantAccess;
 	
 	private JComboBox View;
 	
@@ -50,19 +51,22 @@ class Accountantform extends JFrame
 			e.printStackTrace();
 		}
 		
-		setTitle("Accountant");
+		setResizable(false);
+		setTitle("ACCOUNTANT");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100,100, 700, 600);
 		accountantPage = new JPanel();
-		accountantPage .setBackground(new Color(76, 224, 230));
+		accountantPage .setBackground(new Color(255, 239, 213));
 		accountantPage .setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(accountantPage );
 		accountantPage .setLayout(null);
 		
 		btnAddAccount = new JButton("ADD ACCOUNT ");
+		btnAddAccount.setToolTipText("REGISTER NEW ACCOUNT");
+		btnAddAccount.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		btnAddAccount.setForeground(new Color(0, 70, 60));
 		btnAddAccount.setFont(new Font("Tekton Pro Cond", Font.BOLD, 30));
-		btnAddAccount.setBounds(180,70,300,60);
+		btnAddAccount.setBounds(162,121,360,60);
 		accountantPage.add(btnAddAccount);
 		
 		btnAddAccount.addActionListener((e)->
@@ -71,9 +75,11 @@ class Accountantform extends JFrame
 		});
 		
 		btnRemoveAccount = new JButton("REMOVE ACCOUNT ");
+		btnRemoveAccount.setToolTipText("REMOVE AN ACCOUNT");
+		btnRemoveAccount.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		btnRemoveAccount.setForeground(new Color(0, 20, 60));
 		btnRemoveAccount.setFont(new Font("Tekton Pro Cond", Font.BOLD, 30));
-		btnRemoveAccount.setBounds(180,160,300,60);
+		btnRemoveAccount.setBounds(162,204,360,60);
 		accountantPage.add(btnRemoveAccount);
 		
 		btnRemoveAccount.addActionListener((e)->
@@ -83,9 +89,11 @@ class Accountantform extends JFrame
 		
 		
 		btnUpdateDetails = new JButton("UPDATE ACCOUNT ");
+		btnUpdateDetails.setToolTipText("CHANGE ADDRESS AND PHONE NUMBER");
+		btnUpdateDetails.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		btnUpdateDetails.setForeground(new Color(0, 20, 60));
 		btnUpdateDetails.setFont(new Font("Tekton Pro Cond", Font.BOLD, 30));
-		btnUpdateDetails.setBounds(180,250,300,60);
+		btnUpdateDetails.setBounds(162,284,360,60);
 		accountantPage.add(btnUpdateDetails);
 	
 		btnUpdateDetails.addActionListener((e)->
@@ -93,11 +101,12 @@ class Accountantform extends JFrame
 			accountUpdate();
 		});
 		
-		
 		btnTransaction = new JButton("TRANSACTION");
+		btnTransaction.setToolTipText("FUND WITHDRAW, DEPOSITE AND TRANSFER");
+		btnTransaction.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		btnTransaction.setForeground(new Color(0, 20, 60));
 		btnTransaction.setFont(new Font("Tekton Pro Cond", Font.BOLD, 30));
-		btnTransaction.setBounds(180,340,300,60);
+		btnTransaction.setBounds(162,362,360,60);
 		accountantPage.add(btnTransaction);
 	
 		btnTransaction.addActionListener((e)->
@@ -107,9 +116,10 @@ class Accountantform extends JFrame
 		
 		
 		lblViewDetals = new JLabel("VIEW ACCOUNT:");
+		lblViewDetals.setToolTipText("ACCESS ACCOUNT");
 		lblViewDetals.setForeground(new Color(0, 20, 60));
 		lblViewDetals.setFont(new Font("Tekton Pro Cond", Font.BOLD, 30));
-		lblViewDetals.setBounds(50, 430, 200, 60);
+		lblViewDetals.setBounds(253, 446, 178, 40);
 		accountantPage.add(lblViewDetals);
 		
 		
@@ -146,8 +156,9 @@ class Accountantform extends JFrame
 		
 		String str[] = {"Account wise","All Accounts"};
 		
-		View = new JComboBox(str);
-		View.setBounds(220, 435, 360, 40);
+		JComboBox View = new JComboBox(str);
+		View.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		View.setBounds(162, 483, 360, 40);
 		View.setFont(new Font("Times New Roman", Font.PLAIN, 28));
 		accountantPage.add(View);
 		
@@ -160,7 +171,11 @@ class Accountantform extends JFrame
 			openAllAccount();
 		}
 			
-				
+		lblAccountantAccess = new JLabel("ACCOUNTANT PANEL");
+		lblAccountantAccess.setForeground(new Color(139, 0, 139));
+		lblAccountantAccess.setFont(new Font("Times New Roman", Font.BOLD, 40));
+		lblAccountantAccess.setBounds(128, 22, 467, 39);
+		accountantPage.add(lblAccountantAccess);		
 	
 	}
 	public void openAllAccount()

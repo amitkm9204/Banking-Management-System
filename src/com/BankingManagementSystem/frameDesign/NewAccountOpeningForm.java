@@ -66,7 +66,7 @@ class AccountOpening extends JFrame
 		
 		
 		//setIconImage(Toolkit.getDefaultToolkit().getImage(NewAccountOpeningForm.class.getResource("/resources/Forms.png")));
-		setTitle("New Account Form");
+		setTitle("ACCOUNT OPENING FORM");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1378, 780);
 		AccountOpening = new JPanel();
@@ -84,30 +84,33 @@ class AccountOpening extends JFrame
 		
 		
 		lblName = new JLabel("NAME :");
+		lblName.setToolTipText("");
 		lblName.setForeground(new Color(0,0,0));
 		lblName.setFont(new Font("Tekton Pro Cond", Font.BOLD, 32));
-		lblName.setBounds(220, 100, 94, 51);
+		lblName.setBounds(220, 100, 82, 51);
 		AccountOpening.add(lblName);
 		
 		
 		lblDOB = new JLabel("DATE OF BIRTH :");
+		lblDOB.setToolTipText("Minimum Age to open an Account is 5 Year");
 		lblDOB.setForeground(new Color(0,0,0));
 		lblDOB.setFont(new Font("Tekton Pro Cond", Font.BOLD, 32));
-		lblDOB.setBounds(120, 150, 200, 51);
+		lblDOB.setBounds(120, 150, 181, 51);
 		AccountOpening.add(lblDOB);
 		
 		
 		lblSex = new JLabel("SEX :");
+		lblSex.setToolTipText("Manadatory");
 		lblSex.setForeground(new Color(0,0,0));
 		lblSex.setFont(new Font("Tekton Pro Cond", Font.BOLD, 32));
-		lblSex.setBounds(240, 200, 200, 51);
+		lblSex.setBounds(240, 200, 54, 51);
 		AccountOpening.add(lblSex);
 		
 		
 		lblFathersName = new JLabel("FATHER'S NAME :");
 		lblFathersName.setForeground(new Color(0,0,0));
 		lblFathersName.setFont(new Font("Tekton Pro Cond", Font.BOLD, 32));
-		lblFathersName.setBounds(105, 250, 200, 51);
+		lblFathersName.setBounds(105, 250, 197, 51);
 		AccountOpening.add(lblFathersName);
 		
 		
@@ -121,46 +124,47 @@ class AccountOpening extends JFrame
 		lblAddress = new JLabel("ADDRESS :");
 		lblAddress.setForeground(new Color(0,0,0));
 		lblAddress.setFont(new Font("Tekton Pro Cond", Font.BOLD, 32));
-		lblAddress.setBounds(173, 350, 200, 51);
+		lblAddress.setBounds(173, 350, 129, 51);
 		AccountOpening.add(lblAddress);
 		
 		
 		lblPhone = new JLabel("PHONE :");
 		lblPhone.setForeground(new Color(0,0,0));
 		lblPhone.setFont(new Font("Tekton Pro Cond", Font.BOLD, 32));
-		lblPhone.setBounds(208, 450, 200, 51);
+		lblPhone.setBounds(208, 450, 94, 51);
 		AccountOpening.add(lblPhone);
 		
 		
 		lblVoterId = new JLabel("VOTER ID :");
 		lblVoterId.setForeground(new Color(0,0,0));
 		lblVoterId.setFont(new Font("Tekton Pro Cond", Font.BOLD, 32));
-		lblVoterId.setBounds(183, 500, 200, 51);
+		lblVoterId.setBounds(183, 500, 119, 51);
 		AccountOpening.add(lblVoterId);
 		
 		
 		lblAadhaar = new JLabel("AADHAAR NO. :");
 		lblAadhaar.setForeground(new Color(0,0,0));
 		lblAadhaar.setFont(new Font("Tekton Pro Cond", Font.BOLD, 32));
-		lblAadhaar.setBounds(127, 550, 200, 51);
+		lblAadhaar.setBounds(127, 550, 174, 51);
 		AccountOpening.add(lblAadhaar);
 		
 		
 		lblPANId = new JLabel("PAN :");
 		lblPANId.setForeground(new Color(0,0,0));
 		lblPANId.setFont(new Font("Tekton Pro Cond", Font.BOLD, 32));
-		lblPANId.setBounds(236, 600, 200, 51);
+		lblPANId.setBounds(236, 600, 66, 51);
 		AccountOpening.add(lblPANId);
 		
 		
 		lblEmailId = new JLabel("EMAIL :");
 		lblEmailId.setForeground(new Color(0,0,0));
 		lblEmailId.setFont(new Font("Tekton Pro Cond", Font.BOLD, 32));
-		lblEmailId.setBounds(212, 650, 200, 51);
+		lblEmailId.setBounds(212, 650, 90, 51);
 		AccountOpening.add(lblEmailId);
 		
 		
 		txtName = new JTextField();
+		txtName.setToolTipText("Mandatory");
 		txtName.setFont(new Font("Times New Roman", Font.BOLD, 28));
 		txtName.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		txtName.setBounds(330, 105, 500, 40);
@@ -171,21 +175,21 @@ class AccountOpening extends JFrame
 		
 		
 		cbDay = new JComboBox(Day);
-		cbDay.setToolTipText("");
+		cbDay.setToolTipText("Manadatory");
 		cbDay.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		cbDay.setBackground(new Color(255, 255, 255));
 		cbDay.setBounds(330, 160, 100, 30);
 		AccountOpening.add(cbDay);
 		
 		cbMonth = new JComboBox(Month);
-		cbMonth.setToolTipText("");
+		cbMonth.setToolTipText("Manadatory");
 		cbMonth.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		cbMonth.setBackground(new Color(255, 255, 255));
 		cbMonth.setBounds(450, 160, 120, 30);
 		AccountOpening.add(cbMonth);
 		
 		cbYear = new JComboBox(Year);
-		cbYear.setToolTipText("");
+		cbYear.setToolTipText("Manadatory");
 		cbYear.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		cbYear.setBackground(new Color(255, 255, 255));
 		cbYear.setBounds(600, 160, 120, 30);
@@ -193,14 +197,14 @@ class AccountOpening extends JFrame
 		
 		
 		
-		rdbtnMale = new JRadioButton("Male");
+		JRadioButton rdbtnMale = new JRadioButton("Male");
 		rdbtnMale.setBackground(new Color(76, 224, 230));
 		rdbtnMale.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		sex.add(rdbtnMale);
 		rdbtnMale.setBounds(330, 210, 109, 23);
 		AccountOpening.add(rdbtnMale);
 		
-		 rdbtnFemale = new JRadioButton("Female");
+		JRadioButton rdbtnFemale = new JRadioButton("Female");
 		rdbtnFemale.setBackground(new Color(76, 224, 230));
 		rdbtnFemale.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		sex.add(rdbtnFemale);
@@ -209,6 +213,7 @@ class AccountOpening extends JFrame
 		
 		
 		txtFathersName = new JTextField();
+		txtFathersName.setToolTipText("Mandatory");
 		txtFathersName.setFont(new Font("Times New Roman", Font.BOLD, 28));
 		txtFathersName.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		txtFathersName.setBounds(330, 253, 500, 40);
@@ -217,6 +222,7 @@ class AccountOpening extends JFrame
 		
 		
 		txtMothersName = new JTextField();
+		txtMothersName.setToolTipText("Manadatory");
 		txtMothersName.setFont(new Font("Times New Roman", Font.BOLD, 28));
 		txtMothersName.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		txtMothersName.setBounds(330, 303, 500, 40);
@@ -225,6 +231,7 @@ class AccountOpening extends JFrame
 		
 		
 		txtAddress = new JTextArea();
+		txtAddress.setToolTipText("Manadatory");
 		txtAddress.setFont(new Font("Times New Roman", Font.BOLD, 28));
 		txtAddress.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		txtAddress.setBounds(330, 353, 500, 70);
@@ -232,6 +239,7 @@ class AccountOpening extends JFrame
 		
 		
 		txtPhone = new JTextField();
+		txtPhone.setToolTipText("Manadatory");
 		txtPhone.setFont(new Font("Times New Roman", Font.BOLD, 28));
 		txtPhone.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		txtPhone.setBounds(330, 453, 500, 40);
@@ -240,6 +248,7 @@ class AccountOpening extends JFrame
 		
 		
 		txtVoterId = new JTextField();
+		txtVoterId.setToolTipText("Not Manadatory");
 		txtVoterId.setFont(new Font("Times New Roman", Font.BOLD, 28));
 		txtVoterId.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		txtVoterId.setBounds(330, 503, 500, 40);
@@ -248,6 +257,7 @@ class AccountOpening extends JFrame
 		
 		
 		txtAadhaar = new JTextField();
+		txtAadhaar.setToolTipText("Not Manadatory");
 		txtAadhaar.setFont(new Font("Times New Roman", Font.BOLD, 28));
 		txtAadhaar.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		txtAadhaar.setBounds(330, 553, 500, 40);
@@ -256,6 +266,7 @@ class AccountOpening extends JFrame
 		
 		
 		txtPANId = new JTextField();
+		txtPANId.setToolTipText("Manadatory");
 		txtPANId.setFont(new Font("Times New Roman", Font.BOLD, 28));
 		txtPANId.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		txtPANId.setBounds(330, 603, 500, 40);
@@ -264,6 +275,7 @@ class AccountOpening extends JFrame
 		
 		
 		txtEmailId = new JTextField();
+		txtEmailId.setToolTipText("Not Manadatory");
 		txtEmailId.setFont(new Font("Times New Roman", Font.BOLD, 28));
 		txtEmailId.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		txtEmailId.setBounds(330, 653, 500, 40);
@@ -271,6 +283,7 @@ class AccountOpening extends JFrame
 		txtEmailId.setColumns(10);
 		
 		btnOpen = new JButton("CREATE");
+		btnOpen.setToolTipText("Register");
 		btnOpen.setBorderPainted(false);
 		btnOpen.setFont(new Font("Tahoma", Font.BOLD, 22));
 		btnOpen.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));

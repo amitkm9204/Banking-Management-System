@@ -14,7 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.border.BevelBorder;
 
 import com.BankingManagementSystem.FileHandling.CustomerDetailsFile;
 import com.BankingManagementSystem.Pojo.CustomerDetails;
@@ -26,12 +28,12 @@ public class TransferFrame {
 	JTextField tRecAcc;
 	JTextField tAmount;
 	 public TransferFrame(int index){
-	        JFrame frame = new JFrame("Deposite");
+	        JFrame frame = new JFrame("FUND TRANSFER");
 	        
 	        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        senIndex = index;
 	        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-      
+	        frame.setResizable(false);
             frame.addWindowListener(new WindowAdapter() {
                 public void windowClosing(WindowEvent e) {
                     int result = JOptionPane.showConfirmDialog(
@@ -48,69 +50,75 @@ public class TransferFrame {
             });
            
 	        
-	        JPanel contentPane = new JPanel();
-	        contentPane.setOpaque(true);
-	        contentPane.setBackground(new Color(76, 224, 230));
-	        contentPane.setLayout(null);
-	        CustomerDetails customerDetails = new CustomerDetails();
-	        JLabel labelName = new JLabel(customerDetails.getCname(), JLabel.CENTER);
-	        Font f1=new Font("comic sans ms",Font.BOLD,48);
-	        labelName.setFont(f1);
-	        labelName.setForeground(Color.RED);
-	        labelName.setSize(300,150);
-	        labelName.setLocation(105,5);
-	        contentPane.add(labelName);
+            JPanel contentPane = new JPanel();
+            contentPane.setOpaque(true);
+            contentPane.setBackground(Color.WHITE);
+            contentPane.setLayout(null);
+            CustomerDetails customerDetails = new CustomerDetails();
+            JLabel labelName = new JLabel("dsgd", JLabel.CENTER);
+            labelName.setToolTipText("Sender's Name");
+            Font f1=new Font("comic sans ms",Font.BOLD,48);
+            labelName.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
+            labelName.setForeground(new Color(0, 128, 0));
+            labelName.setSize(307,42);
+            labelName.setLocation(280,307);
+            contentPane.add(labelName);
 	        
-	         labelAccNo = new JLabel("Acc02233", JLabel.CENTER);
-	        Font f2=new Font("comic sans ms",Font.BOLD,48);
-	        labelAccNo.setFont(f2);
-	        labelAccNo.setForeground(Color.RED);
-	        labelAccNo.setSize(300,150);
-	        labelAccNo.setLocation(155,105);
-	        contentPane.add(labelAccNo);
-	        
-	        JLabel labelAmount = new JLabel("Amount", JLabel.CENTER);
-	        Font f3=new Font("comic sans ms",Font.BOLD,48);
-	        labelAmount.setFont(f3);
-	        labelAmount.setForeground(Color.RED);
-	        labelAmount.setSize(300,150);
-	        labelAmount.setLocation(0,305);
-	        contentPane.add(labelAmount);
-	        
-	        
-	         tAmount = new JTextField();
-	        Font f5=new Font("comic sans ms",Font.ITALIC,18);
-	        tAmount.setFont(f5);
-	        tAmount.setSize(250,50);
-	        tAmount.setLocation(295,365);
-	        contentPane.add(tAmount);
-	        
+            JLabel labelAccNo = new JLabel("Acc02233", JLabel.CENTER);
+            labelAccNo.setToolTipText("Sender's Account Number");
+            Font f2=new Font("comic sans ms",Font.BOLD,48);
+            labelAccNo.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
+            labelAccNo.setForeground(new Color(34, 139, 34));
+            labelAccNo.setSize(307,50);
+            labelAccNo.setLocation(280,233);
+            contentPane.add(labelAccNo);
+            
+            JLabel labelAmount = new JLabel("Amount :", JLabel.CENTER);
+            Font f3=new Font("comic sans ms",Font.BOLD,48);
+            labelAmount.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
+            labelAmount.setForeground(Color.RED);
+            labelAmount.setSize(180,50);
+            labelAmount.setLocation(90,445);
+            contentPane.add(labelAmount);
+            
+            
+            JTextField tAmount = new JTextField();
+            tAmount.setToolTipText("Enter Amount To Be Transfer");
+            Font f5=new Font("comic sans ms",Font.ITALIC,18);
+            tAmount.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
+            tAmount.setSize(307,42);
+            tAmount.setLocation(280,449);
+            contentPane.add(tAmount);
+            
 
-	        JLabel labelReceiverAcc = new JLabel("Account No.", JLabel.CENTER);
-	        Font f4=new Font("comic sans ms",Font.BOLD,48);
-	        labelReceiverAcc.setFont(f4);
-	        labelReceiverAcc.setForeground(Color.RED);
-	        labelReceiverAcc.setSize(300,150);
-	        labelReceiverAcc.setLocation(0,205);
-	        contentPane.add(labelReceiverAcc);
-	        
-	        
-	         tRecAcc = new JTextField();
-	        Font f6=new Font("comic sans ms",Font.ITALIC,18);
-	        tRecAcc.setFont(f6);
-	        tRecAcc.setSize(250,50);
-	        tRecAcc.setLocation(295,265);
-	        contentPane.add(tRecAcc);
-	        
-	        JButton bmanager = new JButton("Confirm");
-	        Font f7=new Font("comic sans ms",Font.BOLD,22);
-	        bmanager.setFont(f7);
-	        bmanager.setForeground(Color.BLUE);
-	        bmanager.setSize(200,80);
-	        bmanager.setLocation(200,500);
-	        bmanager.setFocusable(false);
-	        contentPane.add(bmanager);
-	        bmanager.addActionListener(new ActionListener() 
+            JLabel labelReceiverAcc = new JLabel("Account No. :", JLabel.CENTER);
+            Font f4=new Font("comic sans ms",Font.BOLD,48);
+            labelReceiverAcc.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
+            labelReceiverAcc.setForeground(Color.RED);
+            labelReceiverAcc.setSize(250,57);
+            labelReceiverAcc.setLocation(10,369);
+            contentPane.add(labelReceiverAcc);
+            
+            
+            JTextField tRecAcc = new JTextField();
+            tRecAcc.setToolTipText("Enter Reciever's Account Number");
+            Font f6=new Font("comic sans ms",Font.ITALIC,18);
+            tRecAcc.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
+            tRecAcc.setSize(307,42);
+            tRecAcc.setLocation(280,376);
+            contentPane.add(tRecAcc);
+            
+            JButton bmanager = new JButton("Transfer");
+            bmanager.setToolTipText("Confirm");
+            bmanager.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+            Font f7=new Font("comic sans ms",Font.BOLD,22);
+            bmanager.setFont(new Font("Comic Sans MS", Font.BOLD, 40));
+            bmanager.setForeground(new Color(220, 20, 60));
+            bmanager.setSize(200,80);
+            bmanager.setLocation(387,543);
+            bmanager.setFocusable(false);
+            contentPane.add(bmanager);
+            bmanager.addActionListener(new ActionListener() 
 	        {
 				
 				@Override
@@ -126,14 +134,30 @@ public class TransferFrame {
 			   }
 	        }
 				
-	        							);
+	        );
 	        
 	 
 
-	        frame.setContentPane(contentPane);
-	        frame.setSize(600,700);
-	        frame.setLocationByPlatform(false);
-	        frame.setVisible(true);
+            JLabel lblSendersName = new JLabel("Name :", SwingConstants.CENTER);
+            lblSendersName.setForeground(Color.RED);
+            lblSendersName.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
+            lblSendersName.setBounds(116, 303, 158, 50);
+            contentPane.add(lblSendersName);
+            
+            JLabel label_1 = new JLabel("Account No. :", SwingConstants.CENTER);
+            label_1.setForeground(Color.RED);
+            label_1.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
+            label_1.setBounds(10, 233, 250, 57);
+            contentPane.add(label_1);
+            
+            JLabel lblMoney = new JLabel("MONEY TRANSFER", SwingConstants.CENTER);
+            lblMoney.setForeground(new Color(47, 79, 79));
+            lblMoney.setFont(new Font("Comic Sans MS", Font.BOLD, 48));
+            lblMoney.setBounds(28, 11, 559, 50);
+            contentPane.add(lblMoney);
+            frame.setSize(650,700);
+            frame.setLocationByPlatform(false);
+            frame.setVisible(true);
 	    }
 
 	 

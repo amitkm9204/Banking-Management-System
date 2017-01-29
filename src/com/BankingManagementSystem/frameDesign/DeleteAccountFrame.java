@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
 
 import com.BankingManagementSystem.FileHandling.CustomerDetailsFile;
 import com.BankingManagementSystem.Pojo.CustomerDetails;
@@ -19,12 +20,12 @@ public class DeleteAccountFrame extends JFrame
 	JTextField tdel;
     public DeleteAccountFrame()
     {
-        JFrame frame = new JFrame("Delete an account...");
-        
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JFrame frmDeleteAccount = new JFrame("Delete an account...");
+        frmDeleteAccount.setTitle("DELETE ACCOUNT");
+        frmDeleteAccount.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel contentPane = new JPanel();
         contentPane.setOpaque(true);
-        contentPane.setBackground(new Color(76, 224, 230));
+        contentPane.setBackground(new Color(152, 251, 152));
         contentPane.setLayout(null);
         
         
@@ -32,26 +33,30 @@ public class DeleteAccountFrame extends JFrame
         Font f1=new Font("comic sans ms",Font.BOLD,26);
         label.setFont(f1);
         label.setForeground(Color.RED);
-        label.setSize(300,200);
-        label.setLocation(5,5);
+        label.setSize(237,50);
+        label.setLocation(44,207);
         contentPane.add(label);
         
         
-         tdel = new JTextField();
+        JTextField tdel = new JTextField();
+        tdel.setToolTipText("ENTER ACCOUNT NUMBER");
+        tdel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         Font f3=new Font("comic sans ms",Font.ITALIC,18);
-        tdel.setFont(f3);
-        tdel.setSize(300,50);
-        tdel.setLocation(300,85);
+        tdel.setFont(new Font("Consolas", Font.BOLD, 28));
+        tdel.setSize(342,50);
+        tdel.setLocation(305,211);
         contentPane.add(tdel);
         
         
         
-        JButton bmanager = new JButton("DELETE");
+        JButton bmanager = new JButton("DELETE ACCOUNT");
+        bmanager.setToolTipText("DELETE ACCOUNT");
+        bmanager.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         Font f2=new Font("comic sans ms",Font.BOLD,22);
         bmanager.setFont(f2);
-        bmanager.setForeground(Color.BLUE);
-        bmanager.setSize(200,80);
-        bmanager.setLocation(340,250);
+        bmanager.setForeground(new Color(255, 20, 147));
+        bmanager.setSize(245,71);
+        bmanager.setLocation(402,323);
         bmanager.setFocusable(true);
         contentPane.add(bmanager);
         
@@ -60,10 +65,17 @@ public class DeleteAccountFrame extends JFrame
         	deleteAccount();
         });
 
-        frame.setContentPane(contentPane);
-        frame.setSize(750,450);
-        frame.setLocationByPlatform(false);
-        frame.setVisible(true);
+        frmDeleteAccount.setContentPane(contentPane);
+        
+        JLabel lblDeleteParticularCustomer = new JLabel("DELETE PARTICULAR CUSTOMER");
+        lblDeleteParticularCustomer.setForeground(new Color(148, 0, 211));
+        lblDeleteParticularCustomer.setFont(new Font("Times New Roman", Font.BOLD, 38));
+        lblDeleteParticularCustomer.setBounds(18,20, 664, 105);
+        contentPane.add(lblDeleteParticularCustomer);
+        frmDeleteAccount.setSize(700,500);
+        frmDeleteAccount.setLocationByPlatform(false);
+        frmDeleteAccount.setVisible(true);
+        frmDeleteAccount.setResizable(false);
     }
 
     public void deleteAccount()

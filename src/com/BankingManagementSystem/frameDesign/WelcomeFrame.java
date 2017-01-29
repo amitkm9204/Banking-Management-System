@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.border.BevelBorder;
 
 public class WelcomeFrame extends JFrame
 {
@@ -18,23 +19,25 @@ public class WelcomeFrame extends JFrame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel contentPane = new JPanel();
         contentPane.setOpaque(true);
-        contentPane.setBackground(new Color(76, 224, 230));
+        contentPane.setBackground(new Color(152, 251, 152));
         contentPane.setLayout(null);
-        JLabel label = new JLabel("Welcome To Banking Management System", JLabel.CENTER);
+        JLabel lblBankingManagementSystem = new JLabel("BANKING MANAGEMENT SYSTEM", JLabel.CENTER);
         Font f1=new Font("comic sans ms",Font.BOLD,48);
-        label.setFont(f1);
-        label.setForeground(Color.RED);
-        label.setSize(1300,150);
-        label.setLocation(50,5);
-        contentPane.add(label);
+        lblBankingManagementSystem.setFont(new Font("Lucida Handwriting", Font.BOLD, 60));
+        lblBankingManagementSystem.setForeground(new Color(0, 0, 128));
+        lblBankingManagementSystem.setSize(1300,95);
+        lblBankingManagementSystem.setLocation(22,162);;
+        contentPane.add(lblBankingManagementSystem);
         
         
         JButton bmanager = new JButton("MANAGER");
+        bmanager.setToolTipText("Go To Manager Login Page");
+        bmanager.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         Font f2=new Font("comic sans ms",Font.BOLD,22);
-        bmanager.setFont(f2);
-        bmanager.setForeground(Color.BLUE);
-        bmanager.setSize(200,80);
-        bmanager.setLocation(400,500);
+        bmanager.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 28));
+        bmanager.setForeground(new Color(255, 20, 147));
+        bmanager.setSize(275,130);
+        bmanager.setLocation(225,473);
         bmanager.setFocusable(false);
         contentPane.add(bmanager);
         bmanager.addActionListener((e) ->
@@ -45,15 +48,17 @@ public class WelcomeFrame extends JFrame
        );
         
         
-       JButton baccountant = new JButton("ACCOUNTANT");
-       baccountant.setFont(f2);
-       baccountant.setForeground(Color.BLUE);
-        baccountant.setSize(200,80);
-        baccountant.setLocation(800,500);
+        JButton baccountant = new JButton("ACCOUNTANT");
+       	baccountant.setToolTipText("Go To Accountant Login Page");
+       	baccountant.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+       	baccountant.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 28));
+       	baccountant.setForeground(new Color(255, 20, 147));
+        baccountant.setSize(259,130);
+        baccountant.setLocation(869,473);
         baccountant.setFocusable(false);
         contentPane.add(baccountant);
  
-
+        
         baccountant.addActionListener((e) ->
         {
        	AccountantLogin();
