@@ -17,7 +17,7 @@ import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
-class Accountantform extends JFrame
+class AccountantFrame extends JFrame
 {
 
 	private JPanel accountantPage ;
@@ -31,7 +31,7 @@ class Accountantform extends JFrame
 	
 	private JComboBox View;
 	
-	public Accountantform() 
+	public AccountantFrame() 
 	{
 		formOpen();
 	}
@@ -175,7 +175,8 @@ class Accountantform extends JFrame
 		lblAccountantAccess.setForeground(new Color(139, 0, 139));
 		lblAccountantAccess.setFont(new Font("Times New Roman", Font.BOLD, 40));
 		lblAccountantAccess.setBounds(128, 22, 467, 39);
-		accountantPage.add(lblAccountantAccess);		
+		accountantPage.add(lblAccountantAccess);	
+		this.setVisible(true);
 	
 	}
 	public void openAllAccount()
@@ -246,7 +247,7 @@ class Accountantform extends JFrame
 	}
 }
 
-public  class AccountantFrame
+/*public  class AccountantFrame
 {
 
 	public static void main(String[] args) 
@@ -266,12 +267,8 @@ public  class AccountantFrame
 				}
 			}
 		});
-	}
+	}*/
 
-	protected void setVisible(boolean b) {
-		
-		
-	}
 
-}
+
 

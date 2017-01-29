@@ -136,6 +136,7 @@ class LoginAccountant extends JFrame
 		
 		btnLogIn.addActionListener((e)->
 		{
+			
 			loginCheck();
 		});
 
@@ -154,16 +155,28 @@ class LoginAccountant extends JFrame
 		AdminPage.add(lblAccountant);
 		this.setVisible(true);
 	}
-	
+	/*public void loginCheck1()
+	{
+		ArrayList<AccountantDetails> userlist = AccountantDetailsFile.readDataFromFile();
+		AccountantDetails obj = new AccountantDetails();
+		obj.setAccountantId("debabrata");
+		obj.setAccountantName("debabrata");
+		obj.setAccountantPassword("debabrata");
+		userlist.add(obj);
+		AccountantDetailsFile.writeDatatoFile(userlist);
+	}*/
 	public void loginCheck()
 	{
 		
 		int loginIndex = searchId(textUserId.getText().trim());
+		
         if(loginIndex >= 0)
         {
+        	
        	 ArrayList<AccountantDetails> userlist = AccountantDetailsFile.readDataFromFile();
-       	 if(txtPassword.equals(userlist.get(loginIndex).getAccountantPassword()))
+       	 if((txtPassword.getText().trim()).equals(userlist.get(loginIndex).getAccountantPassword()))
        	 {
+       		 System.out.println("heyeyeyey");
        		 SwingUtilities.invokeLater(new Runnable()
              {
                  public void run()

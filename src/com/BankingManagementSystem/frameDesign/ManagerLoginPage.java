@@ -148,15 +148,28 @@ public class ManagerLoginPage extends JFrame
 		AdminPage.add(lblManager);
 		this.setVisible(true);
 	}
+	/*public void loginCheck1()
+	{
+		ArrayList<ManagerDetails> userlist = ManagerDetailsFile.readDataFromFile();
+		ManagerDetails obj = new ManagerDetails();
+		obj.setManagerId("pravat");
+		obj.setManagerPassword("pravat");
+		obj.setManagerName("pravat");
+		userlist.add(obj);
+		ManagerDetailsFile.writeDatatoFile(userlist);
+	}*/
 	
 	public void loginCheck()
 	{
 		
-		int loginIndex = Search.searchId(textUserId.getText().trim());
+		int loginIndex = searchId(textUserId.getText().trim());
+		
         if(loginIndex >= 0)
         {
+        	
        	 ArrayList<ManagerDetails> userlist = ManagerDetailsFile.readDataFromFile();
-       	 if(txtPassword.equals(userlist.get(loginIndex).getManagerPassword()))
+       	 
+       	 if((txtPassword.getText().trim()).equals(userlist.get(loginIndex).getManagerPassword()))
        	 {
        		 SwingUtilities.invokeLater(new Runnable()
              {
