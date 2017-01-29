@@ -24,6 +24,7 @@ import com.BankingManagementSystem.Pojo.CustomerDetails;
 public class TransferFrame {
 	
 	JLabel labelAccNo;
+	ArrayList<CustomerDetails> userlist = CustomerDetailsFile.readDataFromFile();
 	int senIndex,recIndex;
 	JTextField tRecAcc;
 	JTextField tAmount;
@@ -54,7 +55,7 @@ public class TransferFrame {
             contentPane.setOpaque(true);
             contentPane.setBackground(Color.WHITE);
             contentPane.setLayout(null);
-            CustomerDetails customerDetails = new CustomerDetails();
+            //CustomerDetails customerDetails = new CustomerDetails();
             JLabel labelName = new JLabel("dsgd", JLabel.CENTER);
             labelName.setToolTipText("Sender's Name");
             Font f1=new Font("comic sans ms",Font.BOLD,48);
@@ -63,8 +64,8 @@ public class TransferFrame {
             labelName.setSize(307,42);
             labelName.setLocation(280,307);
             contentPane.add(labelName);
-	        
-            JLabel labelAccNo = new JLabel("Acc02233", JLabel.CENTER);
+	        //ArrayList<CustomerDetails> list = new ArrayList<CustomerDetails>();
+            JLabel labelAccNo = new JLabel(userlist.get(senIndex).getAccountNo(), JLabel.CENTER);
             labelAccNo.setToolTipText("Sender's Account Number");
             Font f2=new Font("comic sans ms",Font.BOLD,48);
             labelAccNo.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
@@ -91,7 +92,7 @@ public class TransferFrame {
             contentPane.add(tAmount);
             
 
-            JLabel labelReceiverAcc = new JLabel("Account No. :", JLabel.CENTER);
+            JLabel labelReceiverAcc = new JLabel("Receiver Account NO", JLabel.CENTER);
             Font f4=new Font("comic sans ms",Font.BOLD,48);
             labelReceiverAcc.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
             labelReceiverAcc.setForeground(Color.RED);
@@ -155,6 +156,7 @@ public class TransferFrame {
             lblMoney.setFont(new Font("Comic Sans MS", Font.BOLD, 48));
             lblMoney.setBounds(28, 11, 559, 50);
             contentPane.add(lblMoney);
+            frame.add(contentPane);
             frame.setSize(650,700);
             frame.setLocationByPlatform(false);
             frame.setVisible(true);
@@ -168,7 +170,7 @@ public class TransferFrame {
 		 recIndex = Search.searchId(tRecAcc.getText().trim());
 		 if(recIndex >= 0)
          {
-        	 ArrayList<CustomerDetails> userlist = CustomerDetailsFile.readDataFromFile();
+        	 
         	 userlist.get(senIndex).setBalance(userlist.get(senIndex).getBalance() - Double.parseDouble(tAmount.getText().trim()) );
         	 userlist.get(recIndex).setBalance(userlist.get(recIndex).getBalance() + Double.parseDouble(tAmount.getText().trim()) );		 
         	 CustomerDetailsFile.writeDatatoFile(userlist);

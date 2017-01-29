@@ -68,7 +68,7 @@ JFrame frame = new JFrame("UPDATE INFORMATIONS");
         contentPane.add(label3);
         
         
-        JTextField taccno = new JTextField(20);
+         taccno = new JTextField(20);
         taccno.setToolTipText("Enter Your Account Number");
         taccno.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         Font f3=new Font("consolas",Font.ITALIC,20);
@@ -85,7 +85,7 @@ JFrame frame = new JFrame("UPDATE INFORMATIONS");
         tname.setLocation(280,211);
         contentPane.add(tname);
         
-        JTextArea tadd=new JTextArea(5,20);
+         tadd=new JTextArea(5,20);
         tadd.setToolTipText("Enter New Address");
         tadd.setFont(new Font("Consolas", Font.BOLD, 24));
         tadd.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -96,7 +96,7 @@ JFrame frame = new JFrame("UPDATE INFORMATIONS");
         taddsp.setLocation(280,286);
         contentPane.add(taddsp);
         
-        JTextField tphn = new JTextField(20);
+        tphn = new JTextField(20);
         tphn.setToolTipText("Enter New Phone Number");
         tphn.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         tphn.setFont(new Font("Consolas", Font.BOLD, 24));

@@ -176,7 +176,7 @@ class LoginAccountant extends JFrame
        	 ArrayList<AccountantDetails> userlist = AccountantDetailsFile.readDataFromFile();
        	 if((txtPassword.getText().trim()).equals(userlist.get(loginIndex).getAccountantPassword()))
        	 {
-       		 System.out.println("heyeyeyey");
+       		
        		 SwingUtilities.invokeLater(new Runnable()
              {
                  public void run()

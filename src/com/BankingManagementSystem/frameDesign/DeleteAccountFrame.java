@@ -38,7 +38,7 @@ public class DeleteAccountFrame extends JFrame
         contentPane.add(label);
         
         
-        JTextField tdel = new JTextField();
+         tdel = new JTextField();
         tdel.setToolTipText("ENTER ACCOUNT NUMBER");
         tdel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         Font f3=new Font("comic sans ms",Font.ITALIC,18);
@@ -62,6 +62,7 @@ public class DeleteAccountFrame extends JFrame
         
         bmanager.addActionListener((e)->
         {
+        	
         	deleteAccount();
         });
 
@@ -80,9 +81,10 @@ public class DeleteAccountFrame extends JFrame
 
     public void deleteAccount()
     {
-    	 int idfoundpos = Search.searchId(tdel.getText().trim());
+    	//System.out.println();
+    	int idfoundpos = Search.searchId(tdel.getText().trim());
 
-         if(idfoundpos >= 0)
+    	 if(idfoundpos >= 0)
          {
         	 ArrayList<CustomerDetails> userlist = CustomerDetailsFile.readDataFromFile();
         	 userlist.remove(idfoundpos);

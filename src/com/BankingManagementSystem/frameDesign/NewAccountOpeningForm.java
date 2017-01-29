@@ -309,15 +309,15 @@ class AccountOpening extends JFrame
 		Cdob=d + "-" + m + "-" + y;
 		
 		Csex="";
-		if(rdbtnMale.isSelected())
+		/*if(rdbtnMale.isSelected())
 		{
 			Csex="Male";
 		}
 		else if(rdbtnFemale.isSelected())
 		{
 			Csex="Female";
-		}
-		
+		}*/
+		Csex = "Male";
 		Cfname =txtFathersName.getText().trim();
 		Cmname = txtMothersName.getText().trim();
 		Cadd = txtAddress.getText().trim();
@@ -334,7 +334,7 @@ class AccountOpening extends JFrame
 		 for(int i=0;i<10;i++)
 			 value = value + rand.charAt(r.nextInt(rand.length()));
 		 c.setAccountNo(value);
-		// System.out.println(c.getAccountNo());
+		 System.out.println(c.getAccountNo());
 		 
 	}
 	public void AddInformation()

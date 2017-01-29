@@ -4,6 +4,7 @@ import com.BankingManagementSystem.FileHandling.*;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
@@ -24,7 +25,7 @@ public class TransactionFrame extends JFrame{
 	private JLabel l1;
 	private JTextField accno;
 	private JButton bwithdrawal,bdeposit,btransfer;
-	int accNo;
+	//int accNo;
 	@SuppressWarnings("deprecation")
 	public TransactionFrame(String title)
 	{
@@ -58,8 +59,8 @@ public class TransactionFrame extends JFrame{
 		TPage.add(accno);
 		
 		
-		accNo = Search.searchId(accno.getText().trim());
-		
+		//accNo = Search.searchId(accno.getText().trim());
+		//System.out.println(accno.getText().trim());
 		bwithdrawal=new JButton("Withdraw Money");
 		bwithdrawal.setMnemonic(KeyEvent.VK_W);
 		bwithdrawal.setBorderPainted(false);
@@ -74,7 +75,7 @@ public class TransactionFrame extends JFrame{
 											int a= 1; //validateAccno();
 											if(a==1)
 											{
-												new WithdrawalFrame(accNo);
+												new WithdrawalFrame(Search.searchId(accno.getText().trim()));
 												this.setVisible(false);											}
 											
 										}
@@ -98,7 +99,7 @@ public class TransactionFrame extends JFrame{
 			int a= 1; //validateAccno();
 			if(a==1)
 			{
-				new DepositeFrame(accNo);
+				new DepositeFrame(Search.searchId(accno.getText().trim()));
 				this.setVisible(false);
 			}
 			
@@ -123,9 +124,27 @@ public class TransactionFrame extends JFrame{
 			int a= 1; //validateAccno();
 			if(a==1)
 			{
-				new TransferFrame(accNo);
-				this.setVisible(false);
+
+				EventQueue.invokeLater(new Runnable() 
+				{
+					public void run() 
+					{
+						try 
+						{
+							TransferFrame form = new TransferFrame(Search.searchId(accno.getText().trim()));
+							
+						}
+						catch (Exception e) 
+						{
+							e.printStackTrace();
+						}
+					}
+				});
+
+
 			}
+				this.setVisible(false);
+			
 		}
 		
 				

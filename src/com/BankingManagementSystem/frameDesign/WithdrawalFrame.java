@@ -23,7 +23,7 @@ import com.BankingManagementSystem.Pojo.CustomerDetails;
 
 public class WithdrawalFrame {
 	
-	ArrayList<CustomerDetails> userlist;
+	ArrayList<CustomerDetails> userlist = CustomerDetailsFile.readDataFromFile();
 	CustomerDetails r;
 	JTextField tdel;
 	int accNo;
@@ -54,7 +54,7 @@ public class WithdrawalFrame {
 	        
 	        
 	        CustomerDetails customerDetails = new CustomerDetails();
-	        JLabel labelName = new JLabel("", JLabel.CENTER);
+	        JLabel labelName = new JLabel(userlist.get(index).getCname(), JLabel.CENTER);
 	        labelName.setToolTipText("Name of the Customer");
 	        Font f1=new Font("comic sans ms",Font.BOLD,48);
 	        labelName.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
@@ -63,7 +63,7 @@ public class WithdrawalFrame {
 	        labelName.setLocation(250,306);
 	        contentPane.add(labelName);
 	        
-	        JLabel labelAccNo = new JLabel("Acc02233", JLabel.CENTER);
+	        JLabel labelAccNo = new JLabel(userlist.get(index).getAccountNo(), JLabel.CENTER);
 	        labelAccNo.setToolTipText("Account Number");
 	        Font f2=new Font("comic sans ms",Font.BOLD,48);
 	        labelAccNo.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
@@ -147,7 +147,7 @@ public class WithdrawalFrame {
 	 public void withdrawMoney() {
 		 if(accNo >= 0)
          {
-        	 ArrayList<CustomerDetails> userlist = CustomerDetailsFile.readDataFromFile();
+        	 
         	 userlist.get(accNo).setBalance(userlist.get(accNo).getBalance() - Double.parseDouble(tdel.getText().trim()) );
         	 CustomerDetailsFile.writeDatatoFile(userlist);
         	 

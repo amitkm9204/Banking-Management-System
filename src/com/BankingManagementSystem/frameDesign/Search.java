@@ -9,6 +9,7 @@ public class Search
 {
 	public static int searchId(String strId)
 	{
+		//System.out.println(strId);
 		ArrayList<CustomerDetails> cList;
 		int f = -1;
 		try
