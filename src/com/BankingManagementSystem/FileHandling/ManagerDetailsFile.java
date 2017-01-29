@@ -10,26 +10,26 @@ import com.BankingManagementSystem.Pojo.ManagerDetails;;
 
 public class ManagerDetailsFile {
 
-	public static ArrayList<ManagerDetailsFile> readDataFromFile()
+	public static ArrayList<ManagerDetails> readDataFromFile()
 	{
-		ArrayList<ManagerDetailsFile> list4;
+		ArrayList<ManagerDetails> list4;
 		try
 		{
 		   FileInputStream fin=new FileInputStream("ManagerDetails.dat");
 		   ObjectInputStream oin=new ObjectInputStream(fin);
-		   list4=(ArrayList<ManagerDetailsFile>)oin.readObject();
+		   list4=(ArrayList<ManagerDetails>)oin.readObject();
 		   
 		   oin.close();
 		   fin.close();
 		}catch(Exception e)
 		 {
-			 list4=new ArrayList<ManagerDetailsFile>();
+			 list4=new ArrayList<ManagerDetails>();
 		 }
 		 
 		return list4;
 		
 	}
-	public static void writeDatatoFile(ArrayList<ManagerDetailsFile> wlist)
+	public static void writeDatatoFile(ArrayList<ManagerDetails> wlist)
 	{
 		try	
 		 {

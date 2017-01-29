@@ -126,6 +126,7 @@ public class UpdateAccountFrame extends JFrame
        	 
        	 CustomerDetailsFile.writeDatatoFile(userlist);
        	 JOptionPane.showMessageDialog(this, "Account updation successfull");
+       	 //System.out.println("new add"+userlist.get(idfoundpos).getCaddress());
         }
         else
         {

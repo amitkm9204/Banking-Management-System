@@ -321,6 +321,7 @@ class AccountOpening extends JFrame
 		 for(int i=0;i<10;i++)
 			 value = value + rand.charAt(r.nextInt(rand.length()));
 		 c.setAccountNo(value);
+		// System.out.println(c.getAccountNo());
 		 
 	}
 	public void AddInformation()

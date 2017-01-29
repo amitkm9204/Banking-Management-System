@@ -7,15 +7,26 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.BankingManagementSystem.FileHandling.AccountantDetailsFile;
+import com.BankingManagementSystem.FileHandling.CustomerDetailsFile;
+import com.BankingManagementSystem.FileHandling.ManagerDetailsFile;
+import com.BankingManagementSystem.Pojo.AccountantDetails;
+import com.BankingManagementSystem.Pojo.CustomerDetails;
+import com.BankingManagementSystem.Pojo.ManagerDetails;
+
 import javax.swing.UIManager;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Color;
 
 import java.awt.Panel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
@@ -122,6 +133,11 @@ class LoginAccountant extends JFrame
 		btnLogIn.setBackground(new Color(176, 224, 230));
 		btnLogIn.setBounds(451, 251, 146, 51);
 		LoginPage.add(btnLogIn);
+		
+		btnLogIn.addActionListener((e)->
+		{
+			loginCheck();
+		});
 
 		chckbxShowPassword = new JCheckBox("Show Password");
 		chckbxShowPassword.setFont(new Font("Tempus Sans ITC", Font.BOLD, 14));
@@ -139,6 +155,55 @@ class LoginAccountant extends JFrame
 		this.setVisible(true);
 	}
 	
+	public void loginCheck()
+	{
+		
+		int loginIndex = searchId(textUserId.getText().trim());
+        if(loginIndex >= 0)
+        {
+       	 ArrayList<AccountantDetails> userlist = AccountantDetailsFile.readDataFromFile();
+       	 if(txtPassword.equals(userlist.get(loginIndex).getAccountantPassword()))
+       	 {
+       		 SwingUtilities.invokeLater(new Runnable()
+             {
+                 public void run()
+                 {
+                     new AccountantFrame();
+                 }
+             });
+       	 }
+       	 else 
+       		 JOptionPane.showMessageDialog(this, "Invalid password");
+        }
+        else
+        {
+           JOptionPane.showMessageDialog(this, "Invalid Id");
+        }
+	}
+	public int searchId(String strId)
+	{
+		ArrayList<AccountantDetails> cList;
+		int f = -1;
+		try
+		{
+			cList=AccountantDetailsFile.readDataFromFile();
+			
+			for(int p=0; p<cList.size(); p++)
+			{
+				if(strId.equals(cList.get(p).getAccountantId()))
+				{
+				   f = p;
+				   break;
+				}	
+			}
+			 
+			return(f);
+		}catch(Exception e)
+		{
+			System.out.println(e);
+			return(-2);
+		}
+ 	}
 }
 
 
