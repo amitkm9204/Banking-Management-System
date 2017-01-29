@@ -2,22 +2,52 @@ package com.BankingManagementSystem.frameDesign;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import com.BankingManagementSystem.FileHandling.CustomerDetailsFile;
 import com.BankingManagementSystem.Pojo.CustomerDetails;
 
-public class TransferFrame extends JFrame {
+public class TransferFrame {
 	
-	 public TransferFrame(){
+	JLabel labelAccNo;
+	int senIndex,recIndex;
+	JTextField tRecAcc;
+	JTextField tAmount;
+	 public TransferFrame(int index){
 	        JFrame frame = new JFrame("Deposite");
 	        
-	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        senIndex = index;
+	        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+      
+            frame.addWindowListener(new WindowAdapter() {
+                public void windowClosing(WindowEvent e) {
+                    int result = JOptionPane.showConfirmDialog(
+                            frame, "Are you sure?");
+                    if( result==JOptionPane.OK_OPTION){
+                        // NOW we change it to dispose on close..
+                        frame.setDefaultCloseOperation(
+                                JFrame.DISPOSE_ON_CLOSE);
+                        frame.setVisible(false);
+                        frame.dispose();
+                        new TransactionFrame(null);
+                    }
+                }
+            });
+           
+	        
 	        JPanel contentPane = new JPanel();
 	        contentPane.setOpaque(true);
 	        contentPane.setBackground(new Color(76, 224, 230));
@@ -31,7 +61,7 @@ public class TransferFrame extends JFrame {
 	        labelName.setLocation(105,5);
 	        contentPane.add(labelName);
 	        
-	        JLabel labelAccNo = new JLabel("Acc02233", JLabel.CENTER);
+	         labelAccNo = new JLabel("Acc02233", JLabel.CENTER);
 	        Font f2=new Font("comic sans ms",Font.BOLD,48);
 	        labelAccNo.setFont(f2);
 	        labelAccNo.setForeground(Color.RED);
@@ -48,7 +78,7 @@ public class TransferFrame extends JFrame {
 	        contentPane.add(labelAmount);
 	        
 	        
-	        JTextField tAmount = new JTextField();
+	         tAmount = new JTextField();
 	        Font f5=new Font("comic sans ms",Font.ITALIC,18);
 	        tAmount.setFont(f5);
 	        tAmount.setSize(250,50);
@@ -65,7 +95,7 @@ public class TransferFrame extends JFrame {
 	        contentPane.add(labelReceiverAcc);
 	        
 	        
-	        JTextField tRecAcc = new JTextField();
+	         tRecAcc = new JTextField();
 	        Font f6=new Font("comic sans ms",Font.ITALIC,18);
 	        tRecAcc.setFont(f6);
 	        tRecAcc.setSize(250,50);
@@ -80,6 +110,23 @@ public class TransferFrame extends JFrame {
 	        bmanager.setLocation(200,500);
 	        bmanager.setFocusable(false);
 	        contentPane.add(bmanager);
+	        bmanager.addActionListener(new ActionListener() 
+	        {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) 
+				{
+					int result = JOptionPane.showConfirmDialog(
+                            frame, "Are you sure?");
+                    if( result==JOptionPane.OK_OPTION)
+                    {
+                        transferMoney();
+					
+				    }
+			   }
+	        }
+				
+	        							);
 	        
 	 
 
@@ -89,14 +136,25 @@ public class TransferFrame extends JFrame {
 	        frame.setVisible(true);
 	    }
 
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                new TransferFrame();
-            }
-        });
-	}
+	 
+	 public TransferFrame(){}
+
+	 public void transferMoney()
+	 {
+		 recIndex = Search.searchId(tRecAcc.getText().trim());
+		 if(recIndex >= 0)
+         {
+        	 ArrayList<CustomerDetails> userlist = CustomerDetailsFile.readDataFromFile();
+        	 userlist.get(senIndex).setBalance(userlist.get(senIndex).getBalance() - Double.parseDouble(tAmount.getText().trim()) );
+        	 userlist.get(recIndex).setBalance(userlist.get(recIndex).getBalance() + Double.parseDouble(tAmount.getText().trim()) );		 
+        	 CustomerDetailsFile.writeDatatoFile(userlist);
+        	 
+        	 JOptionPane.showInputDialog(this, "Transfer complete");
+         }
+         else
+         {
+            JOptionPane.showInputDialog(this, "Invalid Account number");
+         }
+	 }
 
 }

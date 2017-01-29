@@ -1,4 +1,6 @@
 package com.BankingManagementSystem.frameDesign;
+import com.BankingManagementSystem.Pojo.*;
+import com.BankingManagementSystem.FileHandling.*;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -22,7 +24,8 @@ public class TransactionFrame extends JFrame{
 	private JLabel l1;
 	private JTextField accno;
 	private JButton bwithdrawal,bdeposit,btransfer;
-	
+	int accNo;
+	@SuppressWarnings("deprecation")
 	public TransactionFrame(String title)
 	{
 		super(title);
@@ -55,6 +58,8 @@ public class TransactionFrame extends JFrame{
 		TPage.add(accno);
 		
 		
+		accNo = Search.searchId(accno.getText().trim());
+		
 		bwithdrawal=new JButton("Withdraw Money");
 		bwithdrawal.setMnemonic(KeyEvent.VK_W);
 		bwithdrawal.setBorderPainted(false);
@@ -64,18 +69,19 @@ public class TransactionFrame extends JFrame{
 		bwithdrawal.setBackground(Color.CYAN);
 		bwithdrawal.setBounds(130, 150, 200, 51);
 		TPage.add(bwithdrawal);
-		
-		/*
-		
 		bwithdrawal.addActionListener((e) ->
 										{
-											//validateAccno();
+											int a= 1; //validateAccno();
+											if(a==1)
+											{
+												new WithdrawalFrame(accNo);
+												this.setVisible(false);											}
 											
 										}
 		
 				
 									);
-									*/
+									
 		
 		bdeposit = new JButton("Deposit Money");
 		bdeposit.setMnemonic(KeyEvent.VK_D);
@@ -86,18 +92,22 @@ public class TransactionFrame extends JFrame{
 		bdeposit.setBackground(Color.CYAN);
 		bdeposit.setBounds(130, 250, 200, 51);
 		TPage.add(bdeposit);
-		/*
 		bdeposit.addActionListener((e) -> 
 		{
 		
-			//validateAccno();
+			int a= 1; //validateAccno();
+			if(a==1)
+			{
+				new DepositeFrame(accNo);
+				this.setVisible(false);
+			}
 			
 		}
 				
 									
 									);
-									*/
-		
+									
+	
 		btransfer = new JButton("Transfer Money");
 		btransfer.setMnemonic(KeyEvent.VK_T);
 		btransfer.setBorderPainted(false);
@@ -107,17 +117,21 @@ public class TransactionFrame extends JFrame{
 		btransfer.setBackground(Color.CYAN);
 		btransfer.setBounds(130, 350, 200, 51);
 		TPage.add(btransfer);
-		/*
 		btransfer.addActionListener((e) ->
 		{
 			
-			//validateAccno();
+			int a= 1; //validateAccno();
+			if(a==1)
+			{
+				new TransferFrame(accNo);
+				this.setVisible(false);
+			}
 		}
 		
 				
 				
 				);
-				*/
+				
 		
 		/*TPage.add(l1);TPage.add(accno);
 		TPage.add(bwithdrawal);TPage.add(new JLabel(""));
@@ -128,8 +142,7 @@ public class TransactionFrame extends JFrame{
 		
 	}
 	
-	
-	/*public static void main(String[] args) 
+	public static void main(String[] args) 
     {
 		SwingUtilities.invokeLater(new Runnable()
         {
@@ -139,7 +152,7 @@ public class TransactionFrame extends JFrame{
             }
         });
 		
-    }*/
+    }
 	
 }
 
