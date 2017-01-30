@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.function.ToDoubleFunction;
 
@@ -32,7 +34,13 @@ public class DepositeFrame extends JFrame
 	
 	//ArrayList<CustomerDetails> userlist;
 	CustomerDetails r;
-	JTextField tdel;
+	 private JTextField tdel;
+	 private JFrame frame;
+	 private JPanel contentPane ;
+	 private JLabel labelName;
+	 private JLabel labelAccNo,labelAmount, lblMoneyWithdrawal,lblAccountNumber ,lblName ;
+	 private JButton bmanager ;
+	 
 	int accNO;
 	 ArrayList<CustomerDetails> userlist = CustomerDetailsFile.readDataFromFile();
     public DepositeFrame(int index) {
@@ -48,7 +56,7 @@ public class DepositeFrame extends JFrame
 		}
     	
     	
-        JFrame frame = new JFrame("DEPOSITE");
+        frame = new JFrame("DEPOSITE");
         
        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -67,12 +75,12 @@ public class DepositeFrame extends JFrame
                 }
             }
         });
-        JPanel contentPane = new JPanel();
+       contentPane = new JPanel();
         contentPane.setOpaque(true);
         contentPane.setBackground(new Color(255, 255, 255));
         contentPane.setLayout(null);
         CustomerDetails customerDetails = new CustomerDetails();
-        JLabel labelName = new JLabel(userlist.get(index).getCname(), JLabel.CENTER);
+        labelName = new JLabel(userlist.get(index).getCname(), JLabel.CENTER);
         labelName.setToolTipText("Name of the Customer");
         Font f1=new Font("comic sans ms",Font.BOLD,48);
         labelName.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
@@ -81,7 +89,7 @@ public class DepositeFrame extends JFrame
         labelName.setLocation(250,306);
         contentPane.add(labelName);
         
-        JLabel labelAccNo = new JLabel(userlist.get(index).getAccountNo(), JLabel.CENTER);
+        labelAccNo = new JLabel(userlist.get(index).getAccountNo(), JLabel.CENTER);
         labelAccNo.setToolTipText("Account Number");
         Font f2=new Font("comic sans ms",Font.BOLD,48);
         labelAccNo.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
@@ -90,7 +98,7 @@ public class DepositeFrame extends JFrame
         labelAccNo.setLocation(250,221);
         contentPane.add(labelAccNo);
         
-        JLabel labelAmount = new JLabel("Amount :", JLabel.CENTER);
+        labelAmount = new JLabel("Amount :", JLabel.CENTER);
         Font f3=new Font("comic sans ms",Font.BOLD,48);
         labelAmount.setFont(new Font("Comic Sans MS", Font.BOLD, 40));
         labelAmount.setForeground(Color.RED);
@@ -99,7 +107,7 @@ public class DepositeFrame extends JFrame
         contentPane.add(labelAmount);
         
         
-        JTextField tdel = new JTextField();
+       tdel = new JTextField();
         tdel.setToolTipText("Enter amount to be Deposited");
         tdel.setForeground(new Color(47, 79, 79));
         tdel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
@@ -109,7 +117,7 @@ public class DepositeFrame extends JFrame
         tdel.setLocation(250,387);
         contentPane.add(tdel);
         
-        JButton bmanager = new JButton("Confirm");
+       bmanager = new JButton("Confirm");
         bmanager.setToolTipText("Confirmation");
         Font f4=new Font("comic sans ms",Font.BOLD,22);
         bmanager.setFont(new Font("Comic Sans MS", Font.BOLD, 28));
@@ -122,6 +130,9 @@ public class DepositeFrame extends JFrame
         bmanager.addActionListener((e)->
         {
         	depositmoney();
+        	 frame.setVisible(false);
+             TransactionFrame ob = new TransactionFrame(null);
+             ob.setVisible(true);
         });
         
         
@@ -159,19 +170,19 @@ public class DepositeFrame extends JFrame
 
         frame.setContentPane(contentPane);
         
-        JLabel lblMoneyWithdrawal = new JLabel("MONEY DEPOSITED", SwingConstants.CENTER);
+       lblMoneyWithdrawal = new JLabel("MONEY DEPOSITED", SwingConstants.CENTER);
         lblMoneyWithdrawal.setForeground(new Color(30, 144, 255));
         lblMoneyWithdrawal.setFont(new Font("Comic Sans MS", Font.BOLD, 48));
         lblMoneyWithdrawal.setBounds(10, 11, 564, 90);
         contentPane.add(lblMoneyWithdrawal);
         
-        JLabel lblAccountNumber = new JLabel("Account No :", SwingConstants.CENTER);
+        lblAccountNumber = new JLabel("Account No :", SwingConstants.CENTER);
         lblAccountNumber.setForeground(Color.RED);
         lblAccountNumber.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
         lblAccountNumber.setBounds(10, 217, 234, 50);
         contentPane.add(lblAccountNumber);
         
-        JLabel lblName = new JLabel("Name :", SwingConstants.CENTER);
+       lblName = new JLabel("Name :", SwingConstants.CENTER);
         lblName.setForeground(Color.RED);
         lblName.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
         lblName.setBounds(108, 299, 142, 50);
@@ -187,14 +198,30 @@ public void depositmoney() {
 	if(accNO >= 0)
     {
    	
-   	 userlist.get(accNO).setBalance(userlist.get(accNO).getBalance() + Double.parseDouble(tdel.getText().trim()) );		 
+   	 userlist.get(accNO).setBalance(userlist.get(accNO).getBalance() + Double.parseDouble(tdel.getText().trim()) );	
+   	 
+   	 TransactionSummary ts = new TransactionSummary();
+   	 ts.setAccNo(userlist.get(accNO).getAccountNo());
+   	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+	 LocalDateTime now = LocalDateTime.now();
+   	 ts.setDateAndTime(dtf.format(now));
+   	 ts.setDeposite(Double.parseDouble(tdel.getText().trim()));
+   	 ts.setWithdrawal(0.0);
+   	 
+   	 ArrayList<TransactionSummary> trans = new ArrayList<TransactionSummary>();
+   	 
+   	 trans =  TransactionDetailsFile.readDataFromFile();
+   	 trans.add(ts);
+   	 
+   	 TransactionDetailsFile.writeDatatoFile(trans);
+   	 
    	 CustomerDetailsFile.writeDatatoFile(userlist);
    	 
-   	 JOptionPane.showInputDialog(this, "Transfer complete");
+   	 JOptionPane.showMessageDialog(this, "Deposite complete");
     }
     else
     {
-       JOptionPane.showInputDialog(this, "Invalid Account number");
+       JOptionPane.showMessageDialog(this, "Invalid Account number");
     }
 		
 	}

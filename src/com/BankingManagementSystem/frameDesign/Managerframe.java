@@ -2,7 +2,9 @@ package com.BankingManagementSystem.frameDesign;
 
 
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.Font;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,34 +14,61 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
 
+import com.BankingManagementSystem.FileHandling.ManagerDetailsFile;
+import com.BankingManagementSystem.FileHandling.TransactionDetailsFile;
 import com.BankingManagementSystem.Pojo.ManagerDetails;
+import com.BankingManagementSystem.Pojo.TransactionSummary;
 
 public class Managerframe extends JFrame
 {
+	private JLabel label;
+	private JPanel contentPane;
+	private JFrame frame;
+	private JButton bpassBook;
+	private JButton btransSummary;
+	private JButton bCustomerInfo;
+	private JButton bAccountantInfo;
+	private JLabel lblManagerName ;
+	private JLabel lblNewLabel;
 	
-      public Managerframe()  {
-        JFrame frame = new JFrame("Manager");
+	ArrayList<ManagerDetails> managerlist = new ArrayList<ManagerDetails>();
+	ArrayList<TransactionSummary>  transactionlist;
+	
+      public Managerframe(int index)  {
+    	  
+    	  managerlist = ManagerDetailsFile.readDataFromFile();
+        frame = new JFrame("MANAGER ");
+        frame.setResizable(false);
         
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JPanel contentPane = new JPanel();
+        
+        contentPane = new JPanel();
         contentPane.setOpaque(true);
+        
         contentPane.setBackground(new Color(245, 222, 179));
+        contentPane.setLocation(100, 100);
         contentPane.setLayout(null);
+      
+       
         ManagerDetails managerDetails = new ManagerDetails();
-        JLabel label = new JLabel("Manager Name", JLabel.CENTER);
+       
+        label = new JLabel(managerlist.get(index).getManagerName(), JLabel.CENTER);
         label.setToolTipText("Manager's Name");
         Font f1=new Font("comic sans ms",Font.BOLD,48);
         label.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
         label.setForeground(new Color(0, 128, 0));
         label.setSize(269,43);
         label.setLocation(255,110);
+       
         contentPane.add(label);
         
         
-        JButton bpassBook = new JButton("Passbook Or Cheque Book");
+        bpassBook = new JButton("Passbook Or Cheque Book");
         bpassBook.setToolTipText("Passbook and Cheque book issuing");
         bpassBook.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+       
         Font f2=new Font("comic sans ms",Font.BOLD,22);
+       
         bpassBook.setFont(f2);
         bpassBook.setForeground(new Color(160, 82, 45));
         bpassBook.setSize(300,80);
@@ -47,8 +76,12 @@ public class Managerframe extends JFrame
         bpassBook.setFocusable(false);
         contentPane.add(bpassBook);
         
+        bpassBook.addActionListener((e)->
+        {
+        	confirm();
+        });
         
-        JButton btransSummary = new JButton("Transaction summary");
+        btransSummary = new JButton("Transaction summary");
         btransSummary.setToolTipText("All Transation Summary");
         btransSummary.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         btransSummary.setFont(f2);
@@ -57,9 +90,12 @@ public class Managerframe extends JFrame
         btransSummary.setLocation(100,291);
         btransSummary.setFocusable(false);
         contentPane.add(btransSummary);
-       
+        btransSummary.addActionListener((e)->
+        {
+        	transactionSummary();
+        });
  
-        JButton bCustomerInfo = new JButton("Customer Information");
+        bCustomerInfo = new JButton("Customer Information");
         bCustomerInfo.setToolTipText("Customer's details");
         bCustomerInfo.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         bCustomerInfo.setFont(f2);
@@ -68,8 +104,12 @@ public class Managerframe extends JFrame
         bCustomerInfo.setLocation(100,394);
         bCustomerInfo.setFocusable(false);
         contentPane.add(bCustomerInfo);
+        bCustomerInfo.addActionListener((e)->
+        {
+        	customerInfo();
+        });
        
-        JButton bAccountantInfo = new JButton("Accountant Information");
+        bAccountantInfo = new JButton("Accountant Information");
         bAccountantInfo.setToolTipText("Accountant's Details");
         bAccountantInfo.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         bAccountantInfo.setFont(f2);
@@ -78,26 +118,84 @@ public class Managerframe extends JFrame
         bAccountantInfo.setLocation(100,494);
         bAccountantInfo.setFocusable(false);
         contentPane.add(bAccountantInfo);
+        bAccountantInfo.addActionListener((e)->
+        {
+        	accountantInfo();
+        });
 
-        JLabel lblManagerName = new JLabel("Manager Name :", SwingConstants.CENTER);
+        lblManagerName = new JLabel("Manager Name", SwingConstants.CENTER);
         lblManagerName.setForeground(Color.RED);
         lblManagerName.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
         lblManagerName.setBounds(10, 110, 246, 43);
         contentPane.add(lblManagerName);
         
-        JLabel lblNewLabel = new JLabel("MANAGER PANEL");
+        lblNewLabel = new JLabel("MANAGER PANEL");
         lblNewLabel.setForeground(new Color(106, 90, 205));
         lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 40));
         lblNewLabel.setBounds(104, 0, 364, 67);
         contentPane.add(lblNewLabel);
         
         frame.setContentPane(contentPane);
-        frame.setSize(500,600);
+        frame.setSize(550,650);
         frame.setLocationByPlatform(false);
         frame.setVisible(true);
     }
+      public void accountantInfo()
+      {
+    	  EventQueue.invokeLater(new Runnable() {
+  			public void run() {
+  				try {
+  					  new AccountantInformationFrame();
+  					
+  				} catch (Exception e) {
+  					e.printStackTrace();
+  				}
+  			}
+  		});
+      }
 
-      public static void main(String... args)
+      public void transactionSummary()
+      {
+    	  transactionlist = new ArrayList<TransactionSummary>();
+    	  transactionlist = TransactionDetailsFile.readDataFromFile();
+    	  EventQueue.invokeLater(new Runnable() {
+    			public void run() {
+    				try {
+    					  new AllDetailsTransaction(transactionlist);
+    					
+    				} catch (Exception e) {
+    					e.printStackTrace();
+    				}
+    			}
+    		});
+      }
+     public void customerInfo()
+      {
+    	 EventQueue.invokeLater(new Runnable() {
+ 			public void run() {
+ 				try {
+ 					  new CustomerInformationFrame();
+ 					
+ 				} catch (Exception e) {
+ 					e.printStackTrace();
+ 				}
+ 			}
+ 		});
+      }
+     public void confirm()
+     {
+    	 EventQueue.invokeLater(new Runnable() {
+ 			public void run() {
+ 				try {
+ 					  new PassbookAndCheque();
+ 					
+ 				} catch (Exception e) {
+ 					e.printStackTrace();
+ 				}
+ 			}
+ 		}); 
+     }
+     /* public static void main(String... args)
       {
           SwingUtilities.invokeLater(new Runnable()
           {
@@ -106,5 +204,5 @@ public class Managerframe extends JFrame
                   new Managerframe();
               }
           });
-      }
+      }*/
 }

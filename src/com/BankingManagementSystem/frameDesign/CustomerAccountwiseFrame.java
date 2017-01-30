@@ -2,6 +2,7 @@ package com.BankingManagementSystem.frameDesign;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,12 +11,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 
+import com.BankingManagementSystem.FileHandling.CustomerDetailsFile;
+import com.BankingManagementSystem.Pojo.CustomerDetails;
+
 public class CustomerAccountwiseFrame extends JFrame
 {
 	private JTextField txtAcc;
-	private JLabel label;
+	private JLabel label,lblNewLabel;
 	private JButton bmanager;
-	
+	private JFrame frame;
+	private  JPanel contentPane;
 	
     public CustomerAccountwiseFrame()
     {
@@ -25,11 +30,12 @@ public class CustomerAccountwiseFrame extends JFrame
 
     private void formOpen() 
     {
-    		JFrame frame = new JFrame("CUSTOMER ACCOUNTWISE");
+    		frame = new JFrame("CUSTOMER ACCOUNTWISE");
     		frame.setResizable(false);
 		   
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        JPanel contentPane = new JPanel();
+	        
+	        contentPane = new JPanel();
 	        contentPane.setOpaque(true);
 	        contentPane.setBackground(new Color(176, 224, 230));
 	        contentPane.setLayout(null);
@@ -66,10 +72,14 @@ public class CustomerAccountwiseFrame extends JFrame
 	        bmanager.setFocusable(true);
 	        contentPane.add(bmanager);
 	        
+	        bmanager.addActionListener((e)->
+	        {
+	        	showDetails();
+	        });
 
 	        frame.setContentPane(contentPane);
 	        
-	        JLabel lblNewLabel = new JLabel("PARTICULAR CUSTOMER'S INFORMATION");
+	        lblNewLabel = new JLabel("PARTICULAR CUSTOMER'S INFORMATION");
 	        lblNewLabel.setForeground(new Color(128, 0, 128));
 	        lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 31));
 	        lblNewLabel.setBounds(10, 11, 674, 86);
@@ -80,6 +90,13 @@ public class CustomerAccountwiseFrame extends JFrame
 		
 	}
 
+    public void showDetails()
+    {
+    	ArrayList<CustomerDetails> userlist = new ArrayList<CustomerDetails>();
+    	int index = Search.searchId(txtAcc.getText().trim());
+    	userlist = CustomerDetailsFile.readDataFromFile();
+    	
+    }
 	public static void main(String... args)
     {
               new CustomerAccountwiseFrame();

@@ -2,7 +2,7 @@ package com.BankingManagementSystem.ValidationChecking;
 
 import java.util.Scanner;
 
-class Check
+class Validation
 {
 	private static Scanner sc = new Scanner(System.in);
 		

@@ -19,22 +19,26 @@ import com.BankingManagementSystem.Pojo.CustomerDetails;
 
 public class UpdateAccountFrame extends JFrame
 {
-	JTextField taccno,tphn;
-	JTextArea tadd;
-	
+	private JTextField taccno,tphn, tname;
+	private JTextArea tadd;
+	private JFrame frame ;
+	private JPanel contentPane;
+	private JLabel label ,label1,label2,label3,lblNewLabel  ;
+	private JScrollPane taddsp;
+	private JButton bdel;
 	
     public UpdateAccountFrame()
     {
-JFrame frame = new JFrame("UPDATE INFORMATIONS");
+    	frame = new JFrame("UPDATE INFORMATIONS");
         
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JPanel contentPane = new JPanel();
+        contentPane = new JPanel();
         contentPane.setOpaque(true);
         contentPane.setBackground(new Color(240, 230, 140));
         contentPane.setLayout(null);
         
         
-        JLabel label = new JLabel("ACCOUNT NO : ", JLabel.CENTER);
+        label = new JLabel("ACCOUNT NO : ", JLabel.CENTER);
         label.setToolTipText("Account Number Can't Be Change");
         Font f1=new Font("comic sans ms",Font.BOLD,22);
         label.setFont(f1);
@@ -43,7 +47,7 @@ JFrame frame = new JFrame("UPDATE INFORMATIONS");
         label.setLocation(65,129);
         contentPane.add(label);
         
-        JLabel label1 = new JLabel("NAME : ", JLabel.CENTER);
+        label1 = new JLabel("NAME : ", JLabel.CENTER);
         label1.setToolTipText("Name Can't Be Change");
         label1.setFont(f1);
         label1.setForeground(Color.RED);
@@ -52,7 +56,7 @@ JFrame frame = new JFrame("UPDATE INFORMATIONS");
         contentPane.add(label1);
         
         
-        JLabel label2 = new JLabel("ADDRESS : ", JLabel.CENTER);
+        label2 = new JLabel("ADDRESS : ", JLabel.CENTER);
         label2.setFont(f1);
         label2.setForeground(Color.RED);
         label2.setSize(136,32);
@@ -60,7 +64,7 @@ JFrame frame = new JFrame("UPDATE INFORMATIONS");
         contentPane.add(label2);
         
         
-        JLabel label3 = new JLabel("PHONE NO : ", JLabel.CENTER);
+        label3 = new JLabel("PHONE NO : ", JLabel.CENTER);
         label3.setFont(f1);
         label3.setForeground(Color.RED);
         label3.setSize(155,40);
@@ -77,7 +81,7 @@ JFrame frame = new JFrame("UPDATE INFORMATIONS");
         taccno.setLocation(280,129);
         contentPane.add(taccno);
         
-        JTextField tname = new JTextField(20);
+        tname = new JTextField(20);
         tname.setToolTipText("Enter Your Name ");
         tname.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         tname.setFont(new Font("Consolas", Font.BOLD, 24));
@@ -89,7 +93,8 @@ JFrame frame = new JFrame("UPDATE INFORMATIONS");
         tadd.setToolTipText("Enter New Address");
         tadd.setFont(new Font("Consolas", Font.BOLD, 24));
         tadd.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		JScrollPane taddsp=new JScrollPane(tadd);
+		
+        taddsp=new JScrollPane(tadd);
 		Font f4=new Font("consolas",Font.ITALIC,20);
         taddsp.setFont(f4);
         taddsp.setSize(347,40);
@@ -106,7 +111,7 @@ JFrame frame = new JFrame("UPDATE INFORMATIONS");
         
         
         
-        JButton bdel = new JButton("UPDATE");
+        bdel = new JButton("UPDATE");
         bdel.setToolTipText("Update Information");
         bdel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         Font f2=new Font("comic sans ms",Font.BOLD,22);
@@ -124,7 +129,7 @@ JFrame frame = new JFrame("UPDATE INFORMATIONS");
 
         frame.setContentPane(contentPane);
         
-        JLabel lblNewLabel = new JLabel("UPDATE DETAILS");
+        lblNewLabel = new JLabel("UPDATE DETAILS");
         lblNewLabel.setForeground(new Color(34, 139, 34));
         lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 40));
         lblNewLabel.setBounds(226, 11, 361, 50);

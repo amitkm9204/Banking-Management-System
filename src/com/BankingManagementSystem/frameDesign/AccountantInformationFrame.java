@@ -3,6 +3,7 @@ package com.BankingManagementSystem.frameDesign;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,6 +14,11 @@ import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
+import com.BankingManagementSystem.FileHandling.AccountantDetailsFile;
+import com.BankingManagementSystem.FileHandling.CustomerDetailsFile;
+import com.BankingManagementSystem.Pojo.AccountantDetails;
+import com.BankingManagementSystem.Pojo.CustomerDetails;
+
 
 
 public class AccountantInformationFrame extends JFrame
@@ -21,7 +27,8 @@ public class AccountantInformationFrame extends JFrame
 	private JTextField txtTotalAcc;
 	private JTextField textField;
 	
-	
+	ArrayList<AccountantDetails> acct = new ArrayList<AccountantDetails>();
+	ArrayList<AccountantDetails> accttemp = new ArrayList<AccountantDetails>();
 	public AccountantInformationFrame()
 	{
 		formopen();
@@ -85,9 +92,43 @@ public class AccountantInformationFrame extends JFrame
 		lblNewLabel.setBounds(67, 24, 481, 46);
 		contentPane.add(lblNewLabel);
 		
+		acct = AccountantDetailsFile.readDataFromFile();
+		Integer total = acct.size();
+		txtTotalAcc.setText(total.toString());
 		
+		btnNewButton.addActionListener((e)->
+		{
+			int index = searchId(textField.getText().trim());
+			accttemp.add(acct.get(index));
+			
+			new AllDetailsAccountant(accttemp);
+		});
 		
 		setVisible(true);
+	}
+	public int searchId(String strId)
+	{
+		ArrayList<AccountantDetails> aList;
+		int f = -1;
+		try
+		{
+			aList=AccountantDetailsFile.readDataFromFile();
+			
+			for(int p=0; p<aList.size(); p++)
+			{
+				if(strId.equals(aList.get(p).getAccountantId()))
+				{
+				   f = p;
+				   break;
+				}	
+			}
+			 
+			return(f);
+		}catch(Exception e)
+		{
+			System.out.println(e);
+			return(-2);
+		}
 	}
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

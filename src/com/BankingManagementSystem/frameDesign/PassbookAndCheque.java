@@ -11,14 +11,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 
-class PassbookCheque extends JFrame
+public class PassbookAndCheque extends JFrame
 {
 	private JPanel PassbookAndCheque;
 	private JTextField txtAccountNumber;
 	private JTextField txtCustomerName;
 	
 	
-	public PassbookCheque()
+	public PassbookAndCheque()
 	{
 		formOpen();
 		
@@ -90,7 +90,7 @@ class PassbookCheque extends JFrame
 	
 }
 
-public class PassbookAndCheque 
+/*public class PassbookAndCheque 
 {
 
 	public static void main(String[] args) 
@@ -112,4 +112,4 @@ public class PassbookAndCheque
 
 	}
 
-}
+}*/

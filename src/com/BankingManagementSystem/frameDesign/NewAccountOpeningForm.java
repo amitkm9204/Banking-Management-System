@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -24,6 +26,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.BankingManagementSystem.FileHandling.CustomerDetailsFile;
 import com.BankingManagementSystem.Pojo.CustomerDetails;
+import com.BankingManagementSystem.Pojo.TransactionSummary;
 
 
 class AccountOpening extends JFrame
@@ -43,7 +46,7 @@ class AccountOpening extends JFrame
 	private String Year[] = {"Year","1990","1991","1992","1993","1994","1995","1996","1997","1998","1999","2000",
 			"2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011"};
 	private CustomerDetails c;
-	
+	private TransactionSummary t;
 	ArrayList <CustomerDetails>userlist;
 	public AccountOpening()
 	{
@@ -68,7 +71,7 @@ class AccountOpening extends JFrame
 		//setIconImage(Toolkit.getDefaultToolkit().getImage(NewAccountOpeningForm.class.getResource("/resources/Forms.png")));
 		setTitle("ACCOUNT OPENING FORM");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1378, 780);
+		setBounds(0, 0, 1378, 780);
 		AccountOpening = new JPanel();
 		AccountOpening.setBackground(new Color(76, 224, 230));
 		AccountOpening.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -197,14 +200,14 @@ class AccountOpening extends JFrame
 		
 		
 		
-		JRadioButton rdbtnMale = new JRadioButton("Male");
+		rdbtnMale = new JRadioButton("Male");
 		rdbtnMale.setBackground(new Color(76, 224, 230));
 		rdbtnMale.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		sex.add(rdbtnMale);
 		rdbtnMale.setBounds(330, 210, 109, 23);
 		AccountOpening.add(rdbtnMale);
 		
-		JRadioButton rdbtnFemale = new JRadioButton("Female");
+		rdbtnFemale = new JRadioButton("Female");
 		rdbtnFemale.setBackground(new Color(76, 224, 230));
 		rdbtnFemale.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		sex.add(rdbtnFemale);
@@ -309,15 +312,15 @@ class AccountOpening extends JFrame
 		Cdob=d + "-" + m + "-" + y;
 		
 		Csex="";
-		/*if(rdbtnMale.isSelected())
+		if(rdbtnMale.isSelected())
 		{
 			Csex="Male";
 		}
 		else if(rdbtnFemale.isSelected())
 		{
 			Csex="Female";
-		}*/
-		Csex = "Male";
+		}
+		//Csex = "Male";
 		Cfname =txtFathersName.getText().trim();
 		Cmname = txtMothersName.getText().trim();
 		Cadd = txtAddress.getText().trim();
@@ -335,6 +338,9 @@ class AccountOpening extends JFrame
 			 value = value + rand.charAt(r.nextInt(rand.length()));
 		 c.setAccountNo(value);
 		 System.out.println(c.getAccountNo());
+		 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+		 LocalDateTime now = LocalDateTime.now();
+		 t = new TransactionSummary(value,dtf.format(now), 0.0, 0.0);
 		 
 	}
 	public void AddInformation()

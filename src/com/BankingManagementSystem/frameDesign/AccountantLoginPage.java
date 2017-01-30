@@ -44,8 +44,8 @@ class LoginAccountant extends JFrame
 	private JPasswordField txtPassword;
 	private JButton btnLogIn;
 	private JCheckBox chckbxShowPassword;
-	
-	
+	private JLabel lblLogIn;
+	private JLabel lblAccountant;
 	
 	public LoginAccountant() 
 	{
@@ -70,7 +70,7 @@ class LoginAccountant extends JFrame
 		
 		
 		//setIconImage(Toolkit.getDefaultToolkit().getImage(AdminLoginPage.class.getResource("/resources/1485472416_Banking_00019_A.png")));
-		setTitle("Accountant");
+		setTitle("ACCOUNTANT LOGIN");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(00, 00, 1378, 780);
 		AdminPage = new JPanel();
@@ -94,7 +94,7 @@ class LoginAccountant extends JFrame
 		AdminPage.add(LoginPage);
 		LoginPage.setLayout(null);
 		
-		JLabel lblLogIn = new JLabel("-----LOG IN------------------------------------------------------------------");
+		lblLogIn = new JLabel("-----LOG IN------------------------------------------------------------------");
 		lblLogIn.setBounds(3, 5, 654, 27);
 		lblLogIn.setForeground(new Color(128, 0, 128));
 		lblLogIn.setFont(new Font("Script MT Bold", Font.BOLD, 22));
@@ -148,7 +148,7 @@ class LoginAccountant extends JFrame
 		
 		
 		
-		JLabel lblAccountant = new JLabel("ACCOUNTANT");
+		lblAccountant = new JLabel("ACCOUNTANT");
 		lblAccountant.setForeground(new Color(85, 107, 47));
 		lblAccountant.setFont(new Font("Trajan Pro 3", Font.BOLD, 48));
 		lblAccountant.setBounds(480, 21, 854, 52);
