@@ -44,8 +44,8 @@ class LoginAccountant extends JFrame
 	private JPasswordField txtPassword;
 	private JButton btnLogIn;
 	private JCheckBox chckbxShowPassword;
-	
-	
+	private JLabel lblLogIn;
+	private JLabel lblAccountant;
 	
 	public LoginAccountant() 
 	{
@@ -70,7 +70,7 @@ class LoginAccountant extends JFrame
 		
 		
 		//setIconImage(Toolkit.getDefaultToolkit().getImage(AdminLoginPage.class.getResource("/resources/1485472416_Banking_00019_A.png")));
-		setTitle("Accountant");
+		setTitle("ACCOUNTANT LOGIN");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(00, 00, 1378, 780);
 		AdminPage = new JPanel();
@@ -94,7 +94,7 @@ class LoginAccountant extends JFrame
 		AdminPage.add(LoginPage);
 		LoginPage.setLayout(null);
 		
-		JLabel lblLogIn = new JLabel("-----LOG IN------------------------------------------------------------------");
+		lblLogIn = new JLabel("-----LOG IN------------------------------------------------------------------");
 		lblLogIn.setBounds(3, 5, 654, 27);
 		lblLogIn.setForeground(new Color(128, 0, 128));
 		lblLogIn.setFont(new Font("Script MT Bold", Font.BOLD, 22));
@@ -124,6 +124,7 @@ class LoginAccountant extends JFrame
 		txtPassword.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		txtPassword.setBounds(237, 177, 360, 40);
 		LoginPage.add(txtPassword);
+		txtPassword.setEchoChar('*');
 		
 		btnLogIn = new JButton("LOG IN");
 		btnLogIn.setBorderPainted(false);
@@ -145,10 +146,17 @@ class LoginAccountant extends JFrame
 		chckbxShowPassword.setBackground(new Color(240, 230, 140));
 		chckbxShowPassword.setBounds(237, 236, 128, 23);
 		LoginPage.add(chckbxShowPassword);
+		chckbxShowPassword.addActionListener((e) ->
+		{
+			if(chckbxShowPassword.isSelected())
+				txtPassword.setEchoChar((char)0);
+			else
+				txtPassword.setEchoChar('*');
+		}
+				);
 		
 		
-		
-		JLabel lblAccountant = new JLabel("ACCOUNTANT");
+		lblAccountant = new JLabel("ACCOUNTANT");
 		lblAccountant.setForeground(new Color(85, 107, 47));
 		lblAccountant.setFont(new Font("Trajan Pro 3", Font.BOLD, 48));
 		lblAccountant.setBounds(480, 21, 854, 52);
@@ -182,6 +190,7 @@ class LoginAccountant extends JFrame
                  public void run()
                  {
                      new AccountantFrame();
+                     setvisible();
                  }
              });
        	 }
@@ -192,6 +201,10 @@ class LoginAccountant extends JFrame
         {
            JOptionPane.showMessageDialog(this, "Invalid Id");
         }
+	}
+	public void setvisible()
+	{
+		this.setVisible(false);
 	}
 	public int searchId(String strId)
 	{

@@ -44,8 +44,9 @@ public class ManagerLoginPage extends JFrame
 	private JPasswordField txtPassword;
 	private JButton btnLogIn;
 	private JCheckBox chckbxShowPassword;
-	
-
+	private JLabel lblLogIn;
+	private JLabel lblManager;
+	int loginIndex;
 	
 	
 
@@ -66,7 +67,7 @@ public class ManagerLoginPage extends JFrame
 		//setIconImage(Toolkit.getDefaultToolkit().getImage(AdminLoginPage.class.getResource("/resources/1485472416_Banking_00019_A.png")));
 		setTitle("MANAGER LOGIN");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1378, 780);
+		setBounds(0, 0, 1378, 780);
 		AdminPage = new JPanel();
 		AdminPage.setBackground(new Color(176, 224, 230));
 		AdminPage.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -88,7 +89,7 @@ public class ManagerLoginPage extends JFrame
 		AdminPage.add(LoginPage);
 		LoginPage.setLayout(null);
 		
-		JLabel lblLogIn = new JLabel("-----LOG IN------------------------------------------------------------------");
+		lblLogIn = new JLabel("-----LOG IN------------------------------------------------------------------");
 		lblLogIn.setBounds(3, 5, 654, 27);
 		lblLogIn.setForeground(new Color(128, 0, 128));
 		lblLogIn.setFont(new Font("Script MT Bold", Font.BOLD, 22));
@@ -120,6 +121,7 @@ public class ManagerLoginPage extends JFrame
 		txtPassword.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		txtPassword.setBounds(237, 177, 360, 40);
 		LoginPage.add(txtPassword);
+		txtPassword.setEchoChar('*');
 		
 		btnLogIn = new JButton("LOG IN");
 		btnLogIn.setBorderPainted(false);
@@ -140,8 +142,16 @@ public class ManagerLoginPage extends JFrame
 		chckbxShowPassword.setBackground(new Color(240, 230, 140));
 		chckbxShowPassword.setBounds(237, 236, 128, 23);
 		LoginPage.add(chckbxShowPassword);
+		chckbxShowPassword.addActionListener((e) ->
+		{
+			if(chckbxShowPassword.isSelected())
+				txtPassword.setEchoChar((char)0);
+			else
+				txtPassword.setEchoChar('*');
+		}
+				);
 		
-		JLabel lblManager = new JLabel("MANAGER");
+		lblManager = new JLabel("MANAGER");
 		lblManager.setForeground(new Color(219, 112, 147));
 		lblManager.setFont(new Font("Trajan Pro 3", Font.BOLD, 48));
 		lblManager.setBounds(600, 21, 854, 52);
@@ -162,7 +172,7 @@ public class ManagerLoginPage extends JFrame
 	public void loginCheck()
 	{
 		
-		int loginIndex = searchId(textUserId.getText().trim());
+		loginIndex = searchId(textUserId.getText().trim());
 		
         if(loginIndex >= 0)
         {
@@ -175,17 +185,22 @@ public class ManagerLoginPage extends JFrame
              {
                  public void run()
                  {
-                     new Managerframe();
+                     new Managerframe(loginIndex);
+                     setvisibility();
                  }
              });
        	 }
        	 else 
-       		 JOptionPane.showMessageDialog(this, "Invalid password");
+       		 JOptionPane.showMessageDialog(this, "INVALID PASSWORD");
         }
         else
         {
-           JOptionPane.showMessageDialog(this, "Invalid Id");
+           JOptionPane.showMessageDialog(this, "INVALID Id");
         }
+	}
+	public void setvisibility()
+	{
+		this.dispose();
 	}
 	public int searchId(String strId)
 	{

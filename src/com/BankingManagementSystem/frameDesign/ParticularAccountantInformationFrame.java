@@ -3,9 +3,12 @@ package com.BankingManagementSystem.frameDesign;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
@@ -31,6 +34,23 @@ public class ParticularAccountantInformationFrame extends JFrame
 		setResizable(false);
 		setTitle("PERSONAL ACCOUNTANT INFORMATION");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		/*
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                //int result = JOptionPane.showConfirmDialog(frame, "Are you sure?");
+               // if( result==JOptionPane.OK_OPTION){
+                    // NOW we change it to dispose on close..
+                    setDefaultCloseOperation(
+                            JFrame.DISPOSE_ON_CLOSE);
+                    setVisible(false);
+                    dispose();
+                    new AccountantFrame();
+                }
+            
+        });
+        */
 		setBounds(100, 100, 645, 479);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(152, 251, 152));

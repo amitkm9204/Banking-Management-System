@@ -1,10 +1,17 @@
 package com.BankingManagementSystem.frameDesign;
 
+import com.BankingManagementSystem.ValidationChecking.*;
+
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -24,10 +31,12 @@ import javax.swing.border.EmptyBorder;
 
 import com.BankingManagementSystem.FileHandling.CustomerDetailsFile;
 import com.BankingManagementSystem.Pojo.CustomerDetails;
+import com.BankingManagementSystem.Pojo.TransactionSummary;
 
 
 class AccountOpening extends JFrame
 {
+	boolean isdatavalidate;
 	private JPanel AccountOpening;
 	private JLabel lblName,lblSex,lblDOB,lblFathersName,lblMothersName,lblPhone,lblAddress,lblVoterId,lblAadhaar,
 					lblPANId,lblEmailId;
@@ -37,13 +46,14 @@ class AccountOpening extends JFrame
 	private JRadioButton rdbtnMale,rdbtnFemale;
 	private final ButtonGroup sex = new ButtonGroup();
 	private JComboBox cbDay,cbMonth,cbYear;
+	private String Csex;
 	private String Day[] = {"Day","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18",
 			"19","20","21","22","23","24","25","26","27","28","29","30","31"};
 	private String Month[] = {"Month","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Nov","Dec"};
 	private String Year[] = {"Year","1990","1991","1992","1993","1994","1995","1996","1997","1998","1999","2000",
 			"2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011"};
 	private CustomerDetails c;
-	
+	private TransactionSummary t;
 	ArrayList <CustomerDetails>userlist;
 	public AccountOpening()
 	{
@@ -68,7 +78,22 @@ class AccountOpening extends JFrame
 		//setIconImage(Toolkit.getDefaultToolkit().getImage(NewAccountOpeningForm.class.getResource("/resources/Forms.png")));
 		setTitle("ACCOUNT OPENING FORM");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1378, 780);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                //int result = JOptionPane.showConfirmDialog(frame, "Are you sure?");
+               // if( result==JOptionPane.OK_OPTION){
+                    // NOW we change it to dispose on close..
+                    setDefaultCloseOperation(
+                            JFrame.DISPOSE_ON_CLOSE);
+                    setVisible(false);
+                    dispose();
+                    new AccountantFrame();
+                }
+        }
+        );
+		setBounds(0, 0, 1378, 780);
 		AccountOpening = new JPanel();
 		AccountOpening.setBackground(new Color(76, 224, 230));
 		AccountOpening.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -197,14 +222,14 @@ class AccountOpening extends JFrame
 		
 		
 		
-		JRadioButton rdbtnMale = new JRadioButton("Male");
+		rdbtnMale = new JRadioButton("Male");
 		rdbtnMale.setBackground(new Color(76, 224, 230));
 		rdbtnMale.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		sex.add(rdbtnMale);
 		rdbtnMale.setBounds(330, 210, 109, 23);
 		AccountOpening.add(rdbtnMale);
 		
-		JRadioButton rdbtnFemale = new JRadioButton("Female");
+		rdbtnFemale = new JRadioButton("Female");
 		rdbtnFemale.setBackground(new Color(76, 224, 230));
 		rdbtnFemale.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		sex.add(rdbtnFemale);
@@ -300,24 +325,27 @@ class AccountOpening extends JFrame
 	public void createNewAccountObject()
 	{
 		
-		String Cname,Cdob,Csex,Cfname,Cmname,Cadd,Cphone,Cvid,Cadhar,Cpan,Cmail;
+		String Cname,Cdob,Cfname,Cmname,Cadd,Cphone,Cvid,Cadhar,Cpan,Cmail;
 		
 		Cname = txtName.getText().trim();
+       
+		
+		
 		String d=(String)cbDay.getSelectedItem();
 		String m=(String)cbMonth.getSelectedItem();
 		String y=(String)cbYear.getSelectedItem();
 		Cdob=d + "-" + m + "-" + y;
 		
 		Csex="";
-		/*if(rdbtnMale.isSelected())
+		if(rdbtnMale.isSelected())
 		{
 			Csex="Male";
 		}
 		else if(rdbtnFemale.isSelected())
 		{
 			Csex="Female";
-		}*/
-		Csex = "Male";
+		}
+		//Csex = "Male";
 		Cfname =txtFathersName.getText().trim();
 		Cmname = txtMothersName.getText().trim();
 		Cadd = txtAddress.getText().trim();
@@ -335,12 +363,23 @@ class AccountOpening extends JFrame
 			 value = value + rand.charAt(r.nextInt(rand.length()));
 		 c.setAccountNo(value);
 		 System.out.println(c.getAccountNo());
+		 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+		 LocalDateTime now = LocalDateTime.now();
+		 t = new TransactionSummary(value,dtf.format(now), 0.0, 0.0);
+		 
+		 Validation obj=new Validation();
+		 isdatavalidate = obj.dataValidation(Cname,Cmail,Cphone,Cadhar,Cpan);
 		 
 	}
 	public void AddInformation()
 	{
-		
-     		    createNewAccountObject();
+		createNewAccountObject();
+		if(isdatavalidate)
+		{
+     		    if(Csex=="")
+     		    	JOptionPane.showMessageDialog(this, "Sex field can't be empty");
+     		    else
+     		    {
      	       
      		   int con=JOptionPane.showConfirmDialog(this, "Are You Sure to  apply");
 			       if(con==JOptionPane.YES_OPTION)
@@ -348,12 +387,19 @@ class AccountOpening extends JFrame
 				       userlist = CustomerDetailsFile.readDataFromFile();
 				      userlist.add(c);
 				     CustomerDetailsFile.writeDatatoFile(userlist);
-				      JOptionPane.showMessageDialog(this, "Request sent");
+				      JOptionPane.showMessageDialog(this, "Account successfully created..Your account no. is "+ c.getAccountNo());
 				    
 				      resetFrame();
 			       
 			       }
+     		    }
+		}
+			       //else
+			    	   //JOptionPane.showMessageDialog(this, "Invalid data");
 	}
+	
+	
+	   
 
 
 	private void resetFrame() {
@@ -365,7 +411,7 @@ class AccountOpening extends JFrame
 }
 
 
-public class NewAccountOpeningForm 
+ public class NewAccountOpeningForm 
 {
 
 	public static void main(String[] args) 

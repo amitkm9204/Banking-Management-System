@@ -2,7 +2,10 @@ package com.BankingManagementSystem.frameDesign;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,25 +19,45 @@ import javax.swing.border.BevelBorder;
 
 import com.BankingManagementSystem.FileHandling.CustomerDetailsFile;
 import com.BankingManagementSystem.Pojo.CustomerDetails;
+import com.BankingManagementSystem.ValidationChecking.Validation;
 
 public class UpdateAccountFrame extends JFrame
 {
-	JTextField taccno,tphn;
-	JTextArea tadd;
-	
+	private JTextField taccno,tphn, tname;
+	private JTextArea tadd;
+	private JFrame frame ;
+	private JPanel contentPane;
+	private JLabel label ,label1,label2,label3,lblNewLabel  ;
+	private JScrollPane taddsp;
+	private JButton bdel;
+	boolean isdatavalidate;
 	
     public UpdateAccountFrame()
     {
-JFrame frame = new JFrame("UPDATE INFORMATIONS");
+    	frame = new JFrame("UPDATE INFORMATIONS");
         
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JPanel contentPane = new JPanel();
+       // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                //int result = JOptionPane.showConfirmDialog(frame, "Are you sure?");
+               // if( result==JOptionPane.OK_OPTION){
+                    // NOW we change it to dispose on close..
+            	 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            	 frame.setVisible(false);
+            	 frame.dispose();
+                    new AccountantFrame();
+                }
+        }
+        );
+        contentPane = new JPanel();
         contentPane.setOpaque(true);
         contentPane.setBackground(new Color(240, 230, 140));
         contentPane.setLayout(null);
         
         
-        JLabel label = new JLabel("ACCOUNT NO : ", JLabel.CENTER);
+        label = new JLabel("ACCOUNT NO : ", JLabel.CENTER);
         label.setToolTipText("Account Number Can't Be Change");
         Font f1=new Font("comic sans ms",Font.BOLD,22);
         label.setFont(f1);
@@ -43,7 +66,7 @@ JFrame frame = new JFrame("UPDATE INFORMATIONS");
         label.setLocation(65,129);
         contentPane.add(label);
         
-        JLabel label1 = new JLabel("NAME : ", JLabel.CENTER);
+        label1 = new JLabel("NAME : ", JLabel.CENTER);
         label1.setToolTipText("Name Can't Be Change");
         label1.setFont(f1);
         label1.setForeground(Color.RED);
@@ -52,7 +75,7 @@ JFrame frame = new JFrame("UPDATE INFORMATIONS");
         contentPane.add(label1);
         
         
-        JLabel label2 = new JLabel("ADDRESS : ", JLabel.CENTER);
+        label2 = new JLabel("ADDRESS : ", JLabel.CENTER);
         label2.setFont(f1);
         label2.setForeground(Color.RED);
         label2.setSize(136,32);
@@ -60,7 +83,7 @@ JFrame frame = new JFrame("UPDATE INFORMATIONS");
         contentPane.add(label2);
         
         
-        JLabel label3 = new JLabel("PHONE NO : ", JLabel.CENTER);
+        label3 = new JLabel("PHONE NO : ", JLabel.CENTER);
         label3.setFont(f1);
         label3.setForeground(Color.RED);
         label3.setSize(155,40);
@@ -77,7 +100,7 @@ JFrame frame = new JFrame("UPDATE INFORMATIONS");
         taccno.setLocation(280,129);
         contentPane.add(taccno);
         
-        JTextField tname = new JTextField(20);
+        tname = new JTextField(20);
         tname.setToolTipText("Enter Your Name ");
         tname.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         tname.setFont(new Font("Consolas", Font.BOLD, 24));
@@ -89,7 +112,8 @@ JFrame frame = new JFrame("UPDATE INFORMATIONS");
         tadd.setToolTipText("Enter New Address");
         tadd.setFont(new Font("Consolas", Font.BOLD, 24));
         tadd.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		JScrollPane taddsp=new JScrollPane(tadd);
+		
+        taddsp=new JScrollPane(tadd);
 		Font f4=new Font("consolas",Font.ITALIC,20);
         taddsp.setFont(f4);
         taddsp.setSize(347,40);
@@ -106,7 +130,8 @@ JFrame frame = new JFrame("UPDATE INFORMATIONS");
         
         
         
-        JButton bdel = new JButton("UPDATE");
+        
+        bdel = new JButton("UPDATE");
         bdel.setToolTipText("Update Information");
         bdel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         Font f2=new Font("comic sans ms",Font.BOLD,22);
@@ -124,7 +149,7 @@ JFrame frame = new JFrame("UPDATE INFORMATIONS");
 
         frame.setContentPane(contentPane);
         
-        JLabel lblNewLabel = new JLabel("UPDATE DETAILS");
+        lblNewLabel = new JLabel("UPDATE DETAILS");
         lblNewLabel.setForeground(new Color(34, 139, 34));
         lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 40));
         lblNewLabel.setBounds(226, 11, 361, 50);
@@ -133,26 +158,51 @@ JFrame frame = new JFrame("UPDATE INFORMATIONS");
         frame.setLocationByPlatform(false);
         frame.setVisible(true);
         frame.setResizable(false);
+        
+       
     }
 
     public void updateAccount()
     {
-    	int idfoundpos = Search.searchId(taccno.getText().trim());
+    	String phone=tphn.getText().trim();
+		 isdatavalidate = phoneCheck(phone);
+    	if(isdatavalidate)
+    	{
+    		int idfoundpos = Search.searchId(taccno.getText().trim());
 
-        if(idfoundpos >= 0)
-        {
-       	 ArrayList<CustomerDetails> userlist = CustomerDetailsFile.readDataFromFile();
-       	 userlist.get(idfoundpos).setCaddress(tadd.getText().trim());
-       	 userlist.get(idfoundpos).setCphone(tphn.getText().trim());
+    		if(idfoundpos >= 0)
+    		{
+    			ArrayList<CustomerDetails> userlist = CustomerDetailsFile.readDataFromFile();
+    			userlist.get(idfoundpos).setCaddress(tadd.getText().trim());
+    			userlist.get(idfoundpos).setCphone(tphn.getText().trim());
        	 
-       	 CustomerDetailsFile.writeDatatoFile(userlist);
-       	 JOptionPane.showMessageDialog(this, "Account updation successfull");
+    			CustomerDetailsFile.writeDatatoFile(userlist);
+    			JOptionPane.showMessageDialog(this, "Account updation successfull");
        	 
-        }
+    		}
         else
-        {
-           JOptionPane.showMessageDialog(this, "Invalid Account number");
-        }
+        	{
+        	JOptionPane.showMessageDialog(this, "Invalid Account number");
+        	}
+    	}
+   
+    }
+    public boolean phoneCheck(String Phone)
+    {
+    	String phonePattern = "^[0-9]{10}$";
+    	
+    	Scanner sc3 = new Scanner(Phone);
+    	
+    	String match2 = sc3.findInLine(phonePattern);
+    	
+    	if (match2 == null)
+    	{
+    		JOptionPane.showMessageDialog(null, "Invalid Phone Number..");
+    		return false;
+    	}
+    	
+    	else
+    		return true;
     }
     public static void main(String... args)
     {

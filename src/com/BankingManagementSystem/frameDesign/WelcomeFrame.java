@@ -13,6 +13,7 @@ import javax.swing.border.BevelBorder;
 
 public class WelcomeFrame extends JFrame
 {
+	private JLabel lblBankingManagementSystem ,lblBankingManagementSystem1;
      public WelcomeFrame() {
         JFrame frame = new JFrame("Welcome...");
         
@@ -21,13 +22,22 @@ public class WelcomeFrame extends JFrame
         contentPane.setOpaque(true);
         contentPane.setBackground(new Color(152, 251, 152));
         contentPane.setLayout(null);
-        JLabel lblBankingManagementSystem = new JLabel("BANKING MANAGEMENT SYSTEM", JLabel.CENTER);
+        
+        
+        lblBankingManagementSystem = new JLabel("BANKING MANAGEMENT SYSTEM", JLabel.CENTER);
         Font f1=new Font("comic sans ms",Font.BOLD,48);
         lblBankingManagementSystem.setFont(new Font("Lucida Handwriting", Font.BOLD, 60));
         lblBankingManagementSystem.setForeground(new Color(0, 0, 128));
         lblBankingManagementSystem.setSize(1300,95);
         lblBankingManagementSystem.setLocation(22,162);;
         contentPane.add(lblBankingManagementSystem);
+        
+        lblBankingManagementSystem1 = new JLabel("!! WELCOME !!", JLabel.CENTER);
+        lblBankingManagementSystem1.setFont(new Font("Lucida Handwriting", Font.BOLD, 60));
+        lblBankingManagementSystem1.setForeground(new Color(0, 0, 128));
+        lblBankingManagementSystem1.setSize(1300,95);
+        lblBankingManagementSystem1.setLocation(22,63);
+        contentPane.add(lblBankingManagementSystem1);
         
         
         JButton bmanager = new JButton("MANAGER");
@@ -43,7 +53,7 @@ public class WelcomeFrame extends JFrame
         bmanager.addActionListener((e) ->
         {
        	managerLogin();
-       	
+       	//setvisibility();
          }
        );
         
@@ -62,7 +72,7 @@ public class WelcomeFrame extends JFrame
         baccountant.addActionListener((e) ->
         {
        	AccountantLogin();
-       	
+       	//setvisibility();
          }
        );
         
@@ -72,7 +82,11 @@ public class WelcomeFrame extends JFrame
         frame.setLocationByPlatform(false);
         frame.setVisible(true);
     }
-
+  /*   public void setvisibility()
+ 	{
+ 		setVisible(false);
+ 		this.dispose();
+ 	}*/
      public void AccountantLogin()
      {
 
@@ -81,7 +95,7 @@ public class WelcomeFrame extends JFrame
              public void run()
              {
                  new LoginAccountant();
-                 
+       
              }
          });
      }

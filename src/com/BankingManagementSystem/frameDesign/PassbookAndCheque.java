@@ -1,8 +1,11 @@
 package com.BankingManagementSystem.frameDesign;
 
+
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,28 +14,39 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 
-class PassbookCheque extends JFrame
+public class PassbookAndCheque extends JFrame
 {
 	private JPanel PassbookAndCheque;
 	private JTextField txtAccountNumber;
 	private JTextField txtCustomerName;
 	
 	
-	public PassbookCheque()
+	public PassbookAndCheque(int index)
 	{
-		formOpen();
-		
-	}
 	
-	
-
-	private void formOpen()
-	{
+		//ManagerLoginPage obj=new ManagerLoginPage();
 		
 		setResizable(false);
 		setTitle("PASSBOOK AND CHEQUE BOOK");
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                //int result = JOptionPane.showConfirmDialog(frame, "Are you sure?");
+               // if( result==JOptionPane.OK_OPTION){
+                    // NOW we change it to dispose on close..
+            	 	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            	 	setVisible(false);
+            	 	dispose();
+                	//new Managerframe(index);
+                }
+        }
+        );
+        
+        
 		setBounds(100, 100, 600, 500);
 		PassbookAndCheque = new JPanel();
 		PassbookAndCheque.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -90,7 +104,7 @@ class PassbookCheque extends JFrame
 	
 }
 
-public class PassbookAndCheque 
+/*public class PassbookAndCheque 
 {
 
 	public static void main(String[] args) 
@@ -112,4 +126,4 @@ public class PassbookAndCheque
 
 	}
 
-}
+}*/

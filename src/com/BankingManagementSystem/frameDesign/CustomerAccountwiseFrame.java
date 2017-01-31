@@ -2,20 +2,32 @@ package com.BankingManagementSystem.frameDesign;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
+
+import com.BankingManagementSystem.FileHandling.CustomerDetailsFile;
+import com.BankingManagementSystem.Pojo.CustomerDetails;
 
 public class CustomerAccountwiseFrame extends JFrame
 {
 	private JTextField txtAcc;
-	private JLabel label;
+	private JLabel label,lblNewLabel;
 	private JButton bmanager;
+	private JFrame frame;
+	private  JPanel contentPane;
 	
+	ArrayList<CustomerDetails> userlist = new ArrayList<CustomerDetails>();
+	ArrayList<CustomerDetails> userlisttemp ;
 	
     public CustomerAccountwiseFrame()
     {
@@ -25,11 +37,28 @@ public class CustomerAccountwiseFrame extends JFrame
 
     private void formOpen() 
     {
-    		JFrame frame = new JFrame("CUSTOMER ACCOUNTWISE");
+    		frame = new JFrame("CUSTOMER ACCOUNTWISE");
+    		
     		frame.setResizable(false);
 		   
-	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        JPanel contentPane = new JPanel();
+	        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+	        
+	        frame.addWindowListener(new WindowAdapter() {
+	            public void windowClosing(WindowEvent e) {
+	                //int result = JOptionPane.showConfirmDialog(frame, "Are you sure?");
+	               // if( result==JOptionPane.OK_OPTION){
+	                    // NOW we change it to dispose on close..
+	                    frame.setDefaultCloseOperation(
+	                            JFrame.DISPOSE_ON_CLOSE);
+	                    frame.setVisible(false);
+	                    frame.dispose();
+	                   // new AccountantFrame();
+	                }
+	        }
+	        );
+	        
+	        contentPane = new JPanel();
 	        contentPane.setOpaque(true);
 	        contentPane.setBackground(new Color(176, 224, 230));
 	        contentPane.setLayout(null);
@@ -66,10 +95,14 @@ public class CustomerAccountwiseFrame extends JFrame
 	        bmanager.setFocusable(true);
 	        contentPane.add(bmanager);
 	        
+	        bmanager.addActionListener((e)->
+	        {
+	        	showDetails();
+	        });
 
 	        frame.setContentPane(contentPane);
 	        
-	        JLabel lblNewLabel = new JLabel("PARTICULAR CUSTOMER'S INFORMATION");
+	        lblNewLabel = new JLabel("PARTICULAR CUSTOMER'S INFORMATION");
 	        lblNewLabel.setForeground(new Color(128, 0, 128));
 	        lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 31));
 	        lblNewLabel.setBounds(10, 11, 674, 86);
@@ -80,6 +113,34 @@ public class CustomerAccountwiseFrame extends JFrame
 		
 	}
 
+    public void showDetails()
+    {
+    	
+    	
+    	SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+            	
+            	
+            	int index = Search.searchId(txtAcc.getText().trim());
+            	
+            	userlist = CustomerDetailsFile.readDataFromFile();
+            	userlisttemp = new ArrayList<CustomerDetails>();
+            	userlisttemp.add(userlist.get(index));
+            	//JOptionPane.showInputDialog(this,userlist.size());
+            	//JOptionPane.showInputDialog(this,userlisttemp.size());
+            	 SwingUtilities.invokeLater(new Runnable()
+                 {
+                     public void run()
+                     {
+                         new ShowCustomerDetails(userlisttemp);
+               
+                     }
+                 });
+            }
+        });
+    }
 	public static void main(String... args)
     {
               new CustomerAccountwiseFrame();

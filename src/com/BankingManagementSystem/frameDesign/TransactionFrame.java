@@ -8,11 +8,14 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.security.Key;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -25,7 +28,7 @@ public class TransactionFrame extends JFrame{
 	private JLabel l1;
 	private JTextField accno;
 	private JButton bwithdrawal,bdeposit,btransfer;
-	int accNo;
+	//int accNo;
 	@SuppressWarnings("deprecation")
 	public TransactionFrame(String title)
 	{
@@ -40,7 +43,22 @@ public class TransactionFrame extends JFrame{
 		//setSize(450, 450);
 		//setLocation(200,200);
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                //int result = JOptionPane.showConfirmDialog(frame, "Are you sure?");
+               // if( result==JOptionPane.OK_OPTION){
+                    // NOW we change it to dispose on close..
+                    setDefaultCloseOperation(
+                            JFrame.DISPOSE_ON_CLOSE);
+                    setVisible(false);
+                    dispose();
+                    new AccountantFrame();
+                }
+        }
+        );
 		setVisible(true);	
 		
 		//String AccNo = "Acc1209";
@@ -72,16 +90,25 @@ public class TransactionFrame extends JFrame{
 		TPage.add(bwithdrawal);
 		bwithdrawal.addActionListener((e) ->
 										{
+										try 
+										
+										{
+											
 											int a= 1; //validateAccno();
 											if(a==1)
 											{
-												new WithdrawalFrame(accNo);
-												this.setVisible(false);											}
+												new WithdrawalFrame(Search.searchId(accno.getText().trim()));
+												this.setVisible(false);											
 											
+											}
+										}
+										catch(Exception a)
+										{
+											JOptionPane.showMessageDialog(this,"Invalid Account Number");
 										}
 		
 				
-									);
+	});
 									
 		
 		bdeposit = new JButton("Deposit Money");
@@ -95,12 +122,19 @@ public class TransactionFrame extends JFrame{
 		TPage.add(bdeposit);
 		bdeposit.addActionListener((e) -> 
 		{
+			try
+			{
 		
 			int a= 1; //validateAccno();
 			if(a==1)
 			{
-				new DepositeFrame(accNo);
+				new DepositeFrame(Search.searchId(accno.getText().trim()));
 				this.setVisible(false);
+			}
+			}
+			catch(Exception a)
+			{
+				JOptionPane.showMessageDialog(this,"Invalid Account Number");
 			}
 			
 		}
@@ -120,37 +154,24 @@ public class TransactionFrame extends JFrame{
 		TPage.add(btransfer);
 		btransfer.addActionListener((e) ->
 		{
-			
+			try
+			{
+		
 			int a= 1; //validateAccno();
 			if(a==1)
 			{
-
-				EventQueue.invokeLater(new Runnable() 
-				{
-					public void run() 
-					{
-						try 
-						{
-							TransferFrame form = new TransferFrame(accNo);
-							
-						}
-						catch (Exception e) 
-						{
-							e.printStackTrace();
-						}
-					}
-				});
-
-
-			}
+				new TransferFrame(Search.searchId(accno.getText().trim()));
 				this.setVisible(false);
-			
-		}
+			}
+			}
+			catch(Exception a)
+			{
+				JOptionPane.showMessageDialog(this,"Invalid Account Number");
+			}
+		});
+
+
 		
-				
-				
-				);
-				
 		
 		/*TPage.add(l1);TPage.add(accno);
 		TPage.add(bwithdrawal);TPage.add(new JLabel(""));

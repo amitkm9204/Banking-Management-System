@@ -2,6 +2,8 @@ package com.BankingManagementSystem.frameDesign;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -22,7 +24,22 @@ public class DeleteAccountFrame extends JFrame
     {
         JFrame frmDeleteAccount = new JFrame("Delete an account...");
         frmDeleteAccount.setTitle("DELETE ACCOUNT");
-        frmDeleteAccount.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        //frmDeleteAccount.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frmDeleteAccount.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        
+        frmDeleteAccount.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                //int result = JOptionPane.showConfirmDialog(frame, "Are you sure?");
+               // if( result==JOptionPane.OK_OPTION){
+                    // NOW we change it to dispose on close..
+            	frmDeleteAccount.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            	frmDeleteAccount.setVisible(false);
+            	frmDeleteAccount.dispose();
+                    new AccountantFrame();
+                }
+        }
+        );
         JPanel contentPane = new JPanel();
         contentPane.setOpaque(true);
         contentPane.setBackground(new Color(152, 251, 152));

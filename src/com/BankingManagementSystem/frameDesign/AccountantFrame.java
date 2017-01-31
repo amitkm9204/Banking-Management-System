@@ -5,17 +5,24 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Label;
 import java.awt.Panel;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
+
+import com.BankingManagementSystem.FileHandling.AccountantDetailsFile;
+import com.BankingManagementSystem.FileHandling.CustomerDetailsFile;
+import com.BankingManagementSystem.Pojo.AccountantDetails;
+import com.BankingManagementSystem.Pojo.CustomerDetails;
 
 class AccountantFrame extends JFrame
 {
@@ -24,7 +31,7 @@ class AccountantFrame extends JFrame
 	private Panel DisplayPage;
 	private JButton btnAddAccount;
 	private JButton btnRemoveAccount;
-	private JButton btnUpdateDetails;
+	private JButton btnUpdateDetails,btnacc;
 	private JButton btnTransaction;
 	private JLabel lblViewDetals;
 	private JLabel lblAccountantAccess;
@@ -123,37 +130,6 @@ class AccountantFrame extends JFrame
 		accountantPage.add(lblViewDetals);
 		
 		
-		
-	/*	
-		txtAddAccount = new JTextField();
-		txtAddAccount.setFont(new Font("Times New Roman", Font.BOLD, 28));
-		txtAddAccount.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		txtAddAccount.setBounds(270, 75, 360, 40);
-		accountantPage.add(txtAddAccount);
-		txtAddAccount.setColumns(10);
-		
-
-		txtRemoveAccount = new JTextField();
-		txtRemoveAccount.setFont(new Font("Times New Roman", Font.BOLD, 28));
-		txtRemoveAccount.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		txtRemoveAccount.setBounds(270, 168, 360, 40);
-		accountantPage.add(txtRemoveAccount);
-		txtRemoveAccount.setColumns(10);
-		
-		txtUpdate = new JTextField();
-		txtUpdate.setFont(new Font("Times New Roman", Font.BOLD, 28));
-		txtUpdate.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		txtUpdate.setBounds(270, 255, 360, 40);
-		accountantPage.add(txtUpdate);
-		txtUpdate.setColumns(10);
-		
-		txtTransaction = new JTextField();
-		txtTransaction.setFont(new Font("Times New Roman", Font.BOLD, 28));
-		txtTransaction.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		txtTransaction.setBounds(270, 345, 360, 40);
-		accountantPage.add(txtTransaction);
-		txtTransaction.setColumns(10);*/
-		
 		String str[] = {"Account wise","All Accounts"};
 		
 		JComboBox View = new JComboBox(str);
@@ -162,14 +138,33 @@ class AccountantFrame extends JFrame
 		View.setFont(new Font("Times New Roman", Font.PLAIN, 28));
 		accountantPage.add(View);
 		
-		if(View.getSelectedItem().equals("Account wise"))
-		{
-			openAccountWise();
-		}
-		else if(View.getSelectedItem().equals("All Accounts"))
-		{
-			openAllAccount();
-		}
+		btnacc = new JButton("show");
+		btnacc.setToolTipText("show account wise or all account");
+		btnacc.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		btnacc.setForeground(new Color(0, 20, 60));
+		btnacc.setFont(new Font("Tekton Pro Cond", Font.BOLD, 30));
+		btnacc.setBounds(530,483,100,40);
+		accountantPage.add(btnacc);
+		
+		btnacc.addActionListener((e) ->
+		                      {
+		                    	  //System.out.println("hey tigetr");
+		                    	  if(View.getSelectedItem().equals("Account wise"))
+		                  		{
+		                    		  //JOptionPane.showMessageDialog(this, "HI..");
+		                  			openAccountWise();
+		                  		}
+		                  		else if(View.getSelectedItem().equals("All Accounts"))
+		                  		{
+		                  			//JOptionPane.showMessageDialog(this, "HIiiiiii..");
+		                  			openAllAccount();
+		                  		}
+		                    	  
+		                      }
+				
+				            );
+		
+		
 			
 		lblAccountantAccess = new JLabel("ACCOUNTANT PANEL");
 		lblAccountantAccess.setForeground(new Color(139, 0, 139));
@@ -185,7 +180,9 @@ class AccountantFrame extends JFrame
         {
             public void run()
             {
-                new AllDetailsCustomer();
+            	ArrayList<CustomerDetails> costomer = new ArrayList<CustomerDetails>();
+            	costomer = CustomerDetailsFile.readDataFromFile();
+                new AllDetailsCustomer(costomer);
                 
             }
         });
@@ -196,7 +193,8 @@ class AccountantFrame extends JFrame
         {
             public void run()
             {
-                new AllDetailsAccountant();
+            	
+            	new CustomerAccountwiseFrame();
                 
             }
         });

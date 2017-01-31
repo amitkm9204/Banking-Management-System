@@ -3,6 +3,7 @@ package com.BankingManagementSystem.frameDesign;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,25 +13,49 @@ import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
+import com.BankingManagementSystem.Pojo.CustomerDetails;
 
+import com.BankingManagementSystem.FileHandling.*;
 
 public class CustomerInformationFrame extends JFrame
 {
 	private JPanel contentPane;
 	private JTextField txtTotalAcc;
 	private JTextField textField;
+	private JLabel lblTotalAccountant;
+	private JLabel lblViewAccountant;
+	private JLabel lblCustomerDetails;
+	private JButton btnNewButton;
+	private JLabel lblAccountNumber ;
 	
-	public CustomerInformationFrame()
+	ArrayList<CustomerDetails> userlist =new  ArrayList<CustomerDetails>();
+	ArrayList<CustomerDetails> userlisttemp =new  ArrayList<CustomerDetails>();
+	public CustomerInformationFrame(int manageIndex)
 	{
-		formopen();
-	}
 	
-	
-	private void formopen()
-	{
+		//ManagerLoginPage obj=new ManagerLoginPage();
+		
 		setResizable(false);
 		setTitle("Customer Information");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		/*
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                //int result = JOptionPane.showConfirmDialog(frame, "Are you sure?");
+               // if( result==JOptionPane.OK_OPTION){
+                    // NOW we change it to dispose on close..
+            	 	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            	 	setVisible(false);
+            	 	dispose();
+                	new Managerframe(obj.loginIndex);
+                	
+                }
+        }
+        );
+        */
 		setBounds(100, 100, 598, 457);
 		contentPane = new JPanel();
 		contentPane.setFont(new Font("Lucida Handwriting", Font.BOLD, 16));
@@ -40,7 +65,7 @@ public class CustomerInformationFrame extends JFrame
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblTotalAccountant = new JLabel("TOTAL CUSTOMER : ");
+		lblTotalAccountant = new JLabel("TOTAL CUSTOMER : ");
 		lblTotalAccountant.setForeground(new Color(0, 0, 255));
 		lblTotalAccountant.setFont(new Font("Lucida Handwriting", Font.BOLD, 16));
 		lblTotalAccountant.setBounds(41, 125, 219, 34);
@@ -62,13 +87,13 @@ public class CustomerInformationFrame extends JFrame
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-		JLabel lblViewAccountant = new JLabel("! VIEW CUSTOMER ! ");
+		lblViewAccountant = new JLabel("! VIEW CUSTOMER ! ");
 		lblViewAccountant.setForeground(new Color(139, 0, 0));
 		lblViewAccountant.setFont(new Font("Lucida Handwriting", Font.BOLD, 22));
 		lblViewAccountant.setBounds(152, 205, 268, 26);
 		contentPane.add(lblViewAccountant);
 		
-		JButton btnNewButton = new JButton("SHOW DETAILS");
+		btnNewButton = new JButton("SHOW DETAILS");
 		btnNewButton.setToolTipText("Display all details");
 		btnNewButton.setFont(new Font("Lucida Handwriting", Font.BOLD, 24));
 		btnNewButton.setBackground(new Color(0, 0, 128));
@@ -76,13 +101,27 @@ public class CustomerInformationFrame extends JFrame
 		btnNewButton.setBounds(293, 340, 249, 62);
 		contentPane.add(btnNewButton);
 		
-		JLabel lblCustomerDetails = new JLabel("CUSTOMER DETAILS");
+		
+		userlist = CustomerDetailsFile.readDataFromFile();
+		Integer total = userlist.size();
+		txtTotalAcc.setText(total.toString());
+		
+		btnNewButton.addActionListener((e)->
+		{
+			int index = Search.searchId(textField.getText().trim());
+			userlisttemp.add(userlist.get(index));
+			
+			new ShowCustomerDetails(userlisttemp);
+		});
+		
+		
+		lblCustomerDetails = new JLabel("CUSTOMER DETAILS");
 		lblCustomerDetails.setForeground(new Color(0, 128, 0));
 		lblCustomerDetails.setFont(new Font("Times New Roman", Font.BOLD, 40));
 		lblCustomerDetails.setBounds(100, 23, 423, 41);
 		contentPane.add(lblCustomerDetails);
 		
-		JLabel lblAccountNumber = new JLabel("ACCOUNT NUMBER: ");
+		lblAccountNumber = new JLabel("ACCOUNT NUMBER: ");
 		lblAccountNumber.setForeground(Color.BLUE);
 		lblAccountNumber.setFont(new Font("Lucida Handwriting", Font.BOLD, 16));
 		lblAccountNumber.setBounds(41, 259, 219, 34);
@@ -92,7 +131,7 @@ public class CustomerInformationFrame extends JFrame
 		
 		setVisible(true);
 	}
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -103,6 +142,6 @@ public class CustomerInformationFrame extends JFrame
 				}
 			}
 		});
-}
+}*/
 }
 

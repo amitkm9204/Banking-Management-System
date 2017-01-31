@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -19,13 +21,20 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.MatteBorder;
 
 import com.BankingManagementSystem.FileHandling.CustomerDetailsFile;
+import com.BankingManagementSystem.FileHandling.TransactionDetailsFile;
 import com.BankingManagementSystem.Pojo.CustomerDetails;
+import com.BankingManagementSystem.Pojo.TransactionSummary;
 
 public class WithdrawalFrame {
 	
-	ArrayList<CustomerDetails> userlist;
+	ArrayList<CustomerDetails> userlist = CustomerDetailsFile.readDataFromFile();
 	CustomerDetails r;
-	JTextField tdel;
+	private JTextField tdel;
+	private JPanel contentPane;
+	private JLabel labelName, labelAccNo, labelAmount, lblMoneyWithdrawal, lblAccountNumber,lblName ;
+	private JButton bmanager;
+	private
+	
 	int accNo;
 	 public WithdrawalFrame(int index) {
 		 JFrame frame = new JFrame("WITHDRAWAL");
@@ -47,14 +56,14 @@ public class WithdrawalFrame {
                     }
                 }
             });
-            JPanel contentPane = new JPanel();
+            contentPane = new JPanel();
 	        contentPane.setOpaque(true);
 	        contentPane.setBackground(new Color(255, 255, 255));
 	        contentPane.setLayout(null);
 	        
 	        
 	        CustomerDetails customerDetails = new CustomerDetails();
-	        JLabel labelName = new JLabel("", JLabel.CENTER);
+	        labelName = new JLabel(userlist.get(index).getCname(), JLabel.CENTER);
 	        labelName.setToolTipText("Name of the Customer");
 	        Font f1=new Font("comic sans ms",Font.BOLD,48);
 	        labelName.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
@@ -63,7 +72,7 @@ public class WithdrawalFrame {
 	        labelName.setLocation(250,306);
 	        contentPane.add(labelName);
 	        
-	        JLabel labelAccNo = new JLabel("Acc02233", JLabel.CENTER);
+	       labelAccNo = new JLabel(userlist.get(index).getAccountNo(), JLabel.CENTER);
 	        labelAccNo.setToolTipText("Account Number");
 	        Font f2=new Font("comic sans ms",Font.BOLD,48);
 	        labelAccNo.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
@@ -72,7 +81,7 @@ public class WithdrawalFrame {
 	        labelAccNo.setLocation(250,221);
 	        contentPane.add(labelAccNo);
 	        
-	        JLabel labelAmount = new JLabel("Amount :", JLabel.CENTER);
+	        labelAmount = new JLabel("Amount :", JLabel.CENTER);
 	        Font f3=new Font("comic sans ms",Font.BOLD,48);
 	        labelAmount.setFont(new Font("Comic Sans MS", Font.BOLD, 40));
 	        labelAmount.setForeground(Color.RED);
@@ -81,7 +90,7 @@ public class WithdrawalFrame {
 	        contentPane.add(labelAmount);
 	        
 	        
-	        JTextField tdel = new JTextField();
+	       tdel = new JTextField();
 	        tdel.setToolTipText("Enter amount to be withdraw");
 	        tdel.setForeground(new Color(47, 79, 79));
 	        tdel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
@@ -91,7 +100,7 @@ public class WithdrawalFrame {
 	        tdel.setLocation(250,387);
 	        contentPane.add(tdel);
 	        
-	        JButton bmanager = new JButton("Confirm");
+	       bmanager = new JButton("Confirm");
 	        bmanager.setToolTipText("Confirmation");
 	        Font f4=new Font("comic sans ms",Font.BOLD,22);
 	        bmanager.setFont(new Font("Comic Sans MS", Font.BOLD, 28));
@@ -106,14 +115,35 @@ public class WithdrawalFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) 
 				{
-					int result = JOptionPane.showConfirmDialog(
+					try{
+					int amt=Integer.parseInt(tdel.getText().trim());
+					if(amt != 0)
+					{
+					if(amt < userlist.get(accNo).getBalance())
+					{
+						int result = JOptionPane.showConfirmDialog(
                             frame, "Are you sure?");
-                    if( result==JOptionPane.OK_OPTION)
-                    {
-                        withdrawMoney();
+						if( result==JOptionPane.OK_OPTION)
+						{
+							withdrawMoney();
+							frame.setVisible(false);
+							TransactionFrame ob = new TransactionFrame(null);
+							ob.setVisible(true);
 					
-				    }
-			   }
+						}
+					}
+					else if(amt >= userlist.get(accNo).getBalance())
+						JOptionPane.showMessageDialog(null,"Insufficient balance");
+					}
+					
+					else 
+						JOptionPane.showMessageDialog(null,"Enter a valid amount");
+					
+					}catch (Exception z) {
+						JOptionPane.showMessageDialog(null,"Enter a valid amount");
+					}
+				}
+			   
 				
 	        }
 				
@@ -121,19 +151,19 @@ public class WithdrawalFrame {
 			
 			
 	        frame.setContentPane(contentPane);
-	        JLabel lblMoneyWithdrawal = new JLabel("MONEY WITHDRAWAL", SwingConstants.CENTER);
+	       lblMoneyWithdrawal = new JLabel("MONEY WITHDRAWAL", SwingConstants.CENTER);
 	        lblMoneyWithdrawal.setForeground(new Color(30, 144, 255));
 	        lblMoneyWithdrawal.setFont(new Font("Comic Sans MS", Font.BOLD, 48));
 	        lblMoneyWithdrawal.setBounds(10, 11, 564, 90);
 	        contentPane.add(lblMoneyWithdrawal);
 	        
-	        JLabel lblAccountNumber = new JLabel("Account No :", SwingConstants.CENTER);
+	        lblAccountNumber = new JLabel("Account No :", SwingConstants.CENTER);
 	        lblAccountNumber.setForeground(Color.RED);
 	        lblAccountNumber.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
 	        lblAccountNumber.setBounds(10, 217, 234, 50);
 	        contentPane.add(lblAccountNumber);
 	        
-	        JLabel lblName = new JLabel("Name :", SwingConstants.CENTER);
+	        lblName = new JLabel("Name :", SwingConstants.CENTER);
 	        lblName.setForeground(Color.RED);
 	        lblName.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
 	        lblName.setBounds(108, 299, 142, 50);
@@ -147,15 +177,32 @@ public class WithdrawalFrame {
 	 public void withdrawMoney() {
 		 if(accNo >= 0)
          {
-        	 ArrayList<CustomerDetails> userlist = CustomerDetailsFile.readDataFromFile();
+        	 
         	 userlist.get(accNo).setBalance(userlist.get(accNo).getBalance() - Double.parseDouble(tdel.getText().trim()) );
+        	 
+        	 TransactionSummary ts = new TransactionSummary();
+           	 ts.setAccNo(userlist.get(accNo).getAccountNo());
+           	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        	 LocalDateTime now = LocalDateTime.now();
+           	 ts.setDateAndTime(dtf.format(now));
+           	 ts.setWithdrawal(Double.parseDouble(tdel.getText().trim()));
+           	 ts.setDeposite(0.0);
+           	 
+           	 ArrayList<TransactionSummary> trans = new ArrayList<TransactionSummary>();
+           	 
+           	 trans =  TransactionDetailsFile.readDataFromFile();
+           	 trans.add(ts);
+           	 
+           	 TransactionDetailsFile.writeDatatoFile(trans);
+           	 
+        	 
         	 CustomerDetailsFile.writeDatatoFile(userlist);
         	 
-        	 JOptionPane.showInputDialog(this, "Transfer complete");
+        	 JOptionPane.showMessageDialog(tdel, "withdrawal complete");
          }
          else
          {
-            JOptionPane.showInputDialog(this, "Invalid Account number");
+            JOptionPane.showMessageDialog(tdel, "Invalid Account number");
          }
 			
 		}
