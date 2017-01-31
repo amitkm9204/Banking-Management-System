@@ -13,7 +13,6 @@ import java.security.Key;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -26,7 +25,7 @@ public class TransactionFrame extends JFrame{
 	private JLabel l1;
 	private JTextField accno;
 	private JButton bwithdrawal,bdeposit,btransfer;
-	//int accNo;
+	int accNo;
 	@SuppressWarnings("deprecation")
 	public TransactionFrame(String title)
 	{
@@ -73,25 +72,16 @@ public class TransactionFrame extends JFrame{
 		TPage.add(bwithdrawal);
 		bwithdrawal.addActionListener((e) ->
 										{
-										try 
-										
-										{
-											
 											int a= 1; //validateAccno();
 											if(a==1)
 											{
-												new WithdrawalFrame(Search.searchId(accno.getText().trim()));
-												this.setVisible(false);											
+												new WithdrawalFrame(accNo);
+												this.setVisible(false);											}
 											
-											}
-										}
-										catch(Exception a)
-										{
-											JOptionPane.showMessageDialog(this,"Invalid Account Number");
 										}
 		
 				
-	});
+									);
 									
 		
 		bdeposit = new JButton("Deposit Money");
@@ -105,19 +95,12 @@ public class TransactionFrame extends JFrame{
 		TPage.add(bdeposit);
 		bdeposit.addActionListener((e) -> 
 		{
-			try
-			{
 		
 			int a= 1; //validateAccno();
 			if(a==1)
 			{
-				new DepositeFrame(Search.searchId(accno.getText().trim()));
+				new DepositeFrame(accNo);
 				this.setVisible(false);
-			}
-			}
-			catch(Exception a)
-			{
-				JOptionPane.showMessageDialog(this,"Invalid Account Number");
 			}
 			
 		}
@@ -137,24 +120,37 @@ public class TransactionFrame extends JFrame{
 		TPage.add(btransfer);
 		btransfer.addActionListener((e) ->
 		{
-			try
-			{
-		
+			
 			int a= 1; //validateAccno();
 			if(a==1)
 			{
-				new TransferFrame(Search.searchId(accno.getText().trim()));
+
+				EventQueue.invokeLater(new Runnable() 
+				{
+					public void run() 
+					{
+						try 
+						{
+							TransferFrame form = new TransferFrame(accNo);
+							
+						}
+						catch (Exception e) 
+						{
+							e.printStackTrace();
+						}
+					}
+				});
+
+
+			}
 				this.setVisible(false);
-			}
-			}
-			catch(Exception a)
-			{
-				JOptionPane.showMessageDialog(this,"Invalid Account Number");
-			}
-		});
-
-
+			
+		}
 		
+				
+				
+				);
+				
 		
 		/*TPage.add(l1);TPage.add(accno);
 		TPage.add(bwithdrawal);TPage.add(new JLabel(""));
@@ -165,7 +161,7 @@ public class TransactionFrame extends JFrame{
 		
 	}
 	
-	/*public static void main(String[] args) 
+	public static void main(String[] args) 
     {
 		SwingUtilities.invokeLater(new Runnable()
         {
@@ -175,7 +171,7 @@ public class TransactionFrame extends JFrame{
             }
         });
 		
-    }*/
+    }
 	
 }
 

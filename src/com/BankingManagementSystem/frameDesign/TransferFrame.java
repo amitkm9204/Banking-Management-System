@@ -6,8 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -21,23 +19,14 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
 
 import com.BankingManagementSystem.FileHandling.CustomerDetailsFile;
-import com.BankingManagementSystem.FileHandling.TransactionDetailsFile;
 import com.BankingManagementSystem.Pojo.CustomerDetails;
-import com.BankingManagementSystem.Pojo.TransactionSummary;
 
 public class TransferFrame {
 	
 	JLabel labelAccNo;
-	ArrayList<CustomerDetails> userlist = CustomerDetailsFile.readDataFromFile();
 	int senIndex,recIndex;
-	private JTextField tRecAcc;
-	private JTextField tAmount;
-	private  JPanel contentPane;
-	private JLabel labelName,labelAmount,lblSendersName,label_1 ,lblMoney;
-	private JButton bmanager;
-	
-	
-	
+	JTextField tRecAcc;
+	JTextField tAmount;
 	 public TransferFrame(int index){
 	        JFrame frame = new JFrame("FUND TRANSFER");
 	        
@@ -61,12 +50,12 @@ public class TransferFrame {
             });
            
 	        
-            contentPane = new JPanel();
+            JPanel contentPane = new JPanel();
             contentPane.setOpaque(true);
             contentPane.setBackground(Color.WHITE);
             contentPane.setLayout(null);
-            //CustomerDetails customerDetails = new CustomerDetails();
-            labelName = new JLabel(userlist.get(senIndex).getCname(), JLabel.CENTER);
+            CustomerDetails customerDetails = new CustomerDetails();
+            JLabel labelName = new JLabel("dsgd", JLabel.CENTER);
             labelName.setToolTipText("Sender's Name");
             Font f1=new Font("comic sans ms",Font.BOLD,48);
             labelName.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
@@ -75,7 +64,7 @@ public class TransferFrame {
             labelName.setLocation(280,307);
             contentPane.add(labelName);
 	        //ArrayList<CustomerDetails> list = new ArrayList<CustomerDetails>();
-            labelAccNo = new JLabel(userlist.get(senIndex).getAccountNo(), JLabel.CENTER);
+            JLabel labelAccNo = new JLabel(/*list.get(senIndex).getAccountNo()*/"accc", JLabel.CENTER);
             labelAccNo.setToolTipText("Sender's Account Number");
             Font f2=new Font("comic sans ms",Font.BOLD,48);
             labelAccNo.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
@@ -84,7 +73,7 @@ public class TransferFrame {
             labelAccNo.setLocation(280,233);
             contentPane.add(labelAccNo);
             
-           labelAmount = new JLabel("Amount :", JLabel.CENTER);
+            JLabel labelAmount = new JLabel("Amount :", JLabel.CENTER);
             Font f3=new Font("comic sans ms",Font.BOLD,48);
             labelAmount.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
             labelAmount.setForeground(Color.RED);
@@ -93,7 +82,7 @@ public class TransferFrame {
             contentPane.add(labelAmount);
             
             
-          tAmount = new JTextField();
+            JTextField tAmount = new JTextField();
             tAmount.setToolTipText("Enter Amount To Be Transfer");
             Font f5=new Font("comic sans ms",Font.ITALIC,18);
             tAmount.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
@@ -102,7 +91,7 @@ public class TransferFrame {
             contentPane.add(tAmount);
             
 
-            JLabel labelReceiverAcc = new JLabel("Receiver Account NO", JLabel.CENTER);
+            JLabel labelReceiverAcc = new JLabel("Account No. :", JLabel.CENTER);
             Font f4=new Font("comic sans ms",Font.BOLD,48);
             labelReceiverAcc.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
             labelReceiverAcc.setForeground(Color.RED);
@@ -111,7 +100,7 @@ public class TransferFrame {
             contentPane.add(labelReceiverAcc);
             
             
-            tRecAcc = new JTextField();
+            JTextField tRecAcc = new JTextField();
             tRecAcc.setToolTipText("Enter Reciever's Account Number");
             Font f6=new Font("comic sans ms",Font.ITALIC,18);
             tRecAcc.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
@@ -119,7 +108,7 @@ public class TransferFrame {
             tRecAcc.setLocation(280,376);
             contentPane.add(tRecAcc);
             
-             bmanager = new JButton("Transfer");
+            JButton bmanager = new JButton("Transfer");
             bmanager.setToolTipText("Confirm");
             bmanager.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
             Font f7=new Font("comic sans ms",Font.BOLD,22);
@@ -139,11 +128,8 @@ public class TransferFrame {
                             frame, "Are you sure?");
                     if( result==JOptionPane.OK_OPTION)
                     {
-                      
-                    	transferMoney();
-                        frame.setVisible(false);
-                        TransactionFrame ob = new TransactionFrame(null);
-                        ob.setVisible(true);
+                        transferMoney();
+					
 				    }
 			   }
 	        }
@@ -152,24 +138,23 @@ public class TransferFrame {
 	        
 	 
 
-           lblSendersName = new JLabel("Name :", SwingConstants.CENTER);
+            JLabel lblSendersName = new JLabel("Name :", SwingConstants.CENTER);
             lblSendersName.setForeground(Color.RED);
             lblSendersName.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
             lblSendersName.setBounds(116, 303, 158, 50);
             contentPane.add(lblSendersName);
             
-           label_1 = new JLabel("Account No. :", SwingConstants.CENTER);
+            JLabel label_1 = new JLabel("Account No. :", SwingConstants.CENTER);
             label_1.setForeground(Color.RED);
             label_1.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
             label_1.setBounds(10, 233, 250, 57);
             contentPane.add(label_1);
             
-           lblMoney = new JLabel("MONEY TRANSFER", SwingConstants.CENTER);
+            JLabel lblMoney = new JLabel("MONEY TRANSFER", SwingConstants.CENTER);
             lblMoney.setForeground(new Color(47, 79, 79));
             lblMoney.setFont(new Font("Comic Sans MS", Font.BOLD, 48));
             lblMoney.setBounds(28, 11, 559, 50);
             contentPane.add(lblMoney);
-            frame.add(contentPane);
             frame.setSize(650,700);
             frame.setLocationByPlatform(false);
             frame.setVisible(true);
@@ -183,53 +168,16 @@ public class TransferFrame {
 		 recIndex = Search.searchId(tRecAcc.getText().trim());
 		 if(recIndex >= 0)
          {
-        	 
+        	 ArrayList<CustomerDetails> userlist = CustomerDetailsFile.readDataFromFile();
         	 userlist.get(senIndex).setBalance(userlist.get(senIndex).getBalance() - Double.parseDouble(tAmount.getText().trim()) );
-        	 userlist.get(recIndex).setBalance(userlist.get(recIndex).getBalance() + Double.parseDouble(tAmount.getText().trim()) );
-        	 
-        	 TransactionSummary ts = new TransactionSummary();
-           	 ts.setAccNo(userlist.get(recIndex).getAccountNo());
-           	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        	 LocalDateTime now = LocalDateTime.now();
-           	 ts.setDateAndTime(dtf.format(now));
-           	 ts.setDeposite(Double.parseDouble(tAmount.getText().trim()));
-           	 ts.setWithdrawal(0.0);
-           	 
-           	 ArrayList<TransactionSummary> trans = new ArrayList<TransactionSummary>();
-           	 
-           	 trans =  TransactionDetailsFile.readDataFromFile();
-           	 trans.add(ts);
-           	 
-           	 TransactionDetailsFile.writeDatatoFile(trans);
-           	 
-           	 
-           	 
-           	 
-           	TransactionSummary ts1 = new TransactionSummary();
-          	 ts1.setAccNo(userlist.get(senIndex).getAccountNo());
-          	DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-       	 LocalDateTime now1 = LocalDateTime.now();
-          	 ts1.setDateAndTime(dtf1.format(now1));
-          	 ts1.setWithdrawal(Double.parseDouble(tAmount.getText().trim()));
-          	 ts1.setDeposite(0.0);
-          	 
-          	 ArrayList<TransactionSummary> trans1 = new ArrayList<TransactionSummary>();
-          	 
-          	 trans1 =  TransactionDetailsFile.readDataFromFile();
-          	 trans1.add(ts);
-          	 
-          	 TransactionDetailsFile.writeDatatoFile(trans1);
-           	 
-           	 
+        	 userlist.get(recIndex).setBalance(userlist.get(recIndex).getBalance() + Double.parseDouble(tAmount.getText().trim()) );		 
         	 CustomerDetailsFile.writeDatatoFile(userlist);
         	 
-        	 JOptionPane.showMessageDialog(tAmount, "Transfer complete");
-        	
-        	 
+        	 JOptionPane.showInputDialog(this, "Transfer complete");
          }
          else
          {
-            JOptionPane.showInputDialog(tAmount, "Invalid Account number");
+            JOptionPane.showInputDialog(this, "Invalid Account number");
          }
 	 }
 

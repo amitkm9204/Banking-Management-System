@@ -3,7 +3,6 @@ package com.BankingManagementSystem.frameDesign;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,23 +12,14 @@ import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
-import com.BankingManagementSystem.Pojo.CustomerDetails;
 
-import com.BankingManagementSystem.FileHandling.*;
 
 public class CustomerInformationFrame extends JFrame
 {
 	private JPanel contentPane;
 	private JTextField txtTotalAcc;
 	private JTextField textField;
-	private JLabel lblTotalAccountant;
-	private JLabel lblViewAccountant;
-	private JLabel lblCustomerDetails;
-	private JButton btnNewButton;
-	private JLabel lblAccountNumber ;
 	
-	ArrayList<CustomerDetails> userlist =new  ArrayList<CustomerDetails>();
-	ArrayList<CustomerDetails> userlisttemp =new  ArrayList<CustomerDetails>();
 	public CustomerInformationFrame()
 	{
 		formopen();
@@ -50,7 +40,7 @@ public class CustomerInformationFrame extends JFrame
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		lblTotalAccountant = new JLabel("TOTAL CUSTOMER : ");
+		JLabel lblTotalAccountant = new JLabel("TOTAL CUSTOMER : ");
 		lblTotalAccountant.setForeground(new Color(0, 0, 255));
 		lblTotalAccountant.setFont(new Font("Lucida Handwriting", Font.BOLD, 16));
 		lblTotalAccountant.setBounds(41, 125, 219, 34);
@@ -72,13 +62,13 @@ public class CustomerInformationFrame extends JFrame
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-		lblViewAccountant = new JLabel("! VIEW CUSTOMER ! ");
+		JLabel lblViewAccountant = new JLabel("! VIEW CUSTOMER ! ");
 		lblViewAccountant.setForeground(new Color(139, 0, 0));
 		lblViewAccountant.setFont(new Font("Lucida Handwriting", Font.BOLD, 22));
 		lblViewAccountant.setBounds(152, 205, 268, 26);
 		contentPane.add(lblViewAccountant);
 		
-		btnNewButton = new JButton("SHOW DETAILS");
+		JButton btnNewButton = new JButton("SHOW DETAILS");
 		btnNewButton.setToolTipText("Display all details");
 		btnNewButton.setFont(new Font("Lucida Handwriting", Font.BOLD, 24));
 		btnNewButton.setBackground(new Color(0, 0, 128));
@@ -86,27 +76,13 @@ public class CustomerInformationFrame extends JFrame
 		btnNewButton.setBounds(293, 340, 249, 62);
 		contentPane.add(btnNewButton);
 		
-		
-		userlist = CustomerDetailsFile.readDataFromFile();
-		Integer total = userlist.size();
-		txtTotalAcc.setText(total.toString());
-		
-		btnNewButton.addActionListener((e)->
-		{
-			int index = Search.searchId(textField.getText().trim());
-			userlisttemp.add(userlist.get(index));
-			
-			new ShowCustomerDetails(userlisttemp);
-		});
-		
-		
-		lblCustomerDetails = new JLabel("CUSTOMER DETAILS");
+		JLabel lblCustomerDetails = new JLabel("CUSTOMER DETAILS");
 		lblCustomerDetails.setForeground(new Color(0, 128, 0));
 		lblCustomerDetails.setFont(new Font("Times New Roman", Font.BOLD, 40));
 		lblCustomerDetails.setBounds(100, 23, 423, 41);
 		contentPane.add(lblCustomerDetails);
 		
-		lblAccountNumber = new JLabel("ACCOUNT NUMBER: ");
+		JLabel lblAccountNumber = new JLabel("ACCOUNT NUMBER: ");
 		lblAccountNumber.setForeground(Color.BLUE);
 		lblAccountNumber.setFont(new Font("Lucida Handwriting", Font.BOLD, 16));
 		lblAccountNumber.setBounds(41, 259, 219, 34);
