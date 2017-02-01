@@ -6,28 +6,39 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
+
+import com.BankingManagementSystem.FileHandling.CustomerDetailsFile;
+import com.BankingManagementSystem.FileHandling.TransactionDetailsFile;
+import com.BankingManagementSystem.Pojo.CustomerDetails;
+import com.BankingManagementSystem.Pojo.TransactionSummary;
+import com.BankingManagementSystem.frameDesign.*;
 
 public class PassbookAndCheque extends JFrame
 {
 	private JPanel PassbookAndCheque;
 	private JTextField txtAccountNumber;
 	private JTextField txtCustomerName;
+	private JButton btnNewButton,btnNewBUttonPrint ;
+	int index1;
+	ArrayList<CustomerDetails> userlist = new ArrayList<CustomerDetails>();
 	
-	
-	public PassbookAndCheque(int index)
+	ArrayList<TransactionSummary> transtemp = new ArrayList<TransactionSummary>();
+	public PassbookAndCheque()
 	{
 	
 		//ManagerLoginPage obj=new ManagerLoginPage();
 		
 		setResizable(false);
-		setTitle("PASSBOOK AND CHEQUE BOOK");
+		setTitle("");
 		
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -56,7 +67,7 @@ public class PassbookAndCheque extends JFrame
 		setContentPane(PassbookAndCheque);
 		PassbookAndCheque.setLayout(null);
 		
-		JLabel lblPassbookAndCheque = new JLabel("PASSBOOK AND CHEQUE CONFIRMATION");
+		JLabel lblPassbookAndCheque = new JLabel("PRINTING AND ISSUEING A PASSBOOK");
 		lblPassbookAndCheque.setForeground(new Color(128, 128, 0));
 		lblPassbookAndCheque.setFont(new Font("Times New Roman", Font.BOLD, 27));
 		lblPassbookAndCheque.setBackground(new Color(245, 222, 179));
@@ -91,31 +102,53 @@ public class PassbookAndCheque extends JFrame
 		txtCustomerName.setBounds(253, 231, 313, 31);
 		PassbookAndCheque.add(txtCustomerName);
 		
-		JButton btnNewButton = new JButton("COMFIRM");
-		btnNewButton.setToolTipText("Please Confirm");
+		 btnNewButton = new JButton("DETAILS");
+		btnNewButton.setToolTipText("shows the deatails of customer");
 		btnNewButton.setBackground(new Color(218, 165, 32));
 		btnNewButton.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		btnNewButton.setFont(new Font("Times New Roman", Font.BOLD, 26));
 		btnNewButton.setBounds(396, 336, 170, 55);
 		PassbookAndCheque.add(btnNewButton);
 		
-		setVisible(true);
+		btnNewButton.addActionListener((e)->
+		{
+			printDetails();
+		});
+		
+		
+
+		 btnNewBUttonPrint = new JButton("TRANSACTION");
+		 btnNewBUttonPrint.setToolTipText("print the transaction history");
+		 btnNewBUttonPrint.setBackground(new Color(218, 165, 32));
+		 btnNewBUttonPrint.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		 btnNewBUttonPrint.setFont(new Font("Times New Roman", Font.BOLD, 26));
+		 btnNewBUttonPrint.setBounds(96, 336, 170, 55);
+		PassbookAndCheque.add(btnNewBUttonPrint);
+		
+		btnNewBUttonPrint.addActionListener((e)->
+		{
+			printPassbook();
+		});
+		
+		 
+		 setVisible(true);
 	}
-	
-}
-
-/*public class PassbookAndCheque 
-{
-
-	public static void main(String[] args) 
+	public void printDetails()
 	{
+		
+		
+		userlist = CustomerDetailsFile.readDataFromFile();
+		index1=Search.searchId(txtAccountNumber.getText().trim());
+		ArrayList<CustomerDetails> userlisttemp = new ArrayList<CustomerDetails>();
+		userlisttemp.add(userlist.get(index1));
+		//JOptionPane.showMessageDialog(this, "hey");
 		EventQueue.invokeLater(new Runnable() 
 		{
 			public void run() 
 			{
 				try 
 				{
-					PassbookCheque pc = new PassbookCheque();
+					new ShowCustomerDetails(userlisttemp);
 				}
 				catch (Exception e) 
 				{
@@ -123,6 +156,28 @@ public class PassbookAndCheque extends JFrame
 				}
 			}
 		});
+		
+	}
+	public void printPassbook()
+	{
+		ArrayList<TransactionSummary> trans =new  ArrayList<TransactionSummary>();
+		trans = TransactionDetailsFile.readDataFromFile();
+		for(TransactionSummary re : trans)
+		{
+			if((txtAccountNumber.getText().trim()).equals(re.getAccNo()))
+			transtemp.add(re);
+				
+		}
+		new PrintPassbook(transtemp);
+	}
+}
+
+/*public class PassbookAndCheque 
+{
+
+	public static void main(String[] args) 
+	{
+		
 
 	}
 

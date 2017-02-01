@@ -55,7 +55,7 @@ public class TransactionFrame extends JFrame{
                             JFrame.DISPOSE_ON_CLOSE);
                     setVisible(false);
                     dispose();
-                    new AccountantFrame();
+                    //new AccountantFrame();
                 }
         }
         );

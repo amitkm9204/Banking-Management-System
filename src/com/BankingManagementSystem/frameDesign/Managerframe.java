@@ -26,7 +26,7 @@ public class Managerframe extends JFrame
 	private JLabel label;
 	private JPanel contentPane;
 	private JFrame frame;
-	private JButton bpassBook;
+	private JButton bpassBook,bcheckBook,bDraft;
 	private JButton btransSummary;
 	private JButton bCustomerInfo;
 	private JButton bAccountantInfo;
@@ -43,21 +43,22 @@ public class Managerframe extends JFrame
         frame = new JFrame("MANAGER ");
         frame.setResizable(false);
         
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+       // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       // frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         
-       /* addWindowListener(new WindowAdapter() {
+        addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                //int result = JOptionPane.showConfirmDialog(frame, "Are you sure?");
-               // if( result==JOptionPane.OK_OPTION){
-                    // NOW we change it to dispose on close..
-            		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            		frame.setVisible(false);
-            		frame.dispose();
-                	new ManagerLoginPage();
-                }
-        }
-        );*/
+                 //int result = JOptionPane.showConfirmDialog(frame, "Are you sure?");
+                // if( result==JOptionPane.OK_OPTION){
+                     // NOW we change it to dispose on close..
+             	frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+             	frame.setVisible(false);
+             	frame.dispose();
+                     //new AccountantFrame();
+                 }
+         }
+         );
+ 		
         
         contentPane = new JPanel();
         contentPane.setOpaque(true);
@@ -80,23 +81,59 @@ public class Managerframe extends JFrame
         contentPane.add(label);
         
         
-        bpassBook = new JButton("Passbook Or Cheque Book");
-        bpassBook.setToolTipText("Passbook and Cheque book issuing");
+        bpassBook = new JButton("Passbook ");
+        bpassBook.setToolTipText("Issue or printing a passbook");
         bpassBook.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
        
         Font f2=new Font("comic sans ms",Font.BOLD,22);
        
         bpassBook.setFont(f2);
         bpassBook.setForeground(new Color(160, 82, 45));
-        bpassBook.setSize(300,80);
-        bpassBook.setLocation(100,189);
+        bpassBook.setSize(100,60);
+        bpassBook.setLocation(90,189);
         bpassBook.setFocusable(false);
         contentPane.add(bpassBook);
         
         bpassBook.addActionListener((e)->
         {
-        	confirm();
+        	passbook();
         });
+        
+        bcheckBook = new JButton("Check Book ");
+        bcheckBook.setToolTipText("Issue a check book");
+        bcheckBook.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+       
+        Font f3=new Font("comic sans ms",Font.BOLD,22);
+       
+        bcheckBook.setFont(f3);
+        bcheckBook.setForeground(new Color(160, 82, 45));
+        bcheckBook.setSize(100,60);
+        bcheckBook.setLocation(200,189);
+        bcheckBook.setFocusable(false);
+        contentPane.add(bcheckBook);
+        
+        /*bcheckBook.addActionListener((e)->
+        {
+        	checkBook();
+        });*/
+        bDraft = new JButton("Draft ");
+        bDraft.setToolTipText("Issue a Demand Draft");
+        bDraft.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+       
+        Font f4=new Font("comic sans ms",Font.BOLD,22);
+       
+        bDraft.setFont(f3);
+        bDraft.setForeground(new Color(160, 82, 45));
+        bDraft.setSize(100,60);
+        bDraft.setLocation(310,189);
+        bDraft.setFocusable(false);
+        contentPane.add(bDraft);
+        
+       /* bDraft.addActionListener((e)->
+        {
+        	confirm();
+        });*/
+        
         
         btransSummary = new JButton("Transaction summary");
         btransSummary.setToolTipText("All Transation Summary");
@@ -157,6 +194,32 @@ public class Managerframe extends JFrame
         frame.setLocationByPlatform(false);
         frame.setVisible(true);
     }
+      /*public void checkBook()
+      {
+    	  EventQueue.invokeLater(new Runnable() {
+   			public void run() {
+   				try {
+   					  //new CustomerInformationFrame();
+   					
+   				} catch (Exception e) {
+   					e.printStackTrace();
+   				}
+   			}
+   		});
+      }*/
+      public void passbook()
+      {
+    	  EventQueue.invokeLater(new Runnable() {
+   			public void run() {
+   				try {
+   					  new PassbookAndCheque();
+   					
+   				} catch (Exception e) {
+   					e.printStackTrace();
+   				}
+   			}
+   		});
+      }
       public void accountantInfo()
       {
     	  EventQueue.invokeLater(new Runnable() {
@@ -199,19 +262,19 @@ public class Managerframe extends JFrame
  			}
  		});
       }
-     public void confirm()
+    /* public void confirm()
      {
     	 EventQueue.invokeLater(new Runnable() {
  			public void run() {
  				try {
- 					  new PassbookAndCheque(ManagerIndex);
+ 					 // new PassbookAndCheque(ManagerIndex);
  					
  				} catch (Exception e) {
  					e.printStackTrace();
  				}
  			}
  		}); 
-     }
+     }*/
      /* public static void main(String... args)
       {
           SwingUtilities.invokeLater(new Runnable()

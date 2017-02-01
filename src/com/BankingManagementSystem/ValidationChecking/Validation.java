@@ -18,7 +18,7 @@ public class Validation
     	
     	if (match == null)
     	{
-    		JOptionPane.showMessageDialog(null, "Invalid Name..Please Enter Another Email");
+    		JOptionPane.showMessageDialog(null, "Invalid Name..Please Enter valid name");
 		    
     		return false;
     	}

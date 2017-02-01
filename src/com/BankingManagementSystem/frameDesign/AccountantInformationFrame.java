@@ -41,23 +41,17 @@ public class AccountantInformationFrame extends JFrame
 		
 		setResizable(false);
 		setTitle("ACCOUNTANT INFORMATION");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		/*
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                //int result = JOptionPane.showConfirmDialog(frame, "Are you sure?");
-               // if( result==JOptionPane.OK_OPTION){
-                    // NOW we change it to dispose on close..
-            	 	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            	 	setVisible(false);
-            	 	dispose();
-                	new Managerframe(obj.loginIndex);
-                }
-        }
-        );
-        */
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		addWindowListener(new WindowAdapter() {
+	           public void windowClosing(WindowEvent e) {
+	            	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	            	setVisible(false);
+	            	dispose();
+	                   
+	                }
+	        }
+	        );
 		setBounds(100, 100, 598, 457);
 		contentPane = new JPanel();
 		contentPane.setFont(new Font("Lucida Handwriting", Font.BOLD, 16));
@@ -118,7 +112,7 @@ public class AccountantInformationFrame extends JFrame
 			int index = searchId(textField.getText().trim());
 			 accttemp = new ArrayList<AccountantDetails>();
 			accttemp.add(acct.get(index));
-JOptionPane.showMessageDialog(null, accttemp.get(0).getAccountantName());
+
 			SwingUtilities.invokeLater(new Runnable()
             {
                 public void run()

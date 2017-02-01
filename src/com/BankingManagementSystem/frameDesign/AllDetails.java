@@ -224,3 +224,56 @@ class ShowCustomerDetails  extends JFrame{
 			this.setVisible(true);
 	}
 }
+
+class PrintPassbook  extends JFrame{
+	
+
+
+	public PrintPassbook(ArrayList<TransactionSummary> list)
+	{
+		
+			super();
+			String heading[]={" Date and Time  " ," Debit " ," Credit "};
+			String data[][];
+			//ArrayList<Registration> list;
+			
+			try
+			{
+				//list = CustomerDetailsFile.readDataFromFile();
+				
+				data = new String[list.size()][3];
+				
+				int r=0;
+				//CustomerDetails re = new CustomerDetails();
+				//JOptionPane.showMessageDialog(null, "hey");
+				for(TransactionSummary re : list)
+				{
+					data[r][0]=re.getDateAndTime();
+					data[r][1]=re.getDeposite().toString();
+					data[r][2]=re.getWithdrawal().toString();
+					
+				r++;
+				}
+				
+				
+				Container con=getContentPane();
+				con.setLayout(new BorderLayout());
+				
+				JTable datatable=new JTable(data, heading);
+				JScrollPane jsp=new JScrollPane(datatable);
+				
+				con.add(new JLabel("Transaction history"),BorderLayout.NORTH);
+				con.add(jsp,BorderLayout.CENTER);
+				
+				setSize(850, 300);
+				
+				setLocation(200, 200);
+				setVisible(true);
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			
+			this.setVisible(true);
+	}
+}

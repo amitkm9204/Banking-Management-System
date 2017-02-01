@@ -30,13 +30,10 @@ public class DeleteAccountFrame extends JFrame
         
         frmDeleteAccount.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                //int result = JOptionPane.showConfirmDialog(frame, "Are you sure?");
-               // if( result==JOptionPane.OK_OPTION){
-                    // NOW we change it to dispose on close..
             	frmDeleteAccount.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             	frmDeleteAccount.setVisible(false);
             	frmDeleteAccount.dispose();
-                    new AccountantFrame();
+                    
                 }
         }
         );

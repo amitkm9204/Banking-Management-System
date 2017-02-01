@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Label;
 import java.awt.Panel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -60,7 +62,20 @@ class AccountantFrame extends JFrame
 		
 		setResizable(false);
 		setTitle("ACCOUNTANT");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		//setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		
+		addWindowListener(new WindowAdapter() {
+           public void windowClosing(WindowEvent e) {
+            	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            	setVisible(false);
+            	dispose();
+                   
+                }
+        }
+        );
+		
 		setBounds(100,100, 700, 600);
 		accountantPage = new JPanel();
 		accountantPage .setBackground(new Color(255, 239, 213));

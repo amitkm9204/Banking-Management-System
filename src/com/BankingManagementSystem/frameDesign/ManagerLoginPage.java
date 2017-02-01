@@ -16,6 +16,8 @@ import com.BankingManagementSystem.Pojo.ManagerDetails;
 
 import javax.swing.UIManager;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -66,7 +68,15 @@ public class ManagerLoginPage extends JFrame
 		
 		//setIconImage(Toolkit.getDefaultToolkit().getImage(AdminLoginPage.class.getResource("/resources/1485472416_Banking_00019_A.png")));
 		setTitle("MANAGER LOGIN");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+            	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            	setVisible(false);
+            	dispose();
+                    
+                }
+        }
+        );
 		setBounds(0, 0, 1378, 780);
 		AdminPage = new JPanel();
 		AdminPage.setBackground(new Color(176, 224, 230));

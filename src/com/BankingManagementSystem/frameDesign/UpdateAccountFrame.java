@@ -47,7 +47,7 @@ public class UpdateAccountFrame extends JFrame
             	 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             	 frame.setVisible(false);
             	 frame.dispose();
-                    new AccountantFrame();
+                   // new AccountantFrame();
                 }
         }
         );
