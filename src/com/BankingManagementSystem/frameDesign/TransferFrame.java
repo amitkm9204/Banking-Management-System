@@ -24,6 +24,7 @@ import com.BankingManagementSystem.FileHandling.CustomerDetailsFile;
 import com.BankingManagementSystem.FileHandling.TransactionDetailsFile;
 import com.BankingManagementSystem.Pojo.CustomerDetails;
 import com.BankingManagementSystem.Pojo.TransactionSummary;
+import com.BankingManagementSystem.ValidationChecking.EmailValid;
 
 public class TransferFrame {
 	
@@ -232,7 +233,19 @@ public class TransferFrame {
            	 
            	 
         	 CustomerDetailsFile.writeDatatoFile(userlist);
+        	 String message = "Thank you for using Globsyn Bank , "+tAmount.getText().trim()+"Rupees is debited from your account ";
+			 
+        	 message = message+userlist.get(senIndex).getAccountNo() + "Your current balance is "+userlist.get(senIndex).getBalance()+"Rupees";
         	 
+        	 EmailValid obj=new EmailValid();
+				obj.Email(message);
+        	 
+        	 String message1 = "Thank you for using Globsyn Bank , "+tAmount.getText().trim()+"Rupees is credited to your account ";
+        	 
+        	 message = message+userlist.get(recIndex).getAccountNo() + "Your current balance is "+userlist.get(recIndex).getBalance()+"Rupees";
+        	 
+        	 EmailValid obj1=new EmailValid();
+				obj.Email(message1);
         	 JOptionPane.showMessageDialog(tAmount, "Transfer complete");
         	
         	 

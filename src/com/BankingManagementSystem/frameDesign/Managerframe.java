@@ -112,10 +112,10 @@ public class Managerframe extends JFrame
         bcheckBook.setFocusable(false);
         contentPane.add(bcheckBook);
         
-        /*bcheckBook.addActionListener((e)->
+        bcheckBook.addActionListener((e)->
         {
         	checkBook();
-        });*/
+        });
         bDraft = new JButton("Draft ");
         bDraft.setToolTipText("Issue a Demand Draft");
         bDraft.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -129,10 +129,10 @@ public class Managerframe extends JFrame
         bDraft.setFocusable(false);
         contentPane.add(bDraft);
         
-       /* bDraft.addActionListener((e)->
+        bDraft.addActionListener((e)->
         {
-        	confirm();
-        });*/
+        	draft();
+        });
         
         
         btransSummary = new JButton("Transaction summary");
@@ -194,19 +194,19 @@ public class Managerframe extends JFrame
         frame.setLocationByPlatform(false);
         frame.setVisible(true);
     }
-      /*public void checkBook()
+      public void checkBook()
       {
     	  EventQueue.invokeLater(new Runnable() {
    			public void run() {
    				try {
-   					  //new CustomerInformationFrame();
+   					  new ChequeBook();
    					
    				} catch (Exception e) {
    					e.printStackTrace();
    				}
    			}
    		});
-      }*/
+      }
       public void passbook()
       {
     	  EventQueue.invokeLater(new Runnable() {
@@ -262,19 +262,19 @@ public class Managerframe extends JFrame
  			}
  		});
       }
-    /* public void confirm()
+     public void draft()
      {
     	 EventQueue.invokeLater(new Runnable() {
  			public void run() {
  				try {
- 					 // new PassbookAndCheque(ManagerIndex);
+ 					 new DemandDraft();
  					
  				} catch (Exception e) {
  					e.printStackTrace();
  				}
  			}
  		}); 
-     }*/
+     }
      /* public static void main(String... args)
       {
           SwingUtilities.invokeLater(new Runnable()

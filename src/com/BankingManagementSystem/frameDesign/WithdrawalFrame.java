@@ -24,6 +24,7 @@ import com.BankingManagementSystem.FileHandling.CustomerDetailsFile;
 import com.BankingManagementSystem.FileHandling.TransactionDetailsFile;
 import com.BankingManagementSystem.Pojo.CustomerDetails;
 import com.BankingManagementSystem.Pojo.TransactionSummary;
+import com.BankingManagementSystem.ValidationChecking.EmailValid;
 
 public class WithdrawalFrame {
 	
@@ -197,6 +198,12 @@ public class WithdrawalFrame {
            	 
         	 
         	 CustomerDetailsFile.writeDatatoFile(userlist);
+        	 String message = "Thank you for using Globsyn Bank , "+tdel.getText().trim()+"Rupees is debited from your account ";
+        			 
+        	 message = message+userlist.get(accNo).getAccountNo() + "Your current balance is "+userlist.get(accNo).getBalance()+"Rupees";
+        	 
+        	 EmailValid obj=new EmailValid();
+				obj.Email(message);
         	 
         	 JOptionPane.showMessageDialog(tdel, "withdrawal complete");
          }
