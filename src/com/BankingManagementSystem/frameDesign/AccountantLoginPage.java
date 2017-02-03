@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.Color;
-import java.awt.EventQueue;
+
 import java.awt.Panel;
 import java.awt.Toolkit;
 
@@ -176,24 +176,15 @@ class LoginAccountant extends JFrame
 		AdminPage.add(lblAccountant);
 		this.setVisible(true);
 	}
-/*	public void loginCheck1()
+	/*public void loginCheck1()
 	{
 		ArrayList<AccountantDetails> userlist = AccountantDetailsFile.readDataFromFile();
-		//userlist.remove(1);
-		//userlist.get(3).setAccountantPassword("accountant");
-		//AccountantDetails obj = new AccountantDetails();
-		/*obj.setAccountantId("debabrata");
+		AccountantDetails obj = new AccountantDetails();
+		obj.setAccountantId("debabrata");
 		obj.setAccountantName("debabrata");
 		obj.setAccountantPassword("debabrata");
-		obj.setSalary(50000.0);
-		for(int i=0;i<userlist.size();i++){
-		System.out.println(userlist.get(i).getAccountantId());
-		System.out.println(userlist.get(i).getAccountantName());
-		System.out.println(userlist.get(i).getAccountantPassword());
-		System.out.println(userlist.get(i).getSalary());}
-		//userlist.add(obj);
-		//JOptionPane.showMessageDialog(this, userlist.size());
-		//AccountantDetailsFile.writeDatatoFile(userlist);
+		userlist.add(obj);
+		AccountantDetailsFile.writeDatatoFile(userlist);
 	}*/
 	public void loginCheck()
 	{
@@ -258,7 +249,7 @@ class LoginAccountant extends JFrame
 }
 
 
-public class AccountantLoginPage 
+/*public class AccountantLoginPage 
 {
 
 	public static void main(String[] args)
@@ -283,4 +274,4 @@ public class AccountantLoginPage
 		
 	}
 
-}
+}*/

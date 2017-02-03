@@ -173,17 +173,11 @@ public class ManagerLoginPage extends JFrame
 	{
 		ArrayList<ManagerDetails> userlist = ManagerDetailsFile.readDataFromFile();
 		ManagerDetails obj = new ManagerDetails();
-		obj.setManagerId("manager");
-		obj.setManagerPassword("manager");
-		obj.setManagerName("manager");
+		obj.setManagerId("pravat");
+		obj.setManagerPassword("pravat");
+		obj.setManagerName("pravat");
 		userlist.add(obj);
-		for(int i=0;i<userlist.size();i++)
-		{
-			System.out.println(userlist.get(i).getManagerId());
-			System.out.println(userlist.get(i).getManagerName());
-			System.out.println(userlist.get(i).getManagerPassword());
-		}
-		//ManagerDetailsFile.writeDatatoFile(userlist);
+		ManagerDetailsFile.writeDatatoFile(userlist);
 	}*/
 	
 	public void loginCheck()

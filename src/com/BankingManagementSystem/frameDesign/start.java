@@ -16,6 +16,8 @@ import javax.imageio.ImageIO;
 
 class picture extends JWindow implements Runnable
 {
+	
+	
 	public void run()
         {
 		JLabel SplashLabel = new JLabel(new ImageIcon("bld.jpg"));
@@ -32,9 +34,13 @@ class picture extends JWindow implements Runnable
 
 class start extends JFrame implements ActionListener 
 {
+	
 	private JLabel lib;
 	private JButton administrator;
 	private JButton operator;
+	
+	public static boolean flagmng=true;
+	public static boolean flagacc=true;
 	
         public start() 
 	{	
@@ -150,7 +156,8 @@ class start extends JFrame implements ActionListener
         
         public void AccountantLogin()
         {
-
+        	if(flagacc==true)
+        	{
             SwingUtilities.invokeLater(new Runnable()
             {
                 public void run()
@@ -159,19 +166,48 @@ class start extends JFrame implements ActionListener
           
                 }
             });
+        	}
+        	else
+        	{
+        		SwingUtilities.invokeLater(new Runnable()
+                {
+                    public void run()
+                    {
+                        new AccountantFrame(AccountantFrame.acc);
+              
+                    }
+                });
+        	}
         }
         
         public void managerLogin()
         {
-
+        	
+        	//JOptionPane.showMessageDialog(null, flagmng);
+            
+            if(flagmng==false)
+        	{
             SwingUtilities.invokeLater(new Runnable()
             {
                 public void run()
                 {
-                    new ManagerLoginPage();
-                    
+                	new Managerframe(Managerframe.mng);
+                	
+          
                 }
             });
+        	}
+            else
+        	{
+        		SwingUtilities.invokeLater(new Runnable()
+                {
+                    public void run()
+                    {
+                    	new ManagerLoginPage();
+              
+                    }
+                });
+        	}
         }
 		
 	public static void main(String args[])

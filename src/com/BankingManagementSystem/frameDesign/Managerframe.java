@@ -12,15 +12,14 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
 
-import com.BankingManagementSystem.FileHandling.AccountantDetailsFile;
 import com.BankingManagementSystem.FileHandling.ManagerDetailsFile;
 import com.BankingManagementSystem.FileHandling.TransactionDetailsFile;
-import com.BankingManagementSystem.Pojo.AccountantDetails;
 import com.BankingManagementSystem.Pojo.ManagerDetails;
 import com.BankingManagementSystem.Pojo.TransactionSummary;
 
@@ -36,6 +35,9 @@ public class Managerframe extends JFrame
 	private JLabel lblManagerName ;
 	private JLabel lblNewLabel;
 	
+	static int mng;
+	
+
 	ArrayList<ManagerDetails> managerlist = new ArrayList<ManagerDetails>();
 	ArrayList<TransactionSummary>  transactionlist;
 	int ManagerIndex;
@@ -44,29 +46,39 @@ public class Managerframe extends JFrame
     	  
   		
     	  ManagerIndex = index;
+    	  mng=ManagerIndex;
     	  managerlist = ManagerDetailsFile.readDataFromFile();
-        frame = new JFrame("MANAGER ");
-        frame.setIconImage(Toolkit.getDefaultToolkit().getImage(start.class.getResource("/resources/customer-service.png")));
-
-        frame.setResizable(false);
+    	  setResizable(false);
+  		setTitle("ACCOUNTANT");
+  		setLayout(null);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(start.class.getResource("/resources/customer-service.png")));
         
        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        // frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
+        addWindowListener(new WindowAdapter() 
+        {
+            public void windowClosing(WindowEvent e) 
+            {
+           
                  //int result = JOptionPane.showConfirmDialog(frame, "Are you sure?");
                 // if( result==JOptionPane.OK_OPTION){
                      // NOW we change it to dispose on close..
-             	frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-             	frame.setVisible(false);
-             	frame.dispose();
+            	
+             	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+             	setVisible(false);
+             	start.flagmng=false;
+             	dispose();
+             	
+             	
+             	
                      //new AccountantFrame();
                  }
+            
          }
          );
- 		
         
+ 		
         contentPane = new JPanel();
         contentPane.setOpaque(true);
         
@@ -81,8 +93,8 @@ public class Managerframe extends JFrame
         label.setToolTipText("Manager's Name");
         label.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
         label.setForeground(new Color(0, 128, 0));
-        label.setSize(400,43);
-        label.setLocation(230,110);
+        label.setSize(355,43);
+        label.setLocation(190,110);
        
         contentPane.add(label);
         
@@ -183,10 +195,10 @@ public class Managerframe extends JFrame
         	accountantInfo();
         });
 
-        lblManagerName = new JLabel("HELLO MR.", SwingConstants.CENTER);
+        lblManagerName = new JLabel("HELLO MR.", SwingConstants.LEFT);
         lblManagerName.setForeground(Color.RED);
         lblManagerName.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
-        lblManagerName.setBounds(15, 110, 246, 43);
+        lblManagerName.setBounds(15, 110, 175, 43);
         contentPane.add(lblManagerName);
         
         lblNewLabel = new JLabel("MANAGER PANEL");
@@ -198,12 +210,18 @@ public class Managerframe extends JFrame
         
         
         btnLogOut = new JButton("Logout");
-		btnLogOut.setToolTipText("show account wise or all account");
+		//btnLogOut.setToolTipText("show account wise or all account");
 		btnLogOut.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		btnLogOut.setForeground(Color.BLUE);
 		btnLogOut.setFont(new Font("Tekton Pro Cond", Font.BOLD, 30));
-		btnLogOut.setBounds(530,110,120,40);
+		btnLogOut.setBounds(545,110,120,40);
 		contentPane.add(btnLogOut);
+		
+		
+		btnLogOut.addActionListener((e)->
+		{
+			LogOut();
+		});
 		
 		
 		btnChangePassword = new JButton("Change Password");
@@ -215,33 +233,58 @@ public class Managerframe extends JFrame
 		btnChangePassword.setFocusable(false);
         contentPane.add(btnChangePassword);
         
+        
         btnChangePassword.addActionListener((e)->
-        {
-        	changePassword();
-     		
-        });
+		{
+			ChangePassword();
+		});
         
-        
-        
-        frame.setContentPane(contentPane);
-        frame.setSize(700,750);
-        frame.setLocationByPlatform(false);
-        frame.setVisible(true);
+        setContentPane(contentPane);
+        setSize(700,750);
+        setLocationByPlatform(false);
+        setVisible(true);
     }
-  	public void changePassword()
+      
+      private void LogOut()
   	{
-  		SwingUtilities.invokeLater(new Runnable()
-          {
-              public void run()
-              {
-              	ArrayList<ManagerDetails> accDetails =new  ArrayList<ManagerDetails>();
-              	accDetails =ManagerDetailsFile.readDataFromFile();
-                  new ChangePassword(accDetails.get(ManagerIndex),ManagerIndex);
-                  
-              }
-          });
-  	
+    	  EventQueue.invokeLater(new Runnable() 
+    	  {
+   			public void run() 
+   			{
+   				try
+   				{
+   					int x = JOptionPane.showConfirmDialog(null,"Are you sure ?","close",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE);
+					if(x==JOptionPane.YES_OPTION)
+					{
+						start.flagmng=true;
+						dispose();
+					}   					
+   				} 
+   				catch (Exception e) 
+   				{
+   					e.printStackTrace();
+   				}
+   			}
+   		});
+  		
   	}
+      public void ChangePassword() 
+  	{
+    	  EventQueue.invokeLater(new Runnable() {
+     			public void run() {
+     				try {
+     					ArrayList<ManagerDetails> accDetails =new  ArrayList<ManagerDetails>();
+     	              	accDetails =ManagerDetailsFile.readDataFromFile();
+     	                  new ChangePassword(accDetails.get(ManagerIndex),ManagerIndex);
+     					
+     				} catch (Exception e) {
+     					e.printStackTrace();
+     				}
+     			}
+     		});
+  		
+  	}
+      
       public void checkBook()
       {
     	  EventQueue.invokeLater(new Runnable() {

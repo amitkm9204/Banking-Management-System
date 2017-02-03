@@ -1,7 +1,7 @@
 package com.BankingManagementSystem.frameDesign;
 
 import java.awt.Color;
-
+import java.awt.EventQueue;
 import java.awt.Font;
 
 import java.awt.Panel;
@@ -43,7 +43,10 @@ class AccountantFrame extends JFrame
 	private JLabel label,lblaccountant;
 	private JComboBox View;
 	private JButton btnChangePassword,btnLogOut;
+	
+	static int acc;
 	private int accIndex;
+	
 	
 	ArrayList<AccountantDetails> accountantlist = new ArrayList<AccountantDetails>();
 	
@@ -59,7 +62,8 @@ class AccountantFrame extends JFrame
 		{
 			e.printStackTrace();
 		}*/
-		accIndex  = a;
+		acc=a;
+		accIndex=a;
 		setResizable(false);
 		setTitle("ACCOUNTANT");
 		setLayout(null);
@@ -69,10 +73,13 @@ class AccountantFrame extends JFrame
 		//setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
 		
-		addWindowListener(new WindowAdapter() {
-           public void windowClosing(WindowEvent e) {
+		addWindowListener(new WindowAdapter() 
+		{
+           public void windowClosing(WindowEvent e) 
+           {
             	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             	setVisible(false);
+            	start.flagacc=false;
             	dispose();
                    
                 }
@@ -114,7 +121,7 @@ class AccountantFrame extends JFrame
         accountantPage.add(lblManagerName);*/
         
 		
-		setBounds(00,0, 700, 750);
+		setBounds(0,0, 700, 720);
 		accountantPage = new JPanel();
 		accountantPage .setBackground(new Color(255, 239, 213));
 		accountantPage .setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -174,21 +181,6 @@ class AccountantFrame extends JFrame
 			accountTransaction();
 		});
 		
-		btnChangePassword = new JButton("CHANGE PASSWORD");
-		btnChangePassword.setToolTipText("CHANGE ADDRESS AND PHONE NUMBER");
-		btnChangePassword.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		btnChangePassword.setForeground(new Color(0, 20, 60));
-		btnChangePassword.setFont(new Font("Tekton Pro Cond", Font.BOLD, 30));
-		btnChangePassword.setBounds(162,610,360,60);
-		accountantPage.add(btnChangePassword);
-		
-		
-		btnChangePassword.addActionListener((e)->
-		{
-			changePassword();
-		});
-		
-		
 		
 		lblViewDetals = new JLabel("VIEW ACCOUNT:");
 		lblViewDetals.setToolTipText("ACCESS ACCOUNT");
@@ -246,25 +238,30 @@ class AccountantFrame extends JFrame
 		lblaccountant.setToolTipText("Accountant's Name");
 		lblaccountant.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
 		lblaccountant.setForeground(new Color(0, 128, 0));
-		lblaccountant.setSize(400,43);
-		lblaccountant.setLocation(230,110);
+		lblaccountant.setSize(350,43);
+		lblaccountant.setLocation(190,110);
 		accountantPage.add(lblaccountant);
 		
 		
-		label = new JLabel("HELLO MR.", JLabel.CENTER);
+		label = new JLabel("HELLO MR.", JLabel.LEFT);
 		label.setForeground(Color.RED);
 		label.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
-		label.setBounds(15, 110, 246, 43);
+		label.setBounds(15, 110, 175, 43);
         accountantPage.add(label);
         
         
         btnLogOut = new JButton("Logout");
-		btnLogOut.setToolTipText("show account wise or all account");
+		//btnLogOut.setToolTipText("show account wise or all account");
 		btnLogOut.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		btnLogOut.setForeground(Color.BLUE);
 		btnLogOut.setFont(new Font("Tekton Pro Cond", Font.BOLD, 30));
-		btnLogOut.setBounds(530,110,120,40);
+		btnLogOut.setBounds(550,110,120,40);
 		accountantPage.add(btnLogOut);
+		
+		btnLogOut.addActionListener((e)->
+		{
+			LogOut();
+		});
 		
 		
 		btnChangePassword = new JButton("CHANGE PASSWORD");
@@ -275,16 +272,60 @@ class AccountantFrame extends JFrame
 		btnChangePassword.setBounds(162,610,360,60);
 		accountantPage.add(btnChangePassword);
 		
-		 btnChangePassword.addActionListener((e)->
-	        {
-	        	changePassword();
-	        });
 		
+		btnChangePassword.addActionListener((e)->
+		{
+			ChangePassword();
+		});
 		
 		this.setVisible(true);
 		
 		setLocationByPlatform(false);
 	
+	}
+	
+private void LogOut()
+	{
+	
+	 EventQueue.invokeLater(new Runnable() 
+	  {
+			public void run() 
+			{
+				try
+				{
+					 //setVisible(false);
+					int x = JOptionPane.showConfirmDialog(null,"Are you sure ?","close",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE);
+					if(x==JOptionPane.YES_OPTION)
+					{
+						start.flagacc=true;
+						dispose();
+						
+					}
+					
+				} 
+				catch (Exception e) 
+				{
+					e.printStackTrace();
+				}
+			}
+		});
+		
+	}
+	public void ChangePassword() 
+	{
+		 EventQueue.invokeLater(new Runnable() {
+  			public void run() {
+  				try {
+  					ArrayList<AccountantDetails> accDetails =new  ArrayList<AccountantDetails>();
+  	            	accDetails = AccountantDetailsFile.readDataFromFile();
+  	                new ChangePassword(accDetails.get(accIndex),accIndex);
+  					
+  				} catch (Exception e) {
+  					e.printStackTrace();
+  				}
+  			}
+  		});
+		
 	}
 	public void openAllAccount()
 	{
@@ -310,20 +351,6 @@ class AccountantFrame extends JFrame
                 
             }
         });
-	}
-	public void changePassword()
-	{
-		SwingUtilities.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-            	ArrayList<AccountantDetails> accDetails =new  ArrayList<AccountantDetails>();
-            	accDetails = AccountantDetailsFile.readDataFromFile();
-                new ChangePassword(accDetails.get(accIndex),accIndex);
-                
-            }
-        });
-	
 	}
 	public void accountOpen()
 	{
