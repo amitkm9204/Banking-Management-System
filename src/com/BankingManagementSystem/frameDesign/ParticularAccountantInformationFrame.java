@@ -3,6 +3,7 @@ package com.BankingManagementSystem.frameDesign;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -33,6 +34,7 @@ public class ParticularAccountantInformationFrame extends JFrame
 	{
 		setResizable(false);
 		setTitle("PERSONAL ACCOUNTANT INFORMATION");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ManagerLoginPage.class.getResource("/resources/accounting-book.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		/*
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -110,7 +112,7 @@ public class ParticularAccountantInformationFrame extends JFrame
 		setVisible(true);
 	}
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -121,5 +123,5 @@ public class ParticularAccountantInformationFrame extends JFrame
 				}
 			}
 		});
-	}
+	}*/
 }

@@ -2,6 +2,7 @@ package com.BankingManagementSystem.frameDesign;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -39,6 +40,7 @@ public class WithdrawalFrame {
 	int accNo;
 	 public WithdrawalFrame(int index) {
 		 JFrame frame = new JFrame("WITHDRAWAL");
+		 frame.setIconImage(Toolkit.getDefaultToolkit().getImage(ManagerLoginPage.class.getResource("/resources/withdraw-of-a-safe-box.png")));
 	        accNo = index;
 	        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -127,6 +129,9 @@ public class WithdrawalFrame {
 						if( result==JOptionPane.OK_OPTION)
 						{
 							withdrawMoney();
+							//EmailValid obj=new EmailValid();
+							//obj.Email(userlist.get(accNo).getAccountNo());
+							
 							frame.setVisible(false);
 							TransactionFrame ob = new TransactionFrame(null);
 							ob.setVisible(true);
@@ -188,7 +193,7 @@ public class WithdrawalFrame {
            	 ts.setDateAndTime(dtf.format(now));
            	 ts.setWithdrawal(Double.parseDouble(tdel.getText().trim()));
            	 ts.setDeposite(0.0);
-           	 
+           	ts.setBalance(userlist.get(accNo).getBalance());
            	 ArrayList<TransactionSummary> trans = new ArrayList<TransactionSummary>();
            	 
            	 trans =  TransactionDetailsFile.readDataFromFile();
@@ -198,12 +203,12 @@ public class WithdrawalFrame {
            	 
         	 
         	 CustomerDetailsFile.writeDatatoFile(userlist);
-        	 String message = "Thank you for using Globsyn Bank , "+tdel.getText().trim()+"Rupees is debited from your account ";
-        			 
-        	 message = message+userlist.get(accNo).getAccountNo() + "Your current balance is "+userlist.get(accNo).getBalance()+"Rupees";
+        	 String message = "Thank you for using Globsyn Bank , \n"+tdel.getText().trim()+" Rupees is debited from your account \n";
+			 
+        	 message = message+userlist.get(accNo).getAccountNo() + " Your current balance is "+userlist.get(accNo).getBalance()+"Rupees";
         	 
         	 EmailValid obj=new EmailValid();
-				obj.Email(message);
+				obj.Email(message,userlist.get(accNo).getAccountNo());
         	 
         	 JOptionPane.showMessageDialog(tdel, "withdrawal complete");
          }

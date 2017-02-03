@@ -2,6 +2,7 @@ package com.BankingManagementSystem.frameDesign;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class CustomerAccountwiseFrame extends JFrame
 	                }
 	        }
 	        );
-	        
+	        frame.setIconImage(Toolkit.getDefaultToolkit().getImage(start.class.getResource("/resources/specialist-user (1).png")));
 	        contentPane = new JPanel();
 	        contentPane.setOpaque(true);
 	        contentPane.setBackground(new Color(176, 224, 230));
@@ -97,7 +98,8 @@ public class CustomerAccountwiseFrame extends JFrame
 	        
 	        bmanager.addActionListener((e)->
 	        {
-	        	showDetails();
+	        		showDetails();
+	        	
 	        });
 
 	        frame.setContentPane(contentPane);
@@ -121,13 +123,16 @@ public class CustomerAccountwiseFrame extends JFrame
         {
             public void run()
             {
+            	int index;
             	
-            	
-            	int index = Search.searchId(txtAcc.getText().trim());
-            	
+            	try
+	        	{
+            	index = Search.searchId(txtAcc.getText().trim());
+	        	
             	userlist = CustomerDetailsFile.readDataFromFile();
             	userlisttemp = new ArrayList<CustomerDetails>();
             	userlisttemp.add(userlist.get(index));
+	        	
             	//JOptionPane.showInputDialog(this,userlist.size());
             	//JOptionPane.showInputDialog(this,userlisttemp.size());
             	 SwingUtilities.invokeLater(new Runnable()
@@ -138,11 +143,18 @@ public class CustomerAccountwiseFrame extends JFrame
                
                      }
                  });
+	        	}
+            	catch(Exception a)
+            	{
+            		JOptionPane.showMessageDialog(null, "Invalid Account number");
+            	}
             }
+            
         });
+    	
     }
-	public static void main(String... args)
+	/*public static void main(String... args)
     {
               new CustomerAccountwiseFrame();
-    }
+    }*/
 }

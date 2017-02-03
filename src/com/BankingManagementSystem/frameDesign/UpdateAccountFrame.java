@@ -2,6 +2,7 @@ package com.BankingManagementSystem.frameDesign;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class UpdateAccountFrame extends JFrame
     public UpdateAccountFrame()
     {
     	frame = new JFrame("UPDATE INFORMATIONS");
-        
+    	frame.setIconImage(Toolkit.getDefaultToolkit().getImage(ManagerLoginPage.class.getResource("/resources/update.png")));
        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         
@@ -164,27 +165,36 @@ public class UpdateAccountFrame extends JFrame
 
     public void updateAccount()
     {
-    	String phone=tphn.getText().trim();
-		 isdatavalidate = phoneCheck(phone);
-    	if(isdatavalidate)
-    	{
-    		int idfoundpos = Search.searchId(taccno.getText().trim());
-
-    		if(idfoundpos >= 0)
-    		{
-    			ArrayList<CustomerDetails> userlist = CustomerDetailsFile.readDataFromFile();
-    			userlist.get(idfoundpos).setCaddress(tadd.getText().trim());
-    			userlist.get(idfoundpos).setCphone(tphn.getText().trim());
+    	try{
+    				int idfoundpos = Search.searchId(taccno.getText().trim());
+    				ArrayList<CustomerDetails> userlist = CustomerDetailsFile.readDataFromFile();
+    				if((tname.getText().trim()).equals(userlist.get(idfoundpos).getCname()))
+    				{
+    					JOptionPane.showMessageDialog(this, "Invalid Name");
+    				}
+    				else if(idfoundpos >= 0 )
+    				{
+    					String phone=tphn.getText().trim();
+    		    		isdatavalidate = phoneCheck(phone);
+    		    		if(isdatavalidate)
+    		    			{
+    					
+    					userlist.get(idfoundpos).setCaddress(tadd.getText().trim());
+    					userlist.get(idfoundpos).setCphone(tphn.getText().trim());
        	 
-    			CustomerDetailsFile.writeDatatoFile(userlist);
-    			JOptionPane.showMessageDialog(this, "Account updation successfull");
+    					CustomerDetailsFile.writeDatatoFile(userlist);
+    					JOptionPane.showMessageDialog(this, "Account updation successfull");
+    		    			}
        	 
-    		}
-        else
-        	{
-        	JOptionPane.showMessageDialog(this, "Invalid Account number");
-        	}
-    	}
+    				}
+    				else
+    				{
+    					JOptionPane.showMessageDialog(this, "Invalid Account number");
+    				}
+    			
+    	}catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "Invalid input data");
+		}
    
     }
     public boolean phoneCheck(String Phone)
@@ -204,8 +214,8 @@ public class UpdateAccountFrame extends JFrame
     	else
     		return true;
     }
-    public static void main(String... args)
+   /* public static void main(String... args)
     {
               new UpdateAccountFrame();
-    }
+    }*/
 }

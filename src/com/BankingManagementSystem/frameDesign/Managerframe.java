@@ -4,6 +4,7 @@ package com.BankingManagementSystem.frameDesign;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -16,8 +17,10 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
 
+import com.BankingManagementSystem.FileHandling.AccountantDetailsFile;
 import com.BankingManagementSystem.FileHandling.ManagerDetailsFile;
 import com.BankingManagementSystem.FileHandling.TransactionDetailsFile;
+import com.BankingManagementSystem.Pojo.AccountantDetails;
 import com.BankingManagementSystem.Pojo.ManagerDetails;
 import com.BankingManagementSystem.Pojo.TransactionSummary;
 
@@ -28,7 +31,7 @@ public class Managerframe extends JFrame
 	private JFrame frame;
 	private JButton bpassBook,bcheckBook,bDraft;
 	private JButton btransSummary;
-	private JButton bCustomerInfo;
+	private JButton bCustomerInfo,btnLogOut,btnChangePassword;
 	private JButton bAccountantInfo;
 	private JLabel lblManagerName ;
 	private JLabel lblNewLabel;
@@ -38,9 +41,13 @@ public class Managerframe extends JFrame
 	int ManagerIndex;
       public Managerframe(int index)
       {
+    	  
+  		
     	  ManagerIndex = index;
     	  managerlist = ManagerDetailsFile.readDataFromFile();
         frame = new JFrame("MANAGER ");
+        frame.setIconImage(Toolkit.getDefaultToolkit().getImage(start.class.getResource("/resources/customer-service.png")));
+
         frame.setResizable(false);
         
        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,13 +77,12 @@ public class Managerframe extends JFrame
        
         ManagerDetails managerDetails = new ManagerDetails();
        
-        label = new JLabel(managerlist.get(index).getManagerName(), JLabel.CENTER);
+        label = new JLabel(managerlist.get(index).getManagerName().toUpperCase(), JLabel.LEFT);
         label.setToolTipText("Manager's Name");
-        Font f1=new Font("comic sans ms",Font.BOLD,48);
         label.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
         label.setForeground(new Color(0, 128, 0));
-        label.setSize(269,43);
-        label.setLocation(255,110);
+        label.setSize(400,43);
+        label.setLocation(230,110);
        
         contentPane.add(label);
         
@@ -89,8 +95,8 @@ public class Managerframe extends JFrame
        
         bpassBook.setFont(f2);
         bpassBook.setForeground(new Color(160, 82, 45));
-        bpassBook.setSize(100,60);
-        bpassBook.setLocation(90,189);
+        bpassBook.setSize(160,60);
+        bpassBook.setLocation(50,189);
         bpassBook.setFocusable(false);
         contentPane.add(bpassBook);
         
@@ -99,7 +105,7 @@ public class Managerframe extends JFrame
         	passbook();
         });
         
-        bcheckBook = new JButton("Check Book ");
+        bcheckBook = new JButton("Cheque Book ");
         bcheckBook.setToolTipText("Issue a check book");
         bcheckBook.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
        
@@ -107,8 +113,8 @@ public class Managerframe extends JFrame
        
         bcheckBook.setFont(f3);
         bcheckBook.setForeground(new Color(160, 82, 45));
-        bcheckBook.setSize(100,60);
-        bcheckBook.setLocation(200,189);
+        bcheckBook.setSize(220,60);
+        bcheckBook.setLocation(255,189);
         bcheckBook.setFocusable(false);
         contentPane.add(bcheckBook);
         
@@ -124,8 +130,8 @@ public class Managerframe extends JFrame
        
         bDraft.setFont(f3);
         bDraft.setForeground(new Color(160, 82, 45));
-        bDraft.setSize(100,60);
-        bDraft.setLocation(310,189);
+        bDraft.setSize(140,60);
+        bDraft.setLocation(520,189);
         bDraft.setFocusable(false);
         contentPane.add(bDraft);
         
@@ -141,7 +147,7 @@ public class Managerframe extends JFrame
         btransSummary.setFont(f2);
         btransSummary.setForeground(new Color(160, 82, 45));
         btransSummary.setSize(300,80);
-        btransSummary.setLocation(100,291);
+        btransSummary.setLocation(210,291);
         btransSummary.setFocusable(false);
         contentPane.add(btransSummary);
         btransSummary.addActionListener((e)->
@@ -155,7 +161,7 @@ public class Managerframe extends JFrame
         bCustomerInfo.setFont(f2);
         bCustomerInfo.setForeground(new Color(160, 82, 45));
         bCustomerInfo.setSize(300,80);
-        bCustomerInfo.setLocation(100,394);
+        bCustomerInfo.setLocation(210,394);
         bCustomerInfo.setFocusable(false);
         contentPane.add(bCustomerInfo);
         bCustomerInfo.addActionListener((e)->
@@ -169,7 +175,7 @@ public class Managerframe extends JFrame
         bAccountantInfo.setFont(f2);
         bAccountantInfo.setForeground(new Color(160, 82, 45));
         bAccountantInfo.setSize(300,80);
-        bAccountantInfo.setLocation(100,494);
+        bAccountantInfo.setLocation(210,494);
         bAccountantInfo.setFocusable(false);
         contentPane.add(bAccountantInfo);
         bAccountantInfo.addActionListener((e)->
@@ -177,23 +183,65 @@ public class Managerframe extends JFrame
         	accountantInfo();
         });
 
-        lblManagerName = new JLabel("Manager Name", SwingConstants.CENTER);
+        lblManagerName = new JLabel("HELLO MR.", SwingConstants.CENTER);
         lblManagerName.setForeground(Color.RED);
         lblManagerName.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
-        lblManagerName.setBounds(10, 110, 246, 43);
+        lblManagerName.setBounds(15, 110, 246, 43);
         contentPane.add(lblManagerName);
         
         lblNewLabel = new JLabel("MANAGER PANEL");
         lblNewLabel.setForeground(new Color(106, 90, 205));
         lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 40));
-        lblNewLabel.setBounds(104, 0, 364, 67);
+        lblNewLabel.setBounds(150, 0, 364, 67);
         contentPane.add(lblNewLabel);
         
+        
+        
+        btnLogOut = new JButton("Logout");
+		btnLogOut.setToolTipText("show account wise or all account");
+		btnLogOut.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		btnLogOut.setForeground(Color.BLUE);
+		btnLogOut.setFont(new Font("Tekton Pro Cond", Font.BOLD, 30));
+		btnLogOut.setBounds(530,110,120,40);
+		contentPane.add(btnLogOut);
+		
+		
+		btnChangePassword = new JButton("Change Password");
+		btnChangePassword.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		btnChangePassword.setFont(f2);
+		btnChangePassword.setForeground(new Color(160, 82, 45));
+		btnChangePassword.setSize(300,80);
+		btnChangePassword.setLocation(210,594);
+		btnChangePassword.setFocusable(false);
+        contentPane.add(btnChangePassword);
+        
+        btnChangePassword.addActionListener((e)->
+        {
+        	changePassword();
+     		
+        });
+        
+        
+        
         frame.setContentPane(contentPane);
-        frame.setSize(550,650);
+        frame.setSize(700,750);
         frame.setLocationByPlatform(false);
         frame.setVisible(true);
     }
+  	public void changePassword()
+  	{
+  		SwingUtilities.invokeLater(new Runnable()
+          {
+              public void run()
+              {
+              	ArrayList<ManagerDetails> accDetails =new  ArrayList<ManagerDetails>();
+              	accDetails =ManagerDetailsFile.readDataFromFile();
+                  new ChangePassword(accDetails.get(ManagerIndex),ManagerIndex);
+                  
+              }
+          });
+  	
+  	}
       public void checkBook()
       {
     	  EventQueue.invokeLater(new Runnable() {
@@ -212,7 +260,7 @@ public class Managerframe extends JFrame
     	  EventQueue.invokeLater(new Runnable() {
    			public void run() {
    				try {
-   					  new PassbookAndCheque();
+   					  new Passbook();
    					
    				} catch (Exception e) {
    					e.printStackTrace();
@@ -281,7 +329,7 @@ public class Managerframe extends JFrame
           {
               public void run()
               {
-                  new Managerframe();
+                  new Managerframe(2);
               }
           });
       }*/

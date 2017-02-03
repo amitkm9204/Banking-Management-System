@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.GraphicsConfiguration;
 import java.awt.HeadlessException;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -46,6 +47,7 @@ class AllDetailsCustomer  extends JFrame{
 				
 				JTable datatable=new JTable(data, heading);
 				JScrollPane jsp=new JScrollPane(datatable);
+				setIconImage(Toolkit.getDefaultToolkit().getImage(start.class.getResource("/resources/book.png")));
 				
 				con.add(new JLabel("All Customer Details"),BorderLayout.NORTH);
 				con.add(jsp,BorderLayout.CENTER);
@@ -99,6 +101,7 @@ class AllDetailsAccountant extends JFrame
 				
 				JTable datatable=new JTable(data, heading);
 				JScrollPane jsp=new JScrollPane(datatable);
+				setIconImage(Toolkit.getDefaultToolkit().getImage(start.class.getResource("/resources/book.png")));
 				
 				con.add(new JLabel("All Accountant Details"),BorderLayout.NORTH);
 				con.add(jsp,BorderLayout.CENTER);
@@ -125,23 +128,23 @@ class AllDetailsTransaction extends JFrame
 	{
 		
 			super();
-			String heading[]={"ACCOUNT NO","DATE AND TIME","DEBIT","CREDIT"};
+			String heading[]={"ACCOUNT NO","DATE AND TIME","DEBIT","CREDIT"," Remaining Balance"};
 			String data[][];
 			//ArrayList<Registration> list;
 			try
 			{
 				list = TransactionDetailsFile.readDataFromFile();
 				
-				data = new String[list.size()][4];
+				data = new String[list.size()][5];
 				
 				int r=0;
 				for(TransactionSummary re : list)
 				{
 					data[r][0]=re.getAccNo();
 					data[r][1]=re.getDateAndTime();
-					data[r][2]=re.getDeposite().toString();
-					data[r][3]=re.getWithdrawal().toString();
-					
+					data[r][3]=re.getDeposite().toString();
+					data[r][2]=re.getWithdrawal().toString();
+					data[r][4]=re.getBalance().toString();
 					r++;
 				}
 				
@@ -150,6 +153,7 @@ class AllDetailsTransaction extends JFrame
 				
 				JTable datatable=new JTable(data, heading);
 				JScrollPane jsp=new JScrollPane(datatable);
+				setIconImage(Toolkit.getDefaultToolkit().getImage(start.class.getResource("/resources/book.png")));
 				
 				con.add(new JLabel("Transaction Summary"),BorderLayout.NORTH);
 				con.add(jsp,BorderLayout.CENTER);
@@ -208,6 +212,7 @@ class ShowCustomerDetails  extends JFrame{
 				
 				JTable datatable=new JTable(data, heading);
 				JScrollPane jsp=new JScrollPane(datatable);
+				setIconImage(Toolkit.getDefaultToolkit().getImage(start.class.getResource("/resources/book.png")));
 				
 				con.add(new JLabel("Customer Details"),BorderLayout.NORTH);
 				con.add(jsp,BorderLayout.CENTER);
@@ -233,7 +238,7 @@ class PrintPassbook  extends JFrame{
 	{
 		
 			super();
-			String heading[]={" Date and Time  " ," Debit " ," Credit "};
+			String heading[]={" Date and Time  " ," Debit " ," Credit "," Remaining Balance"};
 			String data[][];
 			//ArrayList<Registration> list;
 			
@@ -241,7 +246,7 @@ class PrintPassbook  extends JFrame{
 			{
 				//list = CustomerDetailsFile.readDataFromFile();
 				
-				data = new String[list.size()][3];
+				data = new String[list.size()][4];
 				
 				int r=0;
 				//CustomerDetails re = new CustomerDetails();
@@ -249,9 +254,9 @@ class PrintPassbook  extends JFrame{
 				for(TransactionSummary re : list)
 				{
 					data[r][0]=re.getDateAndTime();
-					data[r][1]=re.getDeposite().toString();
-					data[r][2]=re.getWithdrawal().toString();
-					
+					data[r][2]=re.getDeposite().toString();
+					data[r][1]=re.getWithdrawal().toString();
+					data[r][3]=re.getBalance().toString();
 				r++;
 				}
 				
@@ -261,6 +266,7 @@ class PrintPassbook  extends JFrame{
 				
 				JTable datatable=new JTable(data, heading);
 				JScrollPane jsp=new JScrollPane(datatable);
+				setIconImage(Toolkit.getDefaultToolkit().getImage(start.class.getResource("/resources/book.png")));
 				
 				con.add(new JLabel("Transaction history"),BorderLayout.NORTH);
 				con.add(jsp,BorderLayout.CENTER);

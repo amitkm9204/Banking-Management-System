@@ -75,7 +75,7 @@ class AccountOpening extends JFrame
 		}
 		
 		
-		//setIconImage(Toolkit.getDefaultToolkit().getImage(NewAccountOpeningForm.class.getResource("/resources/Forms.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(AccountOpening.class.getResource("/resources/Forms.png")));
 		setTitle("ACCOUNT OPENING FORM");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -319,6 +319,8 @@ class AccountOpening extends JFrame
 		btnOpen.addActionListener((e)->
 		{
 			AddInformation();
+			
+			
 		});
 		this.setVisible(true);
 	}
@@ -388,7 +390,14 @@ class AccountOpening extends JFrame
 				      userlist.add(c);
 				     CustomerDetailsFile.writeDatatoFile(userlist);
 				      JOptionPane.showMessageDialog(this, "Account successfully created..Your account no. is "+ c.getAccountNo());
-				    
+				      
+				      String message = "Thank you for connecting Globsyn Bank , \n your account is succesfully created  \n And your account number is : ";
+						 
+			        	 message = message+c.getAccountNo();
+			        	 
+			        	 EmailValid obj=new EmailValid();
+							obj.Email(message,c.getAccountNo());
+				      
 				      resetFrame();
 			       
 			       }
@@ -411,7 +420,7 @@ class AccountOpening extends JFrame
 }
 
 
- public class NewAccountOpeningForm 
+ /*public class NewAccountOpeningForm 
 {
 
 	public static void main(String[] args) 
@@ -433,6 +442,6 @@ class AccountOpening extends JFrame
 		});
 
 
-	}
+	}*/
 
-}
+

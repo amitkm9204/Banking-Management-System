@@ -25,6 +25,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.time.LocalDateTime;
@@ -47,9 +48,10 @@ public class ChequeBook extends JFrame
 	private JButton btnIssue;
 	private JComboBox cbPages;
 
+	private String str[] = {"25","50","75","100"};
 	private String noOfPages;
 
-	public static void main(String[] args)
+	/*public static void main(String[] args)
 	{
 		EventQueue.invokeLater(new Runnable() 
 		{
@@ -65,7 +67,7 @@ public class ChequeBook extends JFrame
 				}
 			}
 		});
-	}
+	}*/
 	
 	
 	
@@ -83,6 +85,7 @@ public class ChequeBook extends JFrame
         );
 
 		setBounds(100, 100, 600, 500);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(start.class.getResource("/resources/writing-cheque.png")));
 		cheque = new JPanel();
 		cheque.setBackground(new Color(135, 206, 250));
 		cheque.setForeground(new Color(135, 206, 250));
@@ -111,19 +114,14 @@ public class ChequeBook extends JFrame
 		lblName.setBounds(183, 194, 101, 47);
 		cheque.add(lblName);
 		
-		
-		String str[]=new String[4];
-		str[0]="25";
-		str[1]="50";
-		str[2]="75";
-		str[3]="100";
+	
 		cbPages = new JComboBox(str);
 		cbPages.setFont(new Font("Calibri", Font.BOLD, 20));
 		cbPages.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		cbPages.setBounds(288, 259, 263, 29);
 		cheque.add(cbPages);
 		
-		noOfPages = (String) cbPages.getSelectedItem();
+		
 		
 		txtName = new JTextField();
 		txtName.setFont(new Font("Calibri", Font.BOLD, 20));
@@ -158,18 +156,23 @@ public class ChequeBook extends JFrame
 	}
 	public void issue()
 	{
-		int index = Search.searchId(txtAccountNumber.getText().trim());
-		ArrayList<CustomerDetails> userlist =new ArrayList<CustomerDetails>();
-		userlist = CustomerDetailsFile.readDataFromFile();
-		userlist.get(index).setBalance(userlist.get(index).getBalance() - Double.parseDouble(noOfPages)*2.50 );
-		 TransactionSummary ts = new TransactionSummary();
-		 ts.setAccNo(userlist.get(index).getAccountNo());
+		
+	  int index = Search.searchId(txtAccountNumber.getText().trim());
+	  
+	  noOfPages = (String) cbPages.getSelectedItem();
+	  if(index >= 0)
+	  {
+		  ArrayList<CustomerDetails> userlist =new ArrayList<CustomerDetails>();
+		  userlist = CustomerDetailsFile.readDataFromFile();
+		  userlist.get(index).setBalance(userlist.get(index).getBalance() - Double.parseDouble(noOfPages)*2.50 );
+		  TransactionSummary ts = new TransactionSummary();
+		  ts.setAccNo(userlist.get(index).getAccountNo());
         	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-     	 LocalDateTime now = LocalDateTime.now();
+     	    LocalDateTime now = LocalDateTime.now();
         	 ts.setDateAndTime(dtf.format(now));
         	 ts.setWithdrawal(Double.parseDouble(noOfPages)*2.50 );
         	 ts.setDeposite(0.0);
-        	 
+        	 ts.setBalance(userlist.get(index).getBalance());
         	 ArrayList<TransactionSummary> trans = new ArrayList<TransactionSummary>();
         	 JOptionPane.showMessageDialog(this, "Chck Book with  "+noOfPages+ " is issued");
         	 
@@ -178,14 +181,18 @@ public class ChequeBook extends JFrame
         	 
         	 TransactionDetailsFile.writeDatatoFile(trans);
         	 
-        	 String message = "Thank you for using Globsyn Bank , "+(Double.parseDouble(noOfPages)*2.50)+"Rupees is debited from your account ";
+             String message = "Thank you for using Globsyn Bank , \n"+(Double.parseDouble(noOfPages)*2.50 )+" Rupees is debited from your account \n";
 			 
-        	 message = message+userlist.get(index).getAccountNo() + "Your current balance is "+userlist.get(index).getBalance()+"Rupees";
+        	 message = message+userlist.get(index).getAccountNo() + " Your current balance is "+userlist.get(index).getBalance()+"Rupees";
         	 
         	 EmailValid obj=new EmailValid();
-				obj.Email(message);
+				obj.Email(message,userlist.get(index).getAccountNo());
         	 
+     	 
      	 CustomerDetailsFile.writeDatatoFile(userlist);
+	  }
+	  else
+		  JOptionPane.showMessageDialog(this,"Invalid Account number");
 	}
 	/* public void withdrawMoney() {
 		 if(accNo >= 0)

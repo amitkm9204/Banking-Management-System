@@ -7,17 +7,17 @@ import com.BankingManagementSystem.Pojo.*;
 
 public class EmailValid {
 	int accNo;
-	String a="receiverEmail";
-	//ArrayList<CustomerDetails> userlist = CustomerDetailsFile.readDataFromFile();	
+	String a;
+	ArrayList<CustomerDetails> userlist = CustomerDetailsFile.readDataFromFile();	
 	
-	public void Email(String msg) 
+	public void Email(String msg,String accno) 
 	{
-		//int i=Search.searchId(accno);
-		//a=userlist.get(i).getCemailid();
+		
+		a=userlist.get(Search.searchId(accno)).getCemailid();
 		
 		String[] to={a};
 	try{	
-		if(EmailSender.sendMail("sendersEmail", "password",msg,to))
+		if(EmailSender.sendMail("imduke021@gmail.com", "951357951357",msg,to))
 		{
 			System.out.println("email sent");
 		}

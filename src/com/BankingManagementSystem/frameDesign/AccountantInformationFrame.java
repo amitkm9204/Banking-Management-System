@@ -1,8 +1,9 @@
 package com.BankingManagementSystem.frameDesign;
 
 import java.awt.Color;
-import java.awt.EventQueue;
+
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -14,17 +15,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
+
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
 import com.BankingManagementSystem.FileHandling.AccountantDetailsFile;
-import com.BankingManagementSystem.FileHandling.CustomerDetailsFile;
+
 import com.BankingManagementSystem.Pojo.AccountantDetails;
-import com.BankingManagementSystem.Pojo.CustomerDetails;
 
 
 
+
+@SuppressWarnings("serial")
 public class AccountantInformationFrame extends JFrame
 {
 	private JPanel contentPane;
@@ -50,9 +52,13 @@ public class AccountantInformationFrame extends JFrame
 	            	dispose();
 	                   
 	                }
+	           
+	           
 	        }
 	        );
+		
 		setBounds(100, 100, 598, 457);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(start.class.getResource("/resources/curriculum.png")));
 		contentPane = new JPanel();
 		contentPane.setFont(new Font("Lucida Handwriting", Font.BOLD, 16));
 		contentPane.setForeground(new Color(0, 0, 0));
@@ -109,9 +115,10 @@ public class AccountantInformationFrame extends JFrame
 		
 		btnNewButton.addActionListener((e)->
 		{
-			int index = searchId(textField.getText().trim());
+		 try{	
+			 int index = searchId(textField.getText().trim());
 			 accttemp = new ArrayList<AccountantDetails>();
-			accttemp.add(acct.get(index));
+			 accttemp.add(acct.get(index));
 
 			SwingUtilities.invokeLater(new Runnable()
             {
@@ -121,6 +128,9 @@ public class AccountantInformationFrame extends JFrame
           
                 }
             });
+		 }catch (Exception x) {
+			JOptionPane.showMessageDialog(this,"Invalid Input..");
+		}
 			
 		});
 		

@@ -1,5 +1,5 @@
 package com.BankingManagementSystem.ValidationChecking;
-import com.BankingManagementSystem.frameDesign.*;
+
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
@@ -10,7 +10,8 @@ public class Validation
 		
     static boolean nameCheck(String name)
     {
-    	String namepattern = "^[a-zA-Z]{3,5}$";
+    	String namepattern = "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$";
+    			//"^[a-zA-Z-\\+]+(\\.[A-Za-z]+){3,20}$";
     	
     	Scanner sc1 = new Scanner(name);
     	

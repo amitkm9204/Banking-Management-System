@@ -25,6 +25,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import java.awt.Font;
+import java.awt.JobAttributes;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.time.LocalDateTime;
@@ -50,7 +52,7 @@ public class DemandDraft extends JFrame
 	private JTextField txtName;
 
 
-	public static void main(String[] args)
+	/*public static void main(String[] args)
 	{
 		EventQueue.invokeLater(new Runnable() 
 		{
@@ -66,10 +68,11 @@ public class DemandDraft extends JFrame
 				}
 			}
 		});
-	}
+	}*/
 	public DemandDraft() 
 	{
 		setTitle("DEMAND DRAFT");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(start.class.getResource("/resources/draft-button.png")));
 		addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
             	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -165,33 +168,48 @@ public class DemandDraft extends JFrame
 	}
 	public void issue()
 	{
+		
 		int index = Search.searchId(txtAccountNumber.getText().trim());
-		ArrayList<CustomerDetails> userlist =new ArrayList<CustomerDetails>();
-		userlist = CustomerDetailsFile.readDataFromFile();
-		userlist.get(index).setBalance(userlist.get(index).getBalance() - Double.parseDouble(txtAmount.getText().trim())-25.00 );
-		 TransactionSummary ts = new TransactionSummary();
-		 ts.setAccNo(userlist.get(index).getAccountNo());
-        	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-     	 LocalDateTime now = LocalDateTime.now();
-        	 ts.setDateAndTime(dtf.format(now));
-        	 ts.setWithdrawal(Double.parseDouble(txtAmount.getText().trim())+25.00 );
-        	 ts.setDeposite(0.0);
-        	 JOptionPane.showMessageDialog(this, "Demand draft of amount "+txtAmount.getText().trim()+ " is issued");
-        	 
-        	 ArrayList<TransactionSummary> trans = new ArrayList<TransactionSummary>();
-        	 
-        	 trans =  TransactionDetailsFile.readDataFromFile();
-        	 trans.add(ts);
-        	 String message = "Thank you for using Globsyn Bank , "+txtAmount.getText().trim()+"Rupees is debited from your account ";
-			 
-        	 message = message+userlist.get(index).getAccountNo() + "Your current balance is "+userlist.get(index).getBalance()+"Rupees";
-        	 
-        	 EmailValid obj=new EmailValid();
-				obj.Email(message);
-        	 
-        	 TransactionDetailsFile.writeDatatoFile(trans);
-        	 
-     	 
-     	 CustomerDetailsFile.writeDatatoFile(userlist);
+		try
+		{
+		if(index >=0)
+		{
+			ArrayList<CustomerDetails> userlist =new ArrayList<CustomerDetails>();
+			userlist = CustomerDetailsFile.readDataFromFile();
+			userlist.get(index).setBalance(userlist.get(index).getBalance() - Double.parseDouble(txtAmount.getText().trim())-25.00 );
+			 TransactionSummary ts = new TransactionSummary();
+			 ts.setAccNo(userlist.get(index).getAccountNo());
+	        	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+	     	 LocalDateTime now = LocalDateTime.now();
+	        	 ts.setDateAndTime(dtf.format(now));
+	        	 ts.setWithdrawal(Double.parseDouble(txtAmount.getText().trim())+25.00 );
+	        	 ts.setDeposite(0.0);
+	        	 ts.setBalance(userlist.get(index).getBalance());
+	        	 JOptionPane.showMessageDialog(this, "Demand draft of amount "+txtAmount.getText().trim()+ " is issued");
+	        	 
+	        	 ArrayList<TransactionSummary> trans = new ArrayList<TransactionSummary>();
+	        	 
+	        	 trans =  TransactionDetailsFile.readDataFromFile();
+	        	 trans.add(ts);
+	        	 
+	        	 TransactionDetailsFile.writeDatatoFile(trans);
+	        	 
+	        	 String message = "Thank you for using Globsyn Bank , \n"+txtAmount.getText().trim()+" Rupees is debited from your account \n";
+				 
+	        	 message = message+userlist.get(index).getAccountNo() + " Your current balance is "+userlist.get(index).getBalance()+"Rupees";
+	        	 
+	        	 EmailValid obj=new EmailValid();
+					obj.Email(message,userlist.get(index).getAccountNo());
+	     	 
+	     	 CustomerDetailsFile.writeDatatoFile(userlist);
+		}
+		else
+			JOptionPane.showMessageDialog(this,"Invalid Account number");
+		}
+		catch(Exception a)
+		{
+			JOptionPane.showMessageDialog(this, "Invalid details");
+		}
+		
 	}
 }

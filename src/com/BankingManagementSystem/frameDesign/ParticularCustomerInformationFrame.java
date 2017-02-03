@@ -3,6 +3,7 @@ package com.BankingManagementSystem.frameDesign;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -30,6 +31,7 @@ public class ParticularCustomerInformationFrame extends JFrame
 	{
 		setResizable(false);
 		setTitle("PERSONAL CUSTOMER INFORMATION");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ManagerLoginPage.class.getResource("/resources/clerk-with-tie.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 645, 479);
 		contentPane = new JPanel();
@@ -90,7 +92,7 @@ public class ParticularCustomerInformationFrame extends JFrame
 		setVisible(true);
 	}
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -101,5 +103,5 @@ public class ParticularCustomerInformationFrame extends JFrame
 				}
 			}
 		});
-	}
+	}*/
 }

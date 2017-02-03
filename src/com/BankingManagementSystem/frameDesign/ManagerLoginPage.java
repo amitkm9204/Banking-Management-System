@@ -66,8 +66,9 @@ public class ManagerLoginPage extends JFrame
 		}
 		
 		
-		//setIconImage(Toolkit.getDefaultToolkit().getImage(AdminLoginPage.class.getResource("/resources/1485472416_Banking_00019_A.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ManagerLoginPage.class.getResource("/resources/boss (1).png")));
 		setTitle("MANAGER LOGIN");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(start.class.getResource("/resources/boss.png")));
 		addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
             	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -172,11 +173,17 @@ public class ManagerLoginPage extends JFrame
 	{
 		ArrayList<ManagerDetails> userlist = ManagerDetailsFile.readDataFromFile();
 		ManagerDetails obj = new ManagerDetails();
-		obj.setManagerId("pravat");
-		obj.setManagerPassword("pravat");
-		obj.setManagerName("pravat");
+		obj.setManagerId("manager");
+		obj.setManagerPassword("manager");
+		obj.setManagerName("manager");
 		userlist.add(obj);
-		ManagerDetailsFile.writeDatatoFile(userlist);
+		for(int i=0;i<userlist.size();i++)
+		{
+			System.out.println(userlist.get(i).getManagerId());
+			System.out.println(userlist.get(i).getManagerName());
+			System.out.println(userlist.get(i).getManagerPassword());
+		}
+		//ManagerDetailsFile.writeDatatoFile(userlist);
 	}*/
 	
 	public void loginCheck()
@@ -205,7 +212,7 @@ public class ManagerLoginPage extends JFrame
         }
         else
         {
-           JOptionPane.showMessageDialog(this, "INVALID Id");
+           JOptionPane.showMessageDialog(this, "INVALID ID");
         }
 	}
 	public void setvisibility()

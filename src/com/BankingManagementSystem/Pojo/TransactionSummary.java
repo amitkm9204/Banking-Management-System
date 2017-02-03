@@ -15,6 +15,13 @@ public class TransactionSummary implements Serializable{
 	//private String time;
 	private Double Deposite;
 	private Double Withdrawal;
+	private Double balance;
+	public Double getBalance() {
+		return balance;
+	}
+	public void setBalance(Double balance) {
+		this.balance = balance;
+	}
 	public String getAccNo() {
 		return AccNo;
 	}
