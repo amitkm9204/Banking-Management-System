@@ -2,8 +2,8 @@
   This project is based on developing the environment of bank system.
   
 # Software Requirement
-  java 8
-  jre 8
+  java 8<br />
+  jre 8<br />
   eclipse neon 2
   
 # get Access
