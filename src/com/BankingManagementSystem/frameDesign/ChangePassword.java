@@ -20,6 +20,7 @@ import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
@@ -110,27 +111,30 @@ public class ChangePassword extends JFrame
 		
 		btnChangePassword.addActionListener((e)->
 		{
+			
 			if((accDetails.getAccountantPassword()).equals(txtOldPassword.getText().trim()))
 			{
+				if(PasswordCheck(txtNewPassword.getText().trim()))
+				{
 				if((txtConfirmPassword.getText().trim()).equals(txtNewPassword.getText().trim()))
 				{
 					accDetails.setAccountantPassword(txtNewPassword.getText().trim());
 					changeAccountant(accDetails);
-					JOptionPane.showMessageDialog(this, "password successfully changed");
+					JOptionPane.showMessageDialog(this, "Password successfully changed");
 					
 			            	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			            	setVisible(false);
-			            	dispose();
-			                    
-			         
+			            	dispose(); 
 			       
 				}
 				else
-					JOptionPane.showMessageDialog(this, "Confirm password and new password must be same");
+					JOptionPane.showMessageDialog(this, "Password mismatch");
+				}
 			}
 			else
-				JOptionPane.showMessageDialog(this, "Invalid accountant password");
-		});
+				JOptionPane.showMessageDialog(this, "Incorrect old password");
+			
+			});
 		
 		txtOldPassword = new JTextField();
 		txtOldPassword.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -139,7 +143,14 @@ public class ChangePassword extends JFrame
 		ChangePassword.add(txtOldPassword);
 		txtOldPassword.setColumns(10);
 		
+		String str="<html>"+">At least 8 character"+
+				   "<br>"+">Contains at least one digit"+
+				   "<br>"+">Contains at least one lower alpha char and one upper alpha char"+
+				   "<br>"+">Contains at least one char within a set of special chars (@#%$^ etc.)"+
+				   "<br>"+">Does not contain space, tab, etc."+"</html>";
+		
 		txtNewPassword = new JTextField();
+		txtNewPassword.setToolTipText(str);
 		txtNewPassword.setFont(new Font("Times New Roman", Font.BOLD, 24));
 		txtNewPassword.setColumns(10);
 		txtNewPassword.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -219,23 +230,29 @@ public class ChangePassword extends JFrame
 	
 			btnChangePassword.addActionListener((e)->
 			{
+		
 				if((manDetails.getManagerPassword()).equals(txtOldPassword.getText().trim()))
 				{
-					if((txtConfirmPassword.getText().trim()).equals(txtNewPassword.getText().trim()))
+					if(PasswordCheck(txtNewPassword.getText().trim()))
 					{
+						if((txtConfirmPassword.getText().trim()).equals(txtNewPassword.getText().trim()))
+						{
 						manDetails.setManagerPassword(txtNewPassword.getText().trim());
 						changeManager(manDetails);
-						JOptionPane.showMessageDialog(this, "password successfully changed");
+						JOptionPane.showMessageDialog(this, "Password successfully changed");
 						setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		            	setVisible(false);
 		            	dispose();
+						}
+						else
+							JOptionPane.showMessageDialog(this, "Password mismatch");
 					}
-					else
-						JOptionPane.showMessageDialog(this, "Confirm password and new password must be same");
 				}
 				else
-					JOptionPane.showMessageDialog(this, "Invalid accountant password");
-			});
+					JOptionPane.showMessageDialog(this, "Incorrect old password");
+				
+				
+				});
 		
 		
 		
@@ -246,7 +263,14 @@ public class ChangePassword extends JFrame
 		ChangePassword.add(txtOldPassword);
 		txtOldPassword.setColumns(10);
 		
+		String str="<html>"+">At least 8 character"+
+				   "<br>"+">Contains at least one digit"+
+				   "<br>"+">Contains at least one lower alpha char and one upper alpha char"+
+				   "<br>"+">Contains at least one char within a set of special chars (@#%$^ etc.)"+
+				   "<br>"+">Does not contain space, tab, etc."+"</html>";
+		
 		txtNewPassword = new JTextField();
+		txtNewPassword.setToolTipText(str);
 		txtNewPassword.setFont(new Font("Times New Roman", Font.BOLD, 24));
 		txtNewPassword.setColumns(10);
 		txtNewPassword.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -263,11 +287,31 @@ public class ChangePassword extends JFrame
 		
 		setVisible(true);
 	}
-	public void changeManager(ManagerDetails change){
+	public void changeManager(ManagerDetails change)
+	{
 		ArrayList<ManagerDetails> userlist  =new  ArrayList<ManagerDetails>();
 		userlist = ManagerDetailsFile.readDataFromFile();
 		userlist.set(manIndex, change);
 		ManagerDetailsFile.writeDatatoFile(userlist);
+	}
+	
+	
+	public boolean PasswordCheck(String password)
+	{
+		String passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
+		
+		Scanner sc1 = new Scanner(password);
+    	
+    	String match = sc1.findInLine(passwordPattern);
+    	
+    	if (match == null)
+    	{
+    		JOptionPane.showMessageDialog(null, "Password should be proper");
+		    
+    		return false;
+    	}
+    	else
+    		return true;
 	}
 }
 

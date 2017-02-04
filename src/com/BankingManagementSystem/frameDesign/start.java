@@ -56,37 +56,54 @@ class start extends JFrame implements ActionListener
         private void initComponents() 
         {   
 		loadpicture();
-		JFrame f1=new JFrame("WELCOME");
-		f1.setBackground(Color.cyan);
-		f1.setResizable(false);
+		//JFrame f1=new JFrame("WELCOME");
+		setTitle("Welcome");
+		setBackground(Color.cyan);
+		setResizable(false);
 		try{
-        		f1.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("bckgrnd.jpg")))));
+        		setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("bckgrnd.jpg")))));
 		}
 		catch(Exception o)
 		{
 		}
 		
-		f1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f1.setVisible(true);
-		f1.setForeground(new java.awt.Color(160, 210, 45));
+		//setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		 addWindowListener(new WindowAdapter() 
+	        {
+	            public void windowClosing(WindowEvent e) 
+	            {
+
+	            	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	            	 int result = JOptionPane.showConfirmDialog(null, "Close application ?");
+	                if( result==JOptionPane.OK_OPTION)
+	                	dispose();
+	                   // pic.dispose();
+	                
+	            }
+	            
+	         }
+	         );
+		
+		setVisible(true);
+		setForeground(new java.awt.Color(160, 210, 45));
 		Point center = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
-		f1.setVisible(true);  
-		f1.setIconImage(Toolkit.getDefaultToolkit().getImage(start.class.getResource("/resources/1485472416_Banking_00019_A.png")));
+		setVisible(true);  
+		setIconImage(Toolkit.getDefaultToolkit().getImage(start.class.getResource("/resources/1485472416_Banking_00019_A.png")));
 		
                 int windowWidth = 1100;
                 int windowHeight = 600;
           
-                f1.setBounds(center.x - windowWidth / 2, center.y - windowHeight / 2, windowWidth,windowHeight);
+                setBounds(center.x - windowWidth / 2, center.y - windowHeight / 2, windowWidth,windowHeight);
 		
 		lib=new JLabel();
 		lib.setFont(new java.awt.Font("Elephant", 15, 50));
 		
-        f1.getContentPane().setLayout(null);
-		f1.setForeground(new Color(120, 210,45));
+        getContentPane().setLayout(null);
+		setForeground(new Color(120, 210,45));
         lib.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 		lib.setForeground(new Color(30, 150,65));
         lib.setText("");
-        f1.add(lib);
+        add(lib);
         lib.setBounds(100, 100, 800, 150);
 		
         Font f2=new Font("AR JULIAN",Font.BOLD,16);
@@ -96,7 +113,7 @@ class start extends JFrame implements ActionListener
         administrator.addActionListener(this);
         administrator.setToolTipText("CLICK TO ENTER");
 		
-		f1.getContentPane().add(administrator);
+		getContentPane().add(administrator);
         administrator.setBounds(150, 400, 250, 100);
         
         administrator.addActionListener((e) ->
@@ -120,7 +137,7 @@ class start extends JFrame implements ActionListener
        );
         
 		
-		f1.getContentPane().add(operator);
+		getContentPane().add(operator);
                 operator.setBounds(700, 400, 250, 100);
 	}
 

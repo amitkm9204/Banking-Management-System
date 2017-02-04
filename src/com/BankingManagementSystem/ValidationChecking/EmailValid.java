@@ -17,7 +17,7 @@ public class EmailValid {
 		
 		String[] to={a};
 	try{	
-		if(EmailSender.sendMail("imduke021@gmail.com", "951357951357",msg,to))
+		if(EmailSender.sendMail("imduke021@gmail.com", "@banking021",msg,to))
 		{
 			System.out.println("email sent");
 		}

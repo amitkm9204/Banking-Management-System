@@ -234,9 +234,9 @@ public void depositmoney() {
    	 
    	 CustomerDetailsFile.writeDatatoFile(userlist);
    	
-   	 String message = "Thank you for using Globsyn Bank , \n"+tdel.getText().trim()+" Rupees is credited to your account \n";
+   	 String message = "Thank you for using Bank India International , \n"+tdel.getText().trim()+" Rupees is credited to your account \n";
 	 
-	 message = message+userlist.get(accNO).getAccountNo() + " Your current balance is "+userlist.get(accNO).getBalance()+"Rupees";
+	 message = message+userlist.get(accNO).getAccountNo() + " Your current balance is "+userlist.get(accNO).getBalance()+" Rupees";
 	 
 	 EmailValid obj=new EmailValid();
 		obj.Email(message,userlist.get(accNO).getAccountNo());

@@ -194,9 +194,9 @@ public class DemandDraft extends JFrame
 	        	 
 	        	 TransactionDetailsFile.writeDatatoFile(trans);
 	        	 
-	        	 String message = "Thank you for using Globsyn Bank , \n"+txtAmount.getText().trim()+" Rupees is debited from your account \n";
+	        	 String message = "Thank you for using Bank India International , \n"+txtAmount.getText().trim()+" Rupees is debited from your account \n";
 				 
-	        	 message = message+userlist.get(index).getAccountNo() + " Your current balance is "+userlist.get(index).getBalance()+"Rupees";
+	        	 message = message+userlist.get(index).getAccountNo() + " Your current balance is "+userlist.get(index).getBalance()+" Rupees";
 	        	 
 	        	 EmailValid obj=new EmailValid();
 					obj.Email(message,userlist.get(index).getAccountNo());

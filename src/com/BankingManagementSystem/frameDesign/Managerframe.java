@@ -49,7 +49,7 @@ public class Managerframe extends JFrame
     	  mng=ManagerIndex;
     	  managerlist = ManagerDetailsFile.readDataFromFile();
     	  setResizable(false);
-  		setTitle("ACCOUNTANT");
+  		setTitle("MANAGER");
   		setLayout(null);
         setIconImage(Toolkit.getDefaultToolkit().getImage(start.class.getResource("/resources/customer-service.png")));
         
@@ -60,20 +60,18 @@ public class Managerframe extends JFrame
         {
             public void windowClosing(WindowEvent e) 
             {
-           
-                 //int result = JOptionPane.showConfirmDialog(frame, "Are you sure?");
-                // if( result==JOptionPane.OK_OPTION){
-                     // NOW we change it to dispose on close..
-            	
-             	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-             	setVisible(false);
-             	start.flagmng=false;
-             	dispose();
+
+            	setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            	 int result = JOptionPane.showConfirmDialog(null, "You will be logged out\nAre you sure ?");
+                if( result==JOptionPane.OK_OPTION)
+                {
+                	
+             	   setVisible(false);
+             	  //start.flagmng=false;
+             	   dispose();
              	
-             	
-             	
-                     //new AccountantFrame();
                  }
+            }
             
          }
          );

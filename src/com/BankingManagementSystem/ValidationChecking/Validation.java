@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 public class Validation
 {
 	private static Scanner sc = new Scanner(System.in);
+	
 		
     static boolean nameCheck(String name)
     {
@@ -115,6 +116,7 @@ public class Validation
 		   boolean aadharvalidation = aadharcheck(Adhar);
 		   boolean Panvalidation = pancheck(PAN);
 		   boolean emailvalidation = emilcheck(Cmail);
+		   
 		   
 		   if (namevalidation && emailvalidation && mobnovalidation && aadharvalidation && Panvalidation)
 			   return true;

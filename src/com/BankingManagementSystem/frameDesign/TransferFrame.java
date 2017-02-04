@@ -97,7 +97,7 @@ public class TransferFrame {
             contentPane.add(labelAmount);
             
             
-          tAmount = new JTextField();
+            tAmount = new JTextField();
             tAmount.setToolTipText("Enter Amount To Be Transfer");
             Font f5=new Font("comic sans ms",Font.BOLD,30);
             tAmount.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
@@ -124,7 +124,7 @@ public class TransferFrame {
             contentPane.add(tRecAcc);
             
              bmanager = new JButton("Transfer");
-            bmanager.setToolTipText("Confirm");
+            //bmanager.setToolTipText("Confirm");
             bmanager.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
             Font f7=new Font("comic sans ms",Font.BOLD,22);
             bmanager.setFont(new Font("Comic Sans MS", Font.BOLD, 40));
@@ -140,38 +140,53 @@ public class TransferFrame {
 				public void actionPerformed(ActionEvent e) 
 				{
 					try{
-						int amt=Integer.parseInt(tAmount.getText().trim());
-						if(amt > 0)
-						{
-								int result = JOptionPane.showConfirmDialog(
-										frame, "Are you sure?");
-							if( result==JOptionPane.OK_OPTION)
-							{
-                    	
-                    		transferMoney();
-                    		//EmailValid obj=new EmailValid();
-							//obj.Email(userlist.get(senIndex).getAccountNo());
-							
-                    		frame.setVisible(false);
-                    		TransactionFrame ob = new TransactionFrame(null);
-                    		ob.setVisible(true);
-							}
-						}
-						else
-							JOptionPane.showMessageDialog(null, "Please enter a valid amount");
+						    recIndex = Search.searchId(tRecAcc.getText().trim());
+						    if(recIndex >= 0)
+				         {
+								if((tRecAcc.getText().trim()).equals(userlist.get(senIndex).getAccountNo()))
+								{
+					        		 JOptionPane.showMessageDialog(tAmount, "Invalid Receiver Account number");
+								}
+					        	 else{
+						        		 	int amt=Integer.parseInt(tAmount.getText().trim());
+						        		 	if(amt > 0)
+						        		 	{
+										 
+								        		 int result = JOptionPane.showConfirmDialog(frame, "Are you sure?");
+												if( result==JOptionPane.OK_OPTION)
+												{
+					                    	
+													transferMoney();
+													tRecAcc.setText("");
+													tAmount.setText("");
+													
+													//EmailValid obj=new EmailValid();
+													//obj.Email(userlist.get(senIndex).getAccountNo());
+												/*
+													frame.setVisible(false);
+													TransactionFrame ob = new TransactionFrame(null);
+													ob.setVisible(true);
+													*/
+												}
+						        		 	}
+						        		 	else
+						        		 		JOptionPane.showMessageDialog(null, "Please enter a valid amount");
+					        	     }
+				         			}
+						    
+								 else
+						         {
+						            JOptionPane.showMessageDialog(tAmount, "Invalid Account number");
+						         }
+				 
                     	
 				    }catch (Exception y) {
-				    	JOptionPane.showMessageDialog(null, "Please enter a valid amount");
+				    	JOptionPane.showMessageDialog(null, "Invalid input");
 					}
 				}
 					
-			   
-	        }
-				
-	        );
+	        });
 	        
-	 
-
            lblSendersName = new JLabel("Name :", SwingConstants.CENTER);
             lblSendersName.setForeground(Color.RED);
             lblSendersName.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
@@ -199,65 +214,54 @@ public class TransferFrame {
 	 public TransferFrame(){}
 
 	 public void transferMoney()
-	 {
-		 recIndex = Search.searchId(tRecAcc.getText().trim());
-		 if(recIndex >= 0)
-         {
+	        {
+		        	 userlist.get(senIndex).setBalance(userlist.get(senIndex).getBalance() - Double.parseDouble(tAmount.getText().trim()) );
+		        	 userlist.get(recIndex).setBalance(userlist.get(recIndex).getBalance() + Double.parseDouble(tAmount.getText().trim()) );
+		        	 
+		        	 TransactionSummary ts = new TransactionSummary();
+		           	 ts.setAccNo(userlist.get(recIndex).getAccountNo());
+		           	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+		        	 LocalDateTime now = LocalDateTime.now();
+		           	 ts.setDateAndTime(dtf.format(now));
+		           	 ts.setDeposite(Double.parseDouble(tAmount.getText().trim()));
+		           	 ts.setWithdrawal(0.0);
+		           	 ts.setBalance(userlist.get(recIndex).getBalance());
+		           	 ArrayList<TransactionSummary> trans = new ArrayList<TransactionSummary>();
+		           	 
+		           	 trans =  TransactionDetailsFile.readDataFromFile();
+		           	 trans.add(ts);
+		           	 
+		           	 TransactionDetailsFile.writeDatatoFile(trans);
+		           	 
+		           	 
+		           	TransactionSummary ts1 = new TransactionSummary();
+		          	 ts1.setAccNo(userlist.get(senIndex).getAccountNo());
+		          	DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+		       	    LocalDateTime now1 = LocalDateTime.now();
+		          	 ts1.setDateAndTime(dtf1.format(now1));
+		          	 ts1.setWithdrawal(Double.parseDouble(tAmount.getText().trim()));
+		          	 ts1.setDeposite(0.0);
+		          	ts1.setBalance(userlist.get(senIndex).getBalance());
+		          	 ArrayList<TransactionSummary> trans1 = new ArrayList<TransactionSummary>();
+		          	 
+		          	 trans1 =  TransactionDetailsFile.readDataFromFile();
+		          	 trans1.add(ts);
+		          	 
+		          	 TransactionDetailsFile.writeDatatoFile(trans1);
+		           	 
+		           	 
+		        	 CustomerDetailsFile.writeDatatoFile(userlist);
+		        	 
+		            String message = "Thank you for using Bank India International , \n "+tAmount.getText().trim()+" Rupees is debited from your account \n";
+					 
+		        	 message = message+userlist.get(senIndex).getAccountNo() + " Your current balance is "+userlist.get(senIndex).getBalance()+" Rupees";
+		        	 
+		        	 EmailValid obj=new EmailValid();
+						obj.Email(message,userlist.get(senIndex).getAccountNo());
+		        	 
+		        	 JOptionPane.showMessageDialog(tAmount, "Transfer complete");
         	 
-        	 userlist.get(senIndex).setBalance(userlist.get(senIndex).getBalance() - Double.parseDouble(tAmount.getText().trim()) );
-        	 userlist.get(recIndex).setBalance(userlist.get(recIndex).getBalance() + Double.parseDouble(tAmount.getText().trim()) );
-        	 
-        	 TransactionSummary ts = new TransactionSummary();
-           	 ts.setAccNo(userlist.get(recIndex).getAccountNo());
-           	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        	 LocalDateTime now = LocalDateTime.now();
-           	 ts.setDateAndTime(dtf.format(now));
-           	 ts.setDeposite(Double.parseDouble(tAmount.getText().trim()));
-           	 ts.setWithdrawal(0.0);
-           	 ts.setBalance(userlist.get(recIndex).getBalance());
-           	 ArrayList<TransactionSummary> trans = new ArrayList<TransactionSummary>();
-           	 
-           	 trans =  TransactionDetailsFile.readDataFromFile();
-           	 trans.add(ts);
-           	 
-           	 TransactionDetailsFile.writeDatatoFile(trans);
-           	 
-           	 
-           	 
-           	 
-           	TransactionSummary ts1 = new TransactionSummary();
-          	 ts1.setAccNo(userlist.get(senIndex).getAccountNo());
-          	DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-       	 LocalDateTime now1 = LocalDateTime.now();
-          	 ts1.setDateAndTime(dtf1.format(now1));
-          	 ts1.setWithdrawal(Double.parseDouble(tAmount.getText().trim()));
-          	 ts1.setDeposite(0.0);
-          	ts1.setBalance(userlist.get(senIndex).getBalance());
-          	 ArrayList<TransactionSummary> trans1 = new ArrayList<TransactionSummary>();
-          	 
-          	 trans1 =  TransactionDetailsFile.readDataFromFile();
-          	 trans1.add(ts);
-          	 
-          	 TransactionDetailsFile.writeDatatoFile(trans1);
-           	 
-           	 
-        	 CustomerDetailsFile.writeDatatoFile(userlist);
-        	 
-String message = "Thank you for using Globsyn Bank , \n"+tAmount.getText().trim()+" Rupees is debited from your account \n";
-			 
-        	 message = message+userlist.get(senIndex).getAccountNo() + " Your current balance is "+userlist.get(senIndex).getBalance()+"Rupees";
-        	 
-        	 EmailValid obj=new EmailValid();
-				obj.Email(message,userlist.get(senIndex).getAccountNo());
-        	 
-        	 JOptionPane.showMessageDialog(tAmount, "Transfer complete");
-        	
-        	 
-         }
-         else
-         {
-            JOptionPane.showMessageDialog(tAmount, "Invalid Account number");
-         }
-	 }
+        
+	    }
 
 }

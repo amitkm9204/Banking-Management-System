@@ -203,9 +203,9 @@ public class WithdrawalFrame {
            	 
         	 
         	 CustomerDetailsFile.writeDatatoFile(userlist);
-        	 String message = "Thank you for using Globsyn Bank , \n"+tdel.getText().trim()+" Rupees is debited from your account \n";
+        	 String message = "Thank you for using Bank India International , \n"+tdel.getText().trim()+" Rupees is debited from your account \n";
 			 
-        	 message = message+userlist.get(accNo).getAccountNo() + " Your current balance is "+userlist.get(accNo).getBalance()+"Rupees";
+        	 message = message+userlist.get(accNo).getAccountNo() + " Your current balance is "+userlist.get(accNo).getBalance()+" Rupees";
         	 
         	 EmailValid obj=new EmailValid();
 				obj.Email(message,userlist.get(accNo).getAccountNo());

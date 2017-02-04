@@ -174,16 +174,16 @@ public class ChequeBook extends JFrame
         	 ts.setDeposite(0.0);
         	 ts.setBalance(userlist.get(index).getBalance());
         	 ArrayList<TransactionSummary> trans = new ArrayList<TransactionSummary>();
-        	 JOptionPane.showMessageDialog(this, "Chck Book with  "+noOfPages+ " is issued");
+        	 JOptionPane.showMessageDialog(this, "Check Book issued");
         	 
         	 trans =  TransactionDetailsFile.readDataFromFile();
         	 trans.add(ts);
         	 
         	 TransactionDetailsFile.writeDatatoFile(trans);
         	 
-             String message = "Thank you for using Globsyn Bank , \n"+(Double.parseDouble(noOfPages)*2.50 )+" Rupees is debited from your account \n";
+             String message = "Thank you for using Bank India International , \n"+(Double.parseDouble(noOfPages)*2.50 )+" Rupees is debited from your account \n";
 			 
-        	 message = message+userlist.get(index).getAccountNo() + " Your current balance is "+userlist.get(index).getBalance()+"Rupees";
+        	 message = message+userlist.get(index).getAccountNo() + " Your current balance is "+userlist.get(index).getBalance()+" Rupees";
         	 
         	 EmailValid obj=new EmailValid();
 				obj.Email(message,userlist.get(index).getAccountNo());
