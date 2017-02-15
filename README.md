@@ -17,3 +17,7 @@
         -> type lib to sort and choose "java build path"<br />
         ->delete the (javax.mail.jar and javax.mail-api-1.5.6) files<br />
         -> choose the "Add external jars" and select the two jar files
+        
+        
+# Project report
+    here is the project report https://drive.google.com/open?id=0ByyjXhCQTE-CYVJiSXVpVTlLdTA
